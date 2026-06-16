@@ -25,6 +25,7 @@ RATING_PEOPLE = (
     ("stewalpp", "Blau", "\U0001F535"),
     ("gishaa-create", "Gruen", "\U0001F7E2"),
 )
+RATING_CHOICES = ("Gut", "Vielleicht", "Schlecht")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -232,14 +233,14 @@ def format_rating_section() -> list[str]:
     lines = [
         "",
         "<details>",
-        "<summary>Bewertung 1-10 anklicken</summary>",
+        "<summary>Bewertung anklicken</summary>",
         "",
-        "Skala: 1 = gut, 10 = schlecht. Bitte pro Person genau eine Zahl markieren. Zum Aendern die alte Zahl abwaehlen.",
+        "Bitte pro Person genau ein Feld markieren. Zum Aendern die alte Auswahl abwaehlen.",
         "",
     ]
     for user, color, marker in RATING_PEOPLE:
         lines.append(f"**{marker} {user} ({color})**")
-        lines.extend(f"- [ ] {score}" for score in range(1, 11))
+        lines.extend(f"- [ ] {choice}" for choice in RATING_CHOICES)
         lines.append("")
     lines.append("</details>")
     return lines

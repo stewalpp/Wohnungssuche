@@ -6,7 +6,7 @@ from wohnungssuche.search import format_listing
 
 
 class SearchReportTests(unittest.TestCase):
-    def test_listing_contains_clickable_rating_checklists(self):
+    def test_listing_contains_clickable_rating_fields(self):
         listing = Listing(
             source_name="test",
             title="Wohnung zur Miete 3 Zimmer, 80 qm, EG",
@@ -25,11 +25,15 @@ class SearchReportTests(unittest.TestCase):
 
         markdown = "\n".join(format_listing(1, listing, result, review_candidate=False))
 
-        self.assertIn("<summary>Bewertung 1-10 anklicken</summary>", markdown)
-        self.assertIn("Skala: 1 = gut, 10 = schlecht.", markdown)
+        self.assertIn("<summary>Bewertung anklicken</summary>", markdown)
+        self.assertIn("Bitte pro Person genau ein Feld markieren.", markdown)
         self.assertIn("\U0001F535 stewalpp (Blau)", markdown)
         self.assertIn("\U0001F7E2 gishaa-create (Gruen)", markdown)
-        self.assertEqual(markdown.count("- [ ] "), 20)
+        self.assertIn("- [ ] Gut", markdown)
+        self.assertIn("- [ ] Vielleicht", markdown)
+        self.assertIn("- [ ] Schlecht", markdown)
+        self.assertEqual(markdown.count("- [ ] "), 6)
+        self.assertNotIn("- [ ] 10", markdown)
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-# Neue Wohnungsangebote (2026-06-16 10:51)
+# Neue Wohnungsangebote (2026-06-16 11:26)
 
 1 neue passende Inserate gefunden.
 
@@ -14,33 +14,19 @@
 - Link: https://www.immowelt.de/expose/523021a0-bc7a-46cb-9716-6377cbcaf7fb
 
 <details>
-<summary>Bewertung 1-10 anklicken</summary>
+<summary>Bewertung anklicken</summary>
 
-Skala: 1 = gut, 10 = schlecht. Bitte pro Person genau eine Zahl markieren. Zum Aendern die alte Zahl abwaehlen.
+Bitte pro Person genau ein Feld markieren. Zum Aendern die alte Auswahl abwaehlen.
 
 **🔵 stewalpp (Blau)**
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-- [ ] 5
-- [ ] 6
-- [ ] 7
-- [ ] 8
-- [ ] 9
-- [ ] 10
+- [ ] Gut
+- [ ] Vielleicht
+- [ ] Schlecht
 
 **🟢 gishaa-create (Gruen)**
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-- [ ] 5
-- [ ] 6
-- [ ] 7
-- [ ] 8
-- [ ] 9
-- [ ] 10
+- [ ] Gut
+- [ ] Vielleicht
+- [ ] Schlecht
 
 </details>
 
@@ -60,33 +46,19 @@ Diese Wohnungen passen bei Preis, Groesse, Zimmerzahl und Lage, liegen aber laut
 - Link: https://www.immowelt.de/expose/26xntsmfhqba
 
 <details>
-<summary>Bewertung 1-10 anklicken</summary>
+<summary>Bewertung anklicken</summary>
 
-Skala: 1 = gut, 10 = schlecht. Bitte pro Person genau eine Zahl markieren. Zum Aendern die alte Zahl abwaehlen.
+Bitte pro Person genau ein Feld markieren. Zum Aendern die alte Auswahl abwaehlen.
 
 **🔵 stewalpp (Blau)**
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-- [ ] 5
-- [ ] 6
-- [ ] 7
-- [ ] 8
-- [ ] 9
-- [ ] 10
+- [ ] Gut
+- [ ] Vielleicht
+- [ ] Schlecht
 
 **🟢 gishaa-create (Gruen)**
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-- [ ] 5
-- [ ] 6
-- [ ] 7
-- [ ] 8
-- [ ] 9
-- [ ] 10
+- [ ] Gut
+- [ ] Vielleicht
+- [ ] Schlecht
 
 </details>
 
@@ -102,33 +74,19 @@ Skala: 1 = gut, 10 = schlecht. Bitte pro Person genau eine Zahl markieren. Zum A
 - Link: https://www.immowelt.de/expose/a08ad840-bc16-4801-aa81-50ecba610cf1
 
 <details>
-<summary>Bewertung 1-10 anklicken</summary>
+<summary>Bewertung anklicken</summary>
 
-Skala: 1 = gut, 10 = schlecht. Bitte pro Person genau eine Zahl markieren. Zum Aendern die alte Zahl abwaehlen.
+Bitte pro Person genau ein Feld markieren. Zum Aendern die alte Auswahl abwaehlen.
 
 **🔵 stewalpp (Blau)**
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-- [ ] 5
-- [ ] 6
-- [ ] 7
-- [ ] 8
-- [ ] 9
-- [ ] 10
+- [ ] Gut
+- [ ] Vielleicht
+- [ ] Schlecht
 
 **🟢 gishaa-create (Gruen)**
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-- [ ] 5
-- [ ] 6
-- [ ] 7
-- [ ] 8
-- [ ] 9
-- [ ] 10
+- [ ] Gut
+- [ ] Vielleicht
+- [ ] Schlecht
 
 </details>
 
@@ -144,33 +102,19 @@ Skala: 1 = gut, 10 = schlecht. Bitte pro Person genau eine Zahl markieren. Zum A
 - Link: https://www.immowelt.de/expose/a69d801b-7125-4757-96e1-9ff804002062
 
 <details>
-<summary>Bewertung 1-10 anklicken</summary>
+<summary>Bewertung anklicken</summary>
 
-Skala: 1 = gut, 10 = schlecht. Bitte pro Person genau eine Zahl markieren. Zum Aendern die alte Zahl abwaehlen.
+Bitte pro Person genau ein Feld markieren. Zum Aendern die alte Auswahl abwaehlen.
 
 **🔵 stewalpp (Blau)**
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-- [ ] 5
-- [ ] 6
-- [ ] 7
-- [ ] 8
-- [ ] 9
-- [ ] 10
+- [ ] Gut
+- [ ] Vielleicht
+- [ ] Schlecht
 
 **🟢 gishaa-create (Gruen)**
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-- [ ] 5
-- [ ] 6
-- [ ] 7
-- [ ] 8
-- [ ] 9
-- [ ] 10
+- [ ] Gut
+- [ ] Vielleicht
+- [ ] Schlecht
 
 </details>
 
@@ -186,33 +130,19 @@ Skala: 1 = gut, 10 = schlecht. Bitte pro Person genau eine Zahl markieren. Zum A
 - Link: https://www.immowelt.de/expose/26yymgwzmldu
 
 <details>
-<summary>Bewertung 1-10 anklicken</summary>
+<summary>Bewertung anklicken</summary>
 
-Skala: 1 = gut, 10 = schlecht. Bitte pro Person genau eine Zahl markieren. Zum Aendern die alte Zahl abwaehlen.
+Bitte pro Person genau ein Feld markieren. Zum Aendern die alte Auswahl abwaehlen.
 
 **🔵 stewalpp (Blau)**
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-- [ ] 5
-- [ ] 6
-- [ ] 7
-- [ ] 8
-- [ ] 9
-- [ ] 10
+- [ ] Gut
+- [ ] Vielleicht
+- [ ] Schlecht
 
 **🟢 gishaa-create (Gruen)**
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-- [ ] 5
-- [ ] 6
-- [ ] 7
-- [ ] 8
-- [ ] 9
-- [ ] 10
+- [ ] Gut
+- [ ] Vielleicht
+- [ ] Schlecht
 
 </details>
 
@@ -228,33 +158,19 @@ Skala: 1 = gut, 10 = schlecht. Bitte pro Person genau eine Zahl markieren. Zum A
 - Link: https://www.immowelt.de/expose/8e294093-346c-44a9-8967-daa3ebb898b7
 
 <details>
-<summary>Bewertung 1-10 anklicken</summary>
+<summary>Bewertung anklicken</summary>
 
-Skala: 1 = gut, 10 = schlecht. Bitte pro Person genau eine Zahl markieren. Zum Aendern die alte Zahl abwaehlen.
+Bitte pro Person genau ein Feld markieren. Zum Aendern die alte Auswahl abwaehlen.
 
 **🔵 stewalpp (Blau)**
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-- [ ] 5
-- [ ] 6
-- [ ] 7
-- [ ] 8
-- [ ] 9
-- [ ] 10
+- [ ] Gut
+- [ ] Vielleicht
+- [ ] Schlecht
 
 **🟢 gishaa-create (Gruen)**
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-- [ ] 5
-- [ ] 6
-- [ ] 7
-- [ ] 8
-- [ ] 9
-- [ ] 10
+- [ ] Gut
+- [ ] Vielleicht
+- [ ] Schlecht
 
 </details>
 
@@ -270,33 +186,19 @@ Skala: 1 = gut, 10 = schlecht. Bitte pro Person genau eine Zahl markieren. Zum A
 - Link: https://www.immowelt.de/expose/72a7aefe-51c4-4e23-821c-d80db0a70465
 
 <details>
-<summary>Bewertung 1-10 anklicken</summary>
+<summary>Bewertung anklicken</summary>
 
-Skala: 1 = gut, 10 = schlecht. Bitte pro Person genau eine Zahl markieren. Zum Aendern die alte Zahl abwaehlen.
+Bitte pro Person genau ein Feld markieren. Zum Aendern die alte Auswahl abwaehlen.
 
 **🔵 stewalpp (Blau)**
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-- [ ] 5
-- [ ] 6
-- [ ] 7
-- [ ] 8
-- [ ] 9
-- [ ] 10
+- [ ] Gut
+- [ ] Vielleicht
+- [ ] Schlecht
 
 **🟢 gishaa-create (Gruen)**
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-- [ ] 5
-- [ ] 6
-- [ ] 7
-- [ ] 8
-- [ ] 9
-- [ ] 10
+- [ ] Gut
+- [ ] Vielleicht
+- [ ] Schlecht
 
 </details>
 
@@ -312,33 +214,19 @@ Skala: 1 = gut, 10 = schlecht. Bitte pro Person genau eine Zahl markieren. Zum A
 - Link: https://www.immowelt.de/expose/3a096ce6-6ca9-4a11-9a49-a7420aa6c4b2
 
 <details>
-<summary>Bewertung 1-10 anklicken</summary>
+<summary>Bewertung anklicken</summary>
 
-Skala: 1 = gut, 10 = schlecht. Bitte pro Person genau eine Zahl markieren. Zum Aendern die alte Zahl abwaehlen.
+Bitte pro Person genau ein Feld markieren. Zum Aendern die alte Auswahl abwaehlen.
 
 **🔵 stewalpp (Blau)**
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-- [ ] 5
-- [ ] 6
-- [ ] 7
-- [ ] 8
-- [ ] 9
-- [ ] 10
+- [ ] Gut
+- [ ] Vielleicht
+- [ ] Schlecht
 
 **🟢 gishaa-create (Gruen)**
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-- [ ] 5
-- [ ] 6
-- [ ] 7
-- [ ] 8
-- [ ] 9
-- [ ] 10
+- [ ] Gut
+- [ ] Vielleicht
+- [ ] Schlecht
 
 </details>
 
@@ -354,32 +242,18 @@ Skala: 1 = gut, 10 = schlecht. Bitte pro Person genau eine Zahl markieren. Zum A
 - Link: https://www.immowelt.de/expose/174c54e9-b985-4e04-8479-97a466a5da30
 
 <details>
-<summary>Bewertung 1-10 anklicken</summary>
+<summary>Bewertung anklicken</summary>
 
-Skala: 1 = gut, 10 = schlecht. Bitte pro Person genau eine Zahl markieren. Zum Aendern die alte Zahl abwaehlen.
+Bitte pro Person genau ein Feld markieren. Zum Aendern die alte Auswahl abwaehlen.
 
 **🔵 stewalpp (Blau)**
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-- [ ] 5
-- [ ] 6
-- [ ] 7
-- [ ] 8
-- [ ] 9
-- [ ] 10
+- [ ] Gut
+- [ ] Vielleicht
+- [ ] Schlecht
 
 **🟢 gishaa-create (Gruen)**
-- [ ] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-- [ ] 5
-- [ ] 6
-- [ ] 7
-- [ ] 8
-- [ ] 9
-- [ ] 10
+- [ ] Gut
+- [ ] Vielleicht
+- [ ] Schlecht
 
 </details>
