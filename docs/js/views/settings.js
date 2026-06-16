@@ -47,7 +47,13 @@
     cb.checked = !Store.isLocalOnly();
     cb.addEventListener('change', function () {
       Store.setLocalOnly(!cb.checked).then(function () {
-        App.toast(cb.checked ? 'Sync aktiviert' : 'Sync ausgeschaltet');
+        if (!cb.checked) {
+          App.toast('Sync ausgeschaltet');
+        } else if (Store.getMode() === 'cloud') {
+          App.toast('Sync aktiviert');
+        } else {
+          App.toast(Store.syncStatus().error || 'Sync nicht möglich');
+        }
         render(container);
       });
     });
@@ -109,8 +115,8 @@
     refresh.addEventListener('click', function () {
       refresh.disabled = true;
       refresh.textContent = 'Aktualisiere …';
-      Feed.refresh().then(function (changed) {
-        App.toast(changed ? 'Neue Daten geladen' : 'Bereits aktuell');
+      Feed.refresh().then(function (res) {
+        App.toast(res.ok ? (res.changed ? 'Neue Daten geladen' : 'Bereits aktuell') : 'Abruf fehlgeschlagen – keine Verbindung');
         render(container);
       });
     });

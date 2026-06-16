@@ -54,16 +54,25 @@
     row.appendChild(label);
 
     var seg = App.el('div', 'rating-seg');
+    var optButtons = [];
     RATING_CHOICES.forEach(function (c) {
       var btn = App.el('button', 'rating-opt' + (rating[personId] === c.key ? ' active v-' + c.key : ''));
       btn.type = 'button';
+      btn.dataset.key = c.key;
       btn.setAttribute('aria-label', Store.memberName(personId) + ': ' + c.label);
       btn.appendChild(App.icon(c.icon, 17));
       btn.appendChild(App.el('span', null, c.label));
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
         Store.setPersonRating(listing.id, personId, c.key);
+        // Reflect the change immediately, even inside the detail sheet (which
+        // App.rerender does not touch).
+        var cur = Store.getRating(listing.id)[personId];
+        optButtons.forEach(function (b) {
+          b.className = 'rating-opt' + (cur === b.dataset.key ? ' active v-' + b.dataset.key : '');
+        });
       });
+      optButtons.push(btn);
       seg.appendChild(btn);
     });
     row.appendChild(seg);
@@ -94,6 +103,28 @@
       return b;
     }
     return App.el('span', 'badge badge-green', 'Passt');
+  }
+
+  // "Inserat öffnen" – a real link only for a validated http(s) URL (Feed already
+  // sanitizes it); otherwise a disabled button so a bad/missing URL never becomes
+  // a clickable href.
+  function openLink(listing, cls) {
+    var label = 'Inserat öffnen';
+    if (listing.url) {
+      var a = App.el('a', cls);
+      a.href = listing.url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.textContent = label;
+      a.appendChild(App.icon('external', 15));
+      a.addEventListener('click', function (e) { e.stopPropagation(); });
+      return a;
+    }
+    var btn = App.el('button', cls + ' is-disabled', 'Kein Link');
+    btn.type = 'button';
+    btn.disabled = true;
+    btn.addEventListener('click', function (e) { e.stopPropagation(); });
+    return btn;
   }
 
   // -------- listing card
@@ -148,11 +179,7 @@
 
     // footer
     var foot = App.el('div', 'listing-foot');
-    var open = App.el('a', 'btn btn-primary btn-small');
-    open.href = listing.url; open.target = '_blank'; open.rel = 'noopener noreferrer';
-    open.textContent = 'Inserat öffnen';
-    open.appendChild(App.icon('external', 15));
-    open.addEventListener('click', function (e) { e.stopPropagation(); });
+    var open = openLink(listing, 'btn btn-primary btn-small');
     var details = App.el('button', 'btn btn-secondary btn-small', 'Details');
     details.type = 'button';
     details.addEventListener('click', function (e) { e.stopPropagation(); openDetail(listing); });
@@ -208,19 +235,25 @@
     note.style.fontFamily = 'inherit';
     note.style.fontSize = '15px';
     var noteTimer = null;
+    var lastSavedNote = Store.getRating(listing.id).note || '';
+    function saveNote() {
+      if (note.value === lastSavedNote) return;       // skip redundant write/sync
+      lastSavedNote = note.value;
+      Store.setNote(listing.id, note.value);
+    }
     note.addEventListener('input', function () {
       if (noteTimer) clearTimeout(noteTimer);
-      noteTimer = setTimeout(function () { Store.setNote(listing.id, note.value); }, 400);
+      noteTimer = setTimeout(saveNote, 400);
     });
-    note.addEventListener('blur', function () { Store.setNote(listing.id, note.value); });
+    note.addEventListener('blur', function () {
+      if (noteTimer) { clearTimeout(noteTimer); noteTimer = null; }
+      saveNote();
+    });
     c.appendChild(note);
 
     // actions
-    var open = App.el('a', 'btn btn-primary');
-    open.href = listing.url; open.target = '_blank'; open.rel = 'noopener noreferrer';
+    var open = openLink(listing, 'btn btn-primary');
     open.style.marginTop = '14px';
-    open.textContent = 'Inserat öffnen';
-    open.appendChild(App.icon('external', 16));
     c.appendChild(open);
 
     var r = Store.getRating(listing.id);
@@ -311,6 +344,19 @@
 
     function renderList() {
       listWrap.innerHTML = '';
+
+      // Make stale data visible: show a banner when offline or the last fetch failed.
+      var fmeta = Feed.getMeta();
+      var offline = (typeof navigator !== 'undefined' && navigator.onLine === false);
+      if (offline || fmeta.lastError) {
+        var banner = App.el('div', 'feed-banner');
+        banner.appendChild(App.icon(offline ? 'eyeOff' : 'cloud', 16));
+        var txt = offline ? 'Offline – gespeicherte Liste' : 'Aktualisierung fehlgeschlagen – gespeicherte Liste';
+        if (fmeta.generated_at) txt += ' · Stand ' + App.fmtRelTime(fmeta.generated_at);
+        banner.appendChild(App.el('span', null, txt));
+        listWrap.appendChild(banner);
+      }
+
       var newIds = newIdSet();
       var all = Feed.getListings();
       var ratings = Store.getAllRatings();

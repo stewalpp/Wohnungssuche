@@ -24,7 +24,7 @@
     var starred = listings.filter(function (l) { return (ratings[l.id] || {}).favorite; });
     var bothGood = listings.filter(function (l) {
       var r = ratings[l.id] || {};
-      return r.p1 === 'gut' && r.p2 === 'gut' && !r.favorite;
+      return r.p1 === 'gut' && r.p2 === 'gut' && !r.favorite && !r.hidden;
     });
 
     if (!starred.length && !bothGood.length) {

@@ -2821,3 +2821,30 @@ html.kb-open .fab {
     gap: 3px;
   }
 }
+
+/* offline / stale-data banner above the list */
+.feed-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--orange);
+  background: color-mix(in srgb, var(--orange) 14%, var(--bg-card));
+  border: 0.5px solid color-mix(in srgb, var(--orange) 30%, transparent);
+}
+
+.feed-banner .icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* disabled "no link" button */
+.btn.is-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

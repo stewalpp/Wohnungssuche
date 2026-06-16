@@ -59,9 +59,10 @@
       btn.appendChild(App.icon('refresh', 20));
       btn.addEventListener('click', function () {
         btn.classList.add('spinning');
-        Feed.refresh().then(function (changed) {
+        Feed.refresh().then(function (res) {
           btn.classList.remove('spinning');
-          App.toast(changed ? 'Aktualisiert' : 'Bereits aktuell');
+          if (!res.ok) App.toast('Keine Verbindung – gespeicherte Liste');
+          else App.toast(res.changed ? 'Aktualisiert' : 'Bereits aktuell');
         });
       });
       actions.appendChild(btn);
@@ -173,6 +174,10 @@
     document.addEventListener('visibilitychange', function () {
       if (document.visibilityState === 'visible') Feed.refresh();
     });
+    // Re-fetch and re-render when connectivity returns (also updates the
+    // offline banner in the listings view).
+    window.addEventListener('online', function () { Feed.refresh().then(App.rerender); });
+    window.addEventListener('offline', App.rerender);
   }
 
   /* ---------------- boot ---------------- */

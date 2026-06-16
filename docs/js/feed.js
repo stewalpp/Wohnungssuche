@@ -36,6 +36,15 @@
     try { localStorage.setItem(LS_FEED, JSON.stringify(value)); } catch (e) { /* quota */ }
   }
 
+  // Only http(s) links are safe to put in an href; reject javascript:/data:/etc.
+  function safeUrl(url) {
+    if (typeof url !== 'string') return '';
+    try {
+      var u = new URL(url, location.href);
+      return (u.protocol === 'http:' || u.protocol === 'https:') ? u.href : '';
+    } catch (e) { return ''; }
+  }
+
   function normalize(raw) {
     if (!raw || typeof raw !== 'object' || !Array.isArray(raw.listings)) return null;
     return {
@@ -43,7 +52,9 @@
       generated_at: raw.generated_at || null,
       criteria: raw.criteria || {},
       counts: raw.counts || {},
-      listings: raw.listings.filter(function (l) { return l && l.id; })
+      listings: raw.listings
+        .filter(function (l) { return l && l.id; })
+        .map(function (l) { return Object.assign({}, l, { url: safeUrl(l.url) }); })
     };
   }
 
@@ -54,8 +65,9 @@
     return feed;
   }
 
-  // Fetch the latest feed from the network. Resolves to true if the data
-  // changed. Cache-busted so the service worker / CDN never serves a stale copy.
+  // Fetch the latest feed from the network. Resolves to a status object
+  // { ok, changed, error } so callers can tell a failed fetch apart from an
+  // unchanged one. Cache-busted so the SW/CDN never serves a stale copy.
   function refresh() {
     var url = (window.WS_CONFIG && WS_CONFIG.feedUrl) || 'data/listings.json';
     var bust = url + (url.indexOf('?') === -1 ? '?' : '&') + 't=' + Date.now();
@@ -73,12 +85,12 @@
         feed = next;
         writeCache(feed);
         if (changed) emit();
-        return changed;
+        return { ok: true, changed: changed, error: null };
       })
       .catch(function (e) {
         lastError = e;
         console.warn('Feed konnte nicht geladen werden:', e);
-        return false;
+        return { ok: false, changed: false, error: e };
       });
   }
 

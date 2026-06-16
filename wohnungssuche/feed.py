@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime, timedelta
 from pathlib import Path
 from urllib.parse import urlsplit
 
@@ -15,9 +16,14 @@ DEFAULT_FEED_PATH = Path("docs/data/listings.json")
 # the client can react to (or warn about) incompatible feeds.
 FEED_SCHEMA = 1
 
-# Upper bound on listings written to the feed; the newest survive. Keeps the
-# committed JSON small even after months of searching.
+# Upper bound on listings written to the feed; the most recently seen survive.
+# Keeps the committed JSON small even after months of searching.
 FEED_LIMIT = 300
+
+# Listings not seen in the search for this long are dropped from the feed, so a
+# flaky source (whose listings never get marked "unavailable") can't leave stale
+# apartments showing as available forever.
+FEED_MAX_AGE_DAYS = 21
 
 STATUS_UNAVAILABLE = "unavailable"
 
@@ -72,22 +78,48 @@ def record_listings(
         entry["reasons"] = list(result.reasons)
         entry["review_notes"] = list(result.review_notes)
         entry["last_seen_in_search"] = now_iso
+        # Revive a relisted apartment with the same bookkeeping the weekly
+        # availability check uses, so its status stays consistent.
+        previous_status = entry.get("availability_status")
         entry["availability_status"] = "available"
+        if previous_status == STATUS_UNAVAILABLE:
+            entry["status_changed_at"] = now_iso
+            entry.pop("last_missing_from_search", None)
+
+
+def _parse_dt(value: str | None) -> datetime | None:
+    try:
+        return datetime.fromisoformat(value)  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return None
 
 
 def build_feed(state: dict, criteria: dict, generated_at: str) -> dict:
     """Build the JSON payload the app consumes from the cumulative seen-state.
 
     Only entries enriched by :func:`record_listings` (those with a
-    ``match_status``) and not marked ``unavailable`` are included, newest first.
+    ``match_status``), not marked ``unavailable`` and seen within the last
+    ``FEED_MAX_AGE_DAYS`` days are included, newest listing first.
     """
     seen = state.get("seen", {})
+    generated_dt = _parse_dt(generated_at)
+    cutoff = generated_dt - timedelta(days=FEED_MAX_AGE_DAYS) if generated_dt else None
+
     listings: list[dict] = []
     for listing_id, entry in seen.items():
         if entry.get("match_status") not in (MATCH_STATUS, REVIEW_STATUS):
             continue
         if entry.get("availability_status") == STATUS_UNAVAILABLE:
             continue
+        last_seen = entry.get("last_seen_in_search") or entry.get("first_seen", "")
+        if cutoff is not None:
+            last_seen_dt = _parse_dt(last_seen)
+            if last_seen_dt is not None:
+                try:
+                    if last_seen_dt < cutoff:
+                        continue
+                except TypeError:
+                    pass  # mixed naive/aware timestamps — keep rather than wrongly drop
         listings.append(
             {
                 "id": listing_id,
@@ -104,12 +136,16 @@ def build_feed(state: dict, criteria: dict, generated_at: str) -> dict:
                 "reasons": entry.get("reasons", []),
                 "review_notes": entry.get("review_notes", []),
                 "first_seen": entry.get("first_seen", ""),
-                "last_seen": entry.get("last_seen_in_search", entry.get("first_seen", "")),
+                "last_seen": last_seen,
             }
         )
 
-    listings.sort(key=lambda item: (item["first_seen"], item["id"]), reverse=True)
+    # Cap by most-recently-seen so currently-active listings are never evicted in
+    # favour of staler ones still under the cap; then present newest listing first
+    # (matches the app's default "Neueste zuerst" sort).
+    listings.sort(key=lambda item: (item["last_seen"], item["id"]), reverse=True)
     listings = listings[:FEED_LIMIT]
+    listings.sort(key=lambda item: (item["first_seen"], item["id"]), reverse=True)
 
     match_count = sum(1 for item in listings if item["status"] == MATCH_STATUS)
     review_count = sum(1 for item in listings if item["status"] == REVIEW_STATUS)

@@ -3,7 +3,7 @@
    new apartments show up without a stale cache getting in the way. */
 'use strict';
 
-const CACHE = 'wohnungssuche-v1';
+const CACHE = 'wohnungssuche-v2';
 
 const PRECACHE = [
   './',
@@ -41,6 +41,31 @@ self.addEventListener('activate', (event) => {
       .then(() => self.clients.claim())
   );
 });
+
+// Network-first for the app shell (HTML/JS/CSS): always use the freshest version
+// when online so a code update never lands "one load behind"; fall back to the
+// cached copy (and finally the offline page) when the network is unavailable.
+function networkFirst(event, fallbackUrl) {
+  const request = event.request;
+  return caches.open(CACHE).then((cache) =>
+    fetch(request)
+      .then((response) => {
+        if (response && (response.ok || response.type === 'opaque')) {
+          cache.put(request, response.clone());
+        }
+        return response;
+      })
+      .catch(() =>
+        cache.match(request)
+          .then((cached) => cached || (fallbackUrl ? cache.match(fallbackUrl) : undefined))
+          .then((response) => response || new Response('Offline', {
+            status: 503,
+            statusText: 'Service Unavailable',
+            headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+          }))
+      )
+  );
+}
 
 function staleWhileRevalidate(event, fallbackUrl) {
   const request = event.request;
@@ -84,9 +109,9 @@ self.addEventListener('fetch', (event) => {
 
   if (url.origin === self.location.origin) {
     if (request.mode === 'navigate') {
-      event.respondWith(staleWhileRevalidate(event, 'index.html'));
+      event.respondWith(networkFirst(event, 'index.html'));
     } else {
-      event.respondWith(staleWhileRevalidate(event, null));
+      event.respondWith(networkFirst(event, null));
     }
     return;
   }

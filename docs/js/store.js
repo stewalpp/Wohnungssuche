@@ -196,9 +196,22 @@
     cloud.unsubs.push(fs.onSnapshot(
       fs.collection(db, 'households', code, 'ratings'),
       function (snap) {
+        // Offline cache delivers an empty snapshot before the real data arrives —
+        // never let it wipe ratings we already hold.
         if (snap.metadata && snap.metadata.fromCache && snap.empty && Object.keys(ratings).length > 0) return;
+
         var next = {};
         snap.docs.forEach(function (d) { next[d.id] = normalizeRating(d.data()); });
+
+        // Protect locally-made ratings (e.g. created in local-only mode, or on a
+        // fresh device before the first connect) that the server doesn't have yet:
+        // keep them and push them up instead of letting the server view clear them.
+        var missing = Object.keys(ratings).filter(function (id) { return !(id in next); });
+        missing.forEach(function (id) {
+          next[id] = ratings[id];
+          cloudSetRating(id, ratings[id]);
+        });
+
         ratings = next;
         persistRatings();
         emit();
@@ -370,6 +383,13 @@
     }
     var cfg = window.WS_CONFIG && WS_CONFIG.firebase;
     var code = (window.WS_CONFIG && WS_CONFIG.household) || 'haushalt';
+    if (!cfg || !cfg.apiKey) {
+      var err = new Error('Firebase ist nicht konfiguriert.'); err.german = true;
+      connectError = err;
+      mode = 'local';
+      emit();
+      return Promise.resolve();
+    }
     return connect(cfg, code).then(function () { emit(); }).catch(function (e) { connectError = e; emit(); });
   }
   function isLocalOnly() {

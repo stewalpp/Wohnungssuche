@@ -93,12 +93,28 @@ python -m http.server 8765 --directory docs
 ## Firebase (Sync)
 
 - Projekt **Wohnungssuche** (`wohnungssuche-a8a86`), Spark-Tarif (kostenlos).
-- Anonyme Anmeldung aktiv; Firestore-Regel: `allow read, write: if request.auth != null;`.
+- Anonyme Anmeldung aktiv. Firestore-Regel (auf den Haushalt eingegrenzt, Löschen
+  verboten):
+
+  ```
+  rules_version = '2';
+  service cloud.firestore {
+    match /databases/{database}/documents {
+      match /households/{h}/{document=**} {
+        allow read, create, update: if request.auth != null && h == 'stewalpp-gishaa';
+        allow delete: if false;
+      }
+    }
+  }
+  ```
+
 - Datenlayout: `households/{code}/ratings/{listingId}` und
   `households/{code}/meta/settings`. Der Haushalts-Code steht in `config.js`.
 - **Sicherheitshinweis:** Die Firebase-Web-Config in `config.js` ist *kein*
   Geheimnis (sie wird ohnehin an jeden Web-Client ausgeliefert). In einem
-  öffentlichen Repository ist sie damit sichtbar; der Schutz beruht auf der
-  Firestore-Regel und dem Haushalts-Code. Da hier nur Wohnungs-Bewertungen und
-  -Notizen liegen, ist das Risiko gering. Wer es strenger möchte: Repo privat
-  stellen (GitHub Pages bleibt erreichbar) oder Firebase App Check aktivieren.
+  öffentlichen Repository ist sie sichtbar; der Schutz beruht daher auf der
+  Firestore-Regel: Zugriff nur auf genau diesen Haushalt, kein Löschen.
+  Gespeichert werden nur Wohnungs-Bewertungen und -Notizen – das Risiko ist
+  gering. Wer es strenger möchte: Repo privat stellen (GitHub Pages braucht dann
+  einen kostenpflichtigen Plan) oder **Firebase App Check** aktivieren, damit nur
+  die echte App die API nutzen darf.
