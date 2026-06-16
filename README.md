@@ -6,6 +6,23 @@ Gehrden, Wennigsen, Ronnenberg/Empelde und Seelze/Letter. Bereits gemeldete
 Wohnungen werden in `data/seen_listings.json` gespeichert und beim naechsten
 Lauf nicht erneut ausgegeben.
 
+## Smartphone-App (PWA)
+
+Im Ordner [`docs/`](docs/) liegt eine installierbare Smartphone-App im
+iOS-Design, mit der ihr die gefundenen Wohnungen durchseht, gemeinsam bewertet
+(Gut / Vielleicht / Schlecht pro Person), favorisiert und mit Notizen verseht.
+
+- **Datenquelle:** Der Suchlauf schreibt zusaetzlich `docs/data/listings.json`;
+  die App liest diese Datei. Keine kostenpflichtigen APIs.
+- **Geteilter Stand:** Beide oeffnen dieselbe Adresse und sehen dieselbe Liste.
+  Bewertungen/Notizen/Favoriten werden in Echtzeit ueber ein kostenloses
+  Firebase-Projekt synchronisiert.
+- **Aktivieren:** Repository → *Settings → Pages* → *Deploy from a branch* →
+  Branch `main`, Ordner `/docs`. Danach erreichbar unter
+  `https://stewalpp.github.io/Wohnungssuche/` (auf dem iPhone „Zum
+  Home-Bildschirm“ hinzufuegen).
+- Details, Architektur und Sicherheitshinweis: **[`docs/README.md`](docs/README.md)**.
+
 ## Kriterien
 
 - mindestens 3 Zimmer

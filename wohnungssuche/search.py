@@ -4,13 +4,14 @@ import argparse
 import os
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import requests
 import yaml
 
+from .feed import DEFAULT_FEED_PATH, record_listings, write_feed
 from .filters import MatchResult, evaluate_listing
 from .github_issue import post_report_to_issue, post_run_status_to_issue
 from .models import Listing
@@ -52,6 +53,7 @@ def main(argv: list[str] | None = None) -> int:
 
     all_matches: list[tuple[Listing, MatchResult]] = []
     floor_review_matches: list[tuple[Listing, MatchResult]] = []
+    feed_candidates: list[tuple[Listing, MatchResult]] = []
     errors: list[str] = []
     successful_sources = 0
 
@@ -65,6 +67,10 @@ def main(argv: list[str] | None = None) -> int:
 
         for listing in listings:
             result = evaluate_listing(listing, criteria)
+            # The app feed collects every eligible listing regardless of whether
+            # it was already reported; the report below still only shows new ones.
+            if result.accepted or should_include_floor_review(result, criteria):
+                feed_candidates.append((listing, result))
             if is_seen(state, listing):
                 continue
             if result.accepted:
@@ -106,12 +112,21 @@ def main(argv: list[str] | None = None) -> int:
             print(f"Report geschrieben: {report_path}")
 
         mark_seen(state, reported_listings)
-        save_state(args.state, state)
-        print(f"Seen-State aktualisiert: {args.state}")
 
     elif not args.report.exists():
         args.report.parent.mkdir(parents=True, exist_ok=True)
         args.report.write_text(markdown, encoding="utf-8")
+
+    # Enrich the state with full data for every eligible listing found this run
+    # and (re)write the app feed + state on every run, so the PWA always shows
+    # the current snapshot — independent of whether there were new matches.
+    now_utc = datetime.now(timezone.utc).isoformat()
+    generated_at = datetime.now(ZoneInfo("Europe/Berlin")).isoformat(timespec="seconds")
+    record_listings(state, dedupe_feed_candidates(feed_candidates), now_utc)
+    feed_path = write_feed(args.feed, state, criteria, generated_at)
+    print(f"App-Feed geschrieben: {feed_path}")
+    save_state(args.state, state)
+    print(f"Seen-State aktualisiert: {args.state}")
 
     if should_fail_run(errors, successful_sources):
         return 1
@@ -123,6 +138,12 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser.add_argument("--config", type=Path, default=Path("config/search.yml"))
     parser.add_argument("--state", type=Path, default=Path("data/seen_listings.json"))
     parser.add_argument("--report", type=Path, default=Path("reports/latest.md"))
+    parser.add_argument(
+        "--feed",
+        type=Path,
+        default=DEFAULT_FEED_PATH,
+        help="JSON feed consumed by the web app (GitHub Pages).",
+    )
     parser.add_argument(
         "--github-issue",
         action="store_true",
@@ -197,6 +218,18 @@ def dedupe_report_matches(
     floor_review_ids = {listing.id for listing, _ in floor_review_matches}
     exact_matches = [item for item in matches if item[0].id not in floor_review_ids]
     return dedupe_matches(exact_matches), dedupe_matches(floor_review_matches)
+
+
+def dedupe_feed_candidates(
+    feed_candidates: list[tuple[Listing, MatchResult]]
+) -> list[tuple[Listing, MatchResult]]:
+    """Collapse duplicate listing ids, preferring an accepted match over a review."""
+    by_id: dict[str, tuple[Listing, MatchResult]] = {}
+    for listing, result in feed_candidates:
+        existing = by_id.get(listing.id)
+        if existing is None or (result.accepted and not existing[1].accepted):
+            by_id[listing.id] = (listing, result)
+    return list(by_id.values())
 
 
 def should_include_floor_review(result: MatchResult, criteria: dict) -> bool:

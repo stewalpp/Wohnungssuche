@@ -4,7 +4,9 @@ import argparse
 import os
 from datetime import datetime, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
+from .feed import DEFAULT_FEED_PATH, write_feed
 from .github_issue import post_report_to_issue
 from .models import canonical_url
 from .search import fetch_and_parse_source, load_config
@@ -38,6 +40,10 @@ def main(argv: list[str] | None = None) -> int:
     write_report(args.report, markdown)
     save_state(args.state, state)
 
+    # Refresh the app feed so listings that are no longer available drop out.
+    generated_at = datetime.now(ZoneInfo("Europe/Berlin")).isoformat(timespec="seconds")
+    write_feed(args.feed, state, config.get("criteria", {}), generated_at)
+
     if args.github_issue and should_notify(changes):
         issue_url = post_report_to_issue(markdown)
         if issue_url:
@@ -51,6 +57,12 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser.add_argument("--config", type=Path, default=Path("config/search.yml"))
     parser.add_argument("--state", type=Path, default=Path("data/seen_listings.json"))
     parser.add_argument("--report", type=Path, default=Path("reports/availability.md"))
+    parser.add_argument(
+        "--feed",
+        type=Path,
+        default=DEFAULT_FEED_PATH,
+        help="JSON feed consumed by the web app (GitHub Pages).",
+    )
     parser.add_argument(
         "--github-issue",
         action="store_true",

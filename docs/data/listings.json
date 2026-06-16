@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "generated_at": "2026-06-16T18:48:00+02:00",
+  "criteria": {
+    "min_rooms": 3,
+    "min_area_sqm": 70,
+    "max_total_rent_eur": 1000
+  },
+  "counts": {
+    "total": 4,
+    "match": 3,
+    "review": 1
+  },
+  "listings": [
+    {
+      "id": "f55db252a3513486",
+      "title": "Wohnung Gepflegtes Mehrfamilienhaus mit guter Mieterstruktur in ruhiger Lage",
+      "url": "https://www.immowelt.de/expose/26asjcdk4x7a",
+      "source": "Immobilo Ronnenberg 3 Zimmer",
+      "portal": "immowelt",
+      "price_eur": 480.0,
+      "area_sqm": null,
+      "rooms": 3.0,
+      "location": "30952 Ronnenberg",
+      "floor": null,
+      "status": "match",
+      "reasons": [
+        "3 Zimmer",
+        "480 EUR"
+      ],
+      "review_notes": [
+        "Etage pruefen",
+        "Wohnflaeche pruefen"
+      ],
+      "first_seen": "2026-06-16T16:48:00+00:00",
+      "last_seen": "2026-06-16T16:48:00+00:00"
+    },
+    {
+      "id": "e323ed49690006ce",
+      "title": "Wohnung Ronnenberg",
+      "url": "https://www.wohnungsboerse.net/immodetail/36112679",
+      "source": "Wohnungsboerse Barsinghausen 3 Zimmer",
+      "portal": "wohnungsboerse",
+      "price_eur": 800.0,
+      "area_sqm": 85.0,
+      "rooms": 3.0,
+      "location": null,
+      "floor": null,
+      "status": "match",
+      "reasons": [
+        "3 Zimmer",
+        "85 qm",
+        "800 EUR"
+      ],
+      "review_notes": [
+        "Etage pruefen"
+      ],
+      "first_seen": "2026-06-16T16:48:00+00:00",
+      "last_seen": "2026-06-16T16:48:00+00:00"
+    },
+    {
+      "id": "a241235bb7d9431c",
+      "title": "Wohnung zur Miete 3 Zimmer, 75 qm, 1. Geschoss",
+      "url": "https://www.immowelt.de/expose/4fd9727d-dbbb-4e5a-8a59-acf2ecbf9183",
+      "source": "Immowelt Gehrden 3 Zimmer",
+      "portal": "immowelt",
+      "price_eur": 750.0,
+      "area_sqm": 75.0,
+      "rooms": 3.0,
+      "location": null,
+      "floor": "1. geschoss",
+      "status": "review",
+      "reasons": [
+        "3 Zimmer",
+        "75 qm",
+        "750 EUR"
+      ],
+      "review_notes": [
+        "kein EG/Parterre: 1. geschoss"
+      ],
+      "first_seen": "2026-06-16T16:48:00+00:00",
+      "last_seen": "2026-06-16T16:48:00+00:00"
+    },
+    {
+      "id": "59a70640d8284893",
+      "title": "Maisonette-Wohnung in Kirchwehren",
+      "url": "https://www.immowelt.de/expose/5d6237f7-f5bc-4e04-902c-e0ca322aeb69",
+      "source": "Immobilo Seelze 3 Zimmer",
+      "portal": "immowelt",
+      "price_eur": 559.47,
+      "area_sqm": null,
+      "rooms": 3.0,
+      "location": "30926 Seelze",
+      "floor": null,
+      "status": "match",
+      "reasons": [
+        "3 Zimmer",
+        "559.47 EUR"
+      ],
+      "review_notes": [
+        "Etage pruefen",
+        "Wohnflaeche pruefen"
+      ],
+      "first_seen": "2026-06-16T16:48:00+00:00",
+      "last_seen": "2026-06-16T16:48:00+00:00"
+    }
+  ]
+}
