@@ -45,6 +45,17 @@ geschrieben, wenn neue passende Inserate oder neue Pruefkandidaten gefunden
 wurden. Die aktuelle Ausgabe steht immer im Terminal und in GitHub Actions im
 Step Summary.
 
+## Woechentlicher Verfuegbarkeitscheck
+
+Ein zweiter Workflow unter `.github/workflows/weekly-availability.yml`
+prueft einmal pro Woche, ob bereits gemeldete Inserate noch in den aktuellen
+Suchergebnissen auftauchen. Nicht mehr gefundene Inserate werden in
+`data/seen_listings.json` als `unavailable` markiert und in
+`reports/availability.md` zusammengefasst. Wenn sich ein Status relevant
+aendert, kommentiert die Automation im Issue `Neue Wohnungsangebote`. Der
+Check laeuft sonntags um 19:00 UTC, also aktuell 21:00 Uhr deutscher
+Sommerzeit.
+
 ## Quellen anpassen
 
 Die Datei `config/search.yml` enthaelt Startquellen fuer Immowelt,
