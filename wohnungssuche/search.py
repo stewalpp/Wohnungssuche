@@ -12,6 +12,7 @@ import yaml
 from .filters import MatchResult, evaluate_listing
 from .github_issue import post_report_to_issue
 from .models import Listing
+from .notifier import send_search_notifications
 from .parser import parse_html, parse_rss
 from .state import is_seen, load_state, mark_seen, save_state
 
@@ -60,10 +61,19 @@ def main(argv: list[str] | None = None) -> int:
 
     reported_listings = [listing for listing, _ in all_matches + floor_review_matches]
     if reported_listings:
+        issue_url = None
         if args.github_issue:
             issue_url = post_report_to_issue(markdown)
             if issue_url:
                 print(f"\nGitHub Issue aktualisiert: {issue_url}")
+
+        for notification_result in send_search_notifications(
+            markdown,
+            exact_matches=len(all_matches),
+            review_candidates=len(floor_review_matches),
+            issue_url=issue_url,
+        ):
+            print(notification_result)
 
         report_paths = write_reports(args.report, markdown)
         for report_path in report_paths:

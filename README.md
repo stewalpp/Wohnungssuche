@@ -79,3 +79,31 @@ Titel `Neue Wohnungsangebote`, wenn neue passende Treffer gefunden werden.
 Neue Kommentare erwaehnen `@stewalpp`, damit GitHub Mobile eine direkte
 Benachrichtigung ausloesen kann. Jeder Treffer wird nur einmal kommentiert,
 weil seine ID im Seen-State gespeichert wird.
+
+Optional kann der Suchlauf neue Treffer zusaetzlich per E-Mail oder SMS
+verschicken. Die Werte werden nicht im Code gespeichert, sondern als GitHub
+Actions Secrets hinterlegt.
+
+### E-Mail per SMTP
+
+Folgende Secrets aktivieren den E-Mail-Versand:
+
+- `NOTIFY_EMAIL_TO`: Empfaengeradresse
+- `SMTP_HOST`: SMTP-Server, zum Beispiel `smtp.gmail.com`
+- `SMTP_PORT`: SMTP-Port, meistens `587`
+- `SMTP_USERNAME`: SMTP-Benutzername
+- `SMTP_PASSWORD`: SMTP-Passwort oder App-Passwort
+- `SMTP_FROM`: Absenderadresse, optional
+- `SMTP_STARTTLS`: `true` oder `false`, optional; Standard ist `true`
+
+### SMS per Twilio
+
+Folgende Secrets aktivieren den SMS-Versand:
+
+- `SMS_TO_NUMBER`: Zielnummer im E.164-Format, zum Beispiel `+49157...`
+- `TWILIO_ACCOUNT_SID`: Twilio Account SID
+- `TWILIO_AUTH_TOKEN`: Twilio Auth Token
+- `TWILIO_FROM_NUMBER`: Twilio-Absendernummer im E.164-Format
+
+SMS enthalten nur eine kurze Zusammenfassung plus Link zum GitHub-Issue.
+E-Mails enthalten den vollstaendigen Suchreport.
