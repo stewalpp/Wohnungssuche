@@ -2,7 +2,14 @@ import unittest
 
 from wohnungssuche.filters import evaluate_listing
 from wohnungssuche.models import Listing
-from wohnungssuche.parser import build_listing, parse_area, parse_floor, parse_price, parse_rooms
+from wohnungssuche.parser import (
+    build_listing,
+    clean_title,
+    parse_area,
+    parse_floor,
+    parse_price,
+    parse_rooms,
+)
 from wohnungssuche.state import is_seen, mark_seen
 
 
@@ -31,6 +38,17 @@ class FilteringTests(unittest.TestCase):
     def test_parse_price_after_image_counter(self):
         self.assertEqual(parse_price("1 / 9 800 EUR Kaltmiete"), 800)
         self.assertEqual(parse_price("1 / 2 980 € Kaltmiete"), 980)
+
+    def test_clean_title_removes_portal_card_noise(self):
+        title = (
+            "1 / 8 Neu B 715 EUR Kaltmiete Wohnung zur Miete "
+            "3 Zimmer · 80 m² · 1. Geschoss · frei ab 01.09.2026"
+        )
+
+        self.assertEqual(
+            clean_title(title),
+            "Wohnung zur Miete 3 Zimmer · 80 m² · 1. Geschoss",
+        )
 
     def test_rejects_too_expensive_listing(self):
         listing = build_listing(

@@ -203,19 +203,22 @@ def format_listing(
     area = f"{listing.area_sqm:g} qm" if listing.area_sqm is not None else "Flaeche offen"
     rooms = f"{listing.rooms:g} Zimmer" if listing.rooms is not None else "Zimmer offen"
     location = listing.location or "Lage aus Inserat pruefen"
+    floor = listing.floor or "Etage pruefen"
     notes = ", ".join(result.review_notes) if result.review_notes else "keine"
     reasons = ", ".join(result.reasons) if result.reasons else "Kriterien teilweise im Text erkannt"
 
     reason_label = "Warum nicht perfekt" if review_candidate else "Warum passend"
     return [
-        f"## {index}. {listing.title}",
+        f"### {index}. {listing.title}",
         "",
         f"- Quelle: {listing.source_name}",
-        f"- Link: {listing.url}",
-        f"- Eckdaten: {price}, {area}, {rooms}",
+        f"- Preis: {price}",
+        f"- Groesse/Zimmer: {area}, {rooms}",
+        f"- Etage: {floor}",
         f"- Lage: {location}",
         f"- {reason_label}: {reasons}",
         f"- Bitte pruefen: {notes}",
+        f"- Link: {listing.url}",
     ]
 
 

@@ -75,6 +75,37 @@ def parse_location(text: str) -> str | None:
     return None
 
 
+def clean_title(title: str, text: str = "") -> str:
+    value = " ".join((title or "").split()) or " ".join((text or "").split())
+    start = re.search(
+        r"\b(?:wohnung|terrassenwohnung|maisonette|tauschwohnung|erstbezug)\b",
+        value,
+        re.IGNORECASE,
+    )
+    if start:
+        value = value[start.start() :]
+
+    stop = re.search(
+        r"\s+(?:frei\s+ab|die\s+wohnung|es\s+h|kaltmiete|warmmiete)\b",
+        value,
+        re.IGNORECASE,
+    )
+    if stop:
+        value = value[: stop.start()]
+
+    value = re.sub(
+        r"^(?:\d+\s*/\s*\d+\s*)?(?:neu\s*)?(?:[a-h]\+?\s*)?",
+        "",
+        value,
+        flags=re.IGNORECASE,
+    )
+    value = re.sub(r"\s*[|]\s*", " · ", value)
+    value = re.sub(r"\s+", " ", value).strip(" -,.·")
+    if len(value) > 95:
+        value = value[:92].rstrip(" -,.·") + "..."
+    return value or "(ohne Titel)"
+
+
 def parse_rss(content: bytes, source: dict) -> list[Listing]:
     feed = feedparser.parse(content)
     listings: list[Listing] = []
@@ -175,7 +206,7 @@ def build_listing(source_name: str, title: str, url: str, text: str) -> Listing:
     full_text = " ".join([title or "", text or ""]).strip()
     return Listing(
         source_name=source_name,
-        title=title or "(ohne Titel)",
+        title=clean_title(title, text),
         url=url,
         text=full_text,
         price_eur=parse_price(full_text),
