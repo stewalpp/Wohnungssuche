@@ -1,12 +1,13 @@
 import unittest
 
 from wohnungssuche.filters import evaluate_listing
-from wohnungssuche.models import Listing
+from wohnungssuche.models import Listing, canonical_url
 from wohnungssuche.parser import (
     build_listing,
     clean_title,
     parse_area,
     parse_floor,
+    parse_location,
     parse_price,
     parse_rooms,
 )
@@ -45,6 +46,10 @@ class FilteringTests(unittest.TestCase):
         self.assertEqual(parse_floor("Geschoss 6/7"), "6. geschoss")
         self.assertEqual(parse_floor("im 1. OG mit Balkon"), "1. og")
         self.assertEqual(parse_floor("2 Stock"), "2 stock")
+        self.assertEqual(
+            parse_location("30952 Ronnenberg Immobilientyp Wohnung Miete"),
+            "30952 Ronnenberg",
+        )
 
     def test_parse_price_after_image_counter(self):
         self.assertEqual(parse_price("1 / 9 800 EUR Kaltmiete"), 800)
@@ -69,6 +74,32 @@ class FilteringTests(unittest.TestCase):
                 "https://www.kleinanzeigen.de/s-anzeige/bad-nenndorf-sonnige-3-zimmer-maisonette-wohnug-/3404385210-203-2859",
             ),
             "Bad Nenndorf Sonnige 3 Zimmer Maisonette Wohnung",
+        )
+
+    def test_clean_title_uses_text_when_link_title_is_domain(self):
+        self.assertEqual(
+            clean_title(
+                "www.immowelt.de",
+                "3 Zimmer Wohnung Ronnenberg Kaltmiete 800 EUR Zimmer 3 Zi. Flaeche 85 qm",
+                "https://www.wohnungsboerse.net/immodetail/36112679",
+            ),
+            "Wohnung Ronnenberg",
+        )
+
+    def test_clean_title_removes_provider_card_controls(self):
+        self.assertEqual(
+            clean_title(
+                "www.immowelt.de",
+                "Wohnung mit fantastischem Ausblick Merken Anzeige melden Quelle: www.immowelt.de 550 EUR 3 Zimmer",
+                "https://www.immowelt.de/expose/26XNTSMFHQBA",
+            ),
+            "Wohnung mit fantastischem Ausblick",
+        )
+
+    def test_canonical_url_normalizes_known_portal_paths(self):
+        self.assertEqual(
+            canonical_url("https://www.immowelt.de/expose/26XNTSMFHQBA"),
+            "https://www.immowelt.de/expose/26xntsmfhqba",
         )
 
     def test_rejects_too_expensive_listing(self):

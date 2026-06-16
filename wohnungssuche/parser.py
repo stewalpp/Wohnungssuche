@@ -74,7 +74,11 @@ def parse_floor(text: str) -> str | None:
 def parse_location(text: str) -> str | None:
     match = LOCATION_RE.search(text)
     if match:
-        return " ".join(match.group(0).split())
+        value = " ".join(match.group(0).split())
+        for marker in (" Immobilientyp", " Kaltmiete", " Warmmiete", " Preis", " Zimmer"):
+            if marker in value:
+                value = value.split(marker, 1)[0].strip()
+        return value
     return None
 
 
@@ -100,7 +104,7 @@ def clean_title(title: str, text: str = "", url: str = "") -> str:
             value = value[start.start() :]
 
         stop = re.search(
-            r"\s+(?:frei\s+ab|die\s+wohnung|es\s+h|kaltmiete|warmmiete)\b",
+            r"\s+(?:frei\s+ab|die\s+wohnung|es\s+h|merken\s+anzeige|quelle:|kaltmiete|warmmiete)\b",
             value,
             re.IGNORECASE,
         )
@@ -126,6 +130,8 @@ def is_noisy_title(title: str) -> bool:
     if not title:
         return True
     normalized = " ".join(title.split())
+    if re.fullmatch(r"(?:www\.)?[a-z0-9-]+\.[a-z]{2,}", normalized, re.IGNORECASE):
+        return True
     if re.fullmatch(r"\d+(?:\s*/\s*\d+)?", normalized):
         return True
     return re.fullmatch(r"\d{5}\s+[A-Za-zÃ„Ã–ÃœÃ¤Ã¶Ã¼ÃŸ\-\s]{2,35}", normalized) is not None
@@ -243,6 +249,8 @@ def looks_like_listing_url(url: str) -> bool:
         return "/expose/" in lowered or "/expose" in lowered
     if "kleinanzeigen.de" in lowered:
         return "/s-anzeige/" in lowered
+    if "wohnungsboerse.net" in lowered:
+        return "/immodetail/" in lowered
     return any(
         part in lowered
         for part in (

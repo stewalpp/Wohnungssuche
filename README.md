@@ -61,8 +61,9 @@ Sommerzeit.
 ## Quellen anpassen
 
 Die Datei `config/search.yml` enthaelt Startquellen fuer Immowelt,
-ImmoScout24 und Kleinanzeigen. Am besten funktionieren gespeicherte
-Suchseiten, auf denen die Portalfilter schon gesetzt sind:
+ImmoScout24, Kleinanzeigen, immobilo und Wohnungsboerse. Am besten
+funktionieren gespeicherte Suchseiten, auf denen die Portalfilter schon
+gesetzt sind:
 
 - Miete bis 1.000 EUR
 - mindestens 3 Zimmer
@@ -80,6 +81,11 @@ alte Suchquellen anzeigen.
 Wenn ein Portal RSS anbietet, setze `type: rss`. Fuer normale Suchseiten
 nutze `type: html`. Bereits gezeigte Inserate koennen durch Loeschen des
 jeweiligen Eintrags in `data/seen_listings.json` erneut angezeigt werden.
+
+Aktiv durchsucht werden aktuell Immowelt, Kleinanzeigen, immobilo und
+Wohnungsboerse. ImmoScout24 ist vorbereitet, aber deaktiviert, weil direkte
+Abrufe dort zurzeit mit `401 Unauthorized` blockiert werden und sonst nur
+Fehlermeldungen erzeugen wuerden.
 
 ## Benachrichtigung
 

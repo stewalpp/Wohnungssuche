@@ -19,6 +19,19 @@ def canonical_url(url: str) -> str:
     if not url:
         return ""
     parts = urlsplit(url.strip())
+    netloc = parts.netloc.lower()
+    path = parts.path.rstrip("/")
+    if any(
+        domain in netloc
+        for domain in (
+            "immowelt.de",
+            "immobilienscout24.de",
+            "kleinanzeigen.de",
+            "wohnungsboerse.net",
+            "immobilo.de",
+        )
+    ):
+        path = path.lower()
     query = [
         (key, value)
         for key, value in parse_qsl(parts.query, keep_blank_values=True)
@@ -26,7 +39,7 @@ def canonical_url(url: str) -> str:
     ]
     clean_query = urlencode(query, doseq=True)
     return urlunsplit(
-        (parts.scheme.lower(), parts.netloc.lower(), parts.path.rstrip("/"), clean_query, "")
+        (parts.scheme.lower(), netloc, path, clean_query, "")
     )
 
 
@@ -54,4 +67,3 @@ class Listing:
         self.title = " ".join((self.title or "").split())
         self.text = " ".join((self.text or self.title).split())
         self.id = make_listing_id(self.url, self.title, self.source_name)
-

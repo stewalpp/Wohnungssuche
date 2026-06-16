@@ -85,6 +85,26 @@ sources:
     type: html
     url: https://www.immowelt.de/suche/mieten/wohnung/zimmer-3/niedersachsen/barsinghausen-30890/ad08de1299
 
+  - name: Immowelt Gehrden 3 Zimmer
+    enabled: true
+    type: html
+    url: https://www.immowelt.de/suche/mieten/wohnung/zimmer-3/niedersachsen/gehrden-30989/ad08de1303
+
+  - name: Immowelt Ronnenberg 3 Zimmer
+    enabled: true
+    type: html
+    url: https://www.immowelt.de/suche/mieten/wohnung/zimmer-3/niedersachsen/ronnenberg-30952/ad08de1311
+
+  - name: Immowelt Seelze 3 Zimmer
+    enabled: true
+    type: html
+    url: https://www.immowelt.de/suche/mieten/wohnung/zimmer-3/niedersachsen/seelze-30926/ad08de1312
+
+  - name: Immowelt Wennigsen 3 Zimmer
+    enabled: true
+    type: html
+    url: https://www.immowelt.de/suche/mieten/wohnung/zimmer-3/niedersachsen/wennigsen-deister-30974/ad08de1317
+
   - name: ImmoScout24 Hannover 3 Zimmer
     enabled: false
     type: html
@@ -119,3 +139,53 @@ sources:
     enabled: true
     type: html
     url: https://www.kleinanzeigen.de/s-wohnung-mieten/seelze/3-zimmer-wohnung/k0c203l2920
+
+  - name: Immobilo Barsinghausen 3 Zimmer
+    enabled: true
+    type: html
+    url: https://www.immobilo.de/mieten/wohnung/barsinghausen/3-zimmer
+
+  - name: Immobilo Gehrden 3 Zimmer
+    enabled: true
+    type: html
+    url: https://www.immobilo.de/mieten/wohnung/gehrden/3-zimmer
+
+  - name: Immobilo Ronnenberg 3 Zimmer
+    enabled: true
+    type: html
+    url: https://www.immobilo.de/mieten/wohnung/ronnenberg/3-zimmer
+
+  - name: Immobilo Seelze 3 Zimmer
+    enabled: true
+    type: html
+    url: https://www.immobilo.de/mieten/wohnung/seelze/3-zimmer
+
+  - name: Immobilo Wennigsen 3 Zimmer
+    enabled: true
+    type: html
+    url: https://www.immobilo.de/mieten/wohnung/wennigsen-deister/3-zimmer
+
+  - name: Wohnungsboerse Barsinghausen 3 Zimmer
+    enabled: true
+    type: html
+    url: https://www.wohnungsboerse.net/Barsinghausen/3-zimmer-wohnung-mieten
+
+  - name: Wohnungsboerse Gehrden 3 Zimmer
+    enabled: true
+    type: html
+    url: https://www.wohnungsboerse.net/Gehrden/3-zimmer-wohnung-mieten
+
+  - name: Wohnungsboerse Ronnenberg 3 Zimmer
+    enabled: true
+    type: html
+    url: https://www.wohnungsboerse.net/Ronnenberg/3-zimmer-wohnung-mieten
+
+  - name: Wohnungsboerse Seelze 3 Zimmer
+    enabled: true
+    type: html
+    url: https://www.wohnungsboerse.net/Seelze/3-zimmer-wohnung-mieten
+
+  - name: Wohnungsboerse Wennigsen 3 Zimmer
+    enabled: true
+    type: html
+    url: https://www.wohnungsboerse.net/Wennigsen-Deister/3-zimmer-wohnung-mieten
