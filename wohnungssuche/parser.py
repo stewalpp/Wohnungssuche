@@ -99,10 +99,11 @@ def clean_title(title: str, text: str = "") -> str:
         value,
         flags=re.IGNORECASE,
     )
-    value = re.sub(r"\s*[|]\s*", " · ", value)
-    value = re.sub(r"\s+", " ", value).strip(" -,.·")
+    value = re.sub(r"\bm\s*(?:2|\u00b2)\b", "qm", value, flags=re.IGNORECASE)
+    value = re.sub(r"\s*(?:[|]|\u00b7)\s*", ", ", value)
+    value = re.sub(r"\s+", " ", value).strip(" -,.")
     if len(value) > 95:
-        value = value[:92].rstrip(" -,.·") + "..."
+        value = value[:92].rstrip(" -,.") + "..."
     return value or "(ohne Titel)"
 
 

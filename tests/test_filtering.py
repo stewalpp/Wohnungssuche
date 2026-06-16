@@ -42,12 +42,12 @@ class FilteringTests(unittest.TestCase):
     def test_clean_title_removes_portal_card_noise(self):
         title = (
             "1 / 8 Neu B 715 EUR Kaltmiete Wohnung zur Miete "
-            "3 Zimmer · 80 m² · 1. Geschoss · frei ab 01.09.2026"
+            "3 Zimmer | 80 m2 | 1. Geschoss | frei ab 01.09.2026"
         )
 
         self.assertEqual(
             clean_title(title),
-            "Wohnung zur Miete 3 Zimmer · 80 m² · 1. Geschoss",
+            "Wohnung zur Miete 3 Zimmer, 80 qm, 1. Geschoss",
         )
 
     def test_rejects_too_expensive_listing(self):
