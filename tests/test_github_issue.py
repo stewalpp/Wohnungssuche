@@ -36,6 +36,22 @@ class GitHubIssueTests(unittest.TestCase):
         self.assertIn("Keine neuen passenden Inserate gefunden.", body)
         self.assertNotIn("@stewalpp", body)
 
+    def test_status_body_names_sources_with_errors(self):
+        markdown = (
+            "# Neue Wohnungsangebote (2026-06-16 16:05)\n\n"
+            "Keine neuen passenden Inserate gefunden.\n\n"
+            "Bereits bekannte Wohnungen wurden ausgeblendet.\n"
+            "## Quellen mit Fehlern\n\n"
+            "- Immowelt Region Hannover 3 Zimmer: 403 Client Error\n"
+            "- Immowelt Barsinghausen 3 Zimmer: 403 Client Error\n"
+        )
+
+        body = status_body_from_report(markdown)
+
+        self.assertIn("Diese Quellen hatten beim letzten Lauf Probleme", body)
+        self.assertIn("Immowelt Region Hannover 3 Zimmer", body)
+        self.assertIn("Immowelt Barsinghausen 3 Zimmer", body)
+
 
 if __name__ == "__main__":
     unittest.main()

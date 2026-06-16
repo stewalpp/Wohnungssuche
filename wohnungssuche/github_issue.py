@@ -81,8 +81,9 @@ def status_body_from_report(markdown: str) -> str:
         if not line.startswith("#") and not line.startswith("- ")
     ][:2]
     summary = " ".join(summary_lines) if summary_lines else "Suchlauf wurde ausgefuehrt."
+    error_sources = error_sources_from_report(lines)
 
-    return (
+    body = (
         f"{STATUS_COMMENT_MARKER}\n"
         "## Letzter Suchlauf\n\n"
         f"**{title}**\n\n"
@@ -90,6 +91,28 @@ def status_body_from_report(markdown: str) -> str:
         "Neue passende Wohnungen erscheinen weiterhin als eigener Kommentar mit "
         "Benachrichtigung. Bereits bekannte Inserate werden nicht erneut gepostet."
     )
+    if error_sources:
+        body += (
+            "\n\n**Hinweis:** Diese Quellen hatten beim letzten Lauf Probleme: "
+            f"{', '.join(error_sources)}."
+        )
+    return body
+
+
+def error_sources_from_report(lines: list[str]) -> list[str]:
+    sources: list[str] = []
+    in_error_section = False
+    for line in lines:
+        if line == "## Quellen mit Fehlern":
+            in_error_section = True
+            continue
+        if in_error_section and line.startswith("## "):
+            break
+        if in_error_section and line.startswith("- "):
+            source_name = line[2:].split(":", 1)[0].strip()
+            if source_name:
+                sources.append(source_name)
+    return sources
 
 
 def notification_mentions() -> str:
