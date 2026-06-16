@@ -22,13 +22,34 @@
     { key: 'favoriten', label: 'Favoriten' }
   ];
 
+  var STATUS_OPTIONS = [
+    { key: '', label: 'Offen', cls: 's-offen' },
+    { key: 'angefragt', label: 'Angefragt', cls: 's-angefragt' },
+    { key: 'besichtigung', label: 'Besichtigung', cls: 's-besichtigung' },
+    { key: 'zusage', label: 'Zusage', cls: 's-zusage' },
+    { key: 'absage', label: 'Absage', cls: 's-absage' }
+  ];
+
+  function statusLabel(key) {
+    for (var i = 0; i < STATUS_OPTIONS.length; i++) if (STATUS_OPTIONS[i].key === key) return STATUS_OPTIONS[i].label;
+    return '';
+  }
+
+  function statusChip(listing) {
+    var status = Store.getRating(listing.id).status;
+    if (!status) return null;
+    var chip = App.el('span', 'status-chip status-' + status);
+    chip.appendChild(App.el('span', 'dot'));
+    chip.appendChild(App.el('span', null, statusLabel(status)));
+    return chip;
+  }
+
   // -------- helpers
 
   function newIdSet() {
-    var since = App.newSince || '';
     var set = new Set();
     Feed.getListings().forEach(function (l) {
-      if (since && l.first_seen && l.first_seen > since) set.add(l.id);
+      if (App.isNew(l)) set.add(l.id);
     });
     return set;
   }
@@ -199,6 +220,9 @@
     srcline.textContent = (listing.source || listing.portal || '') + ' · ' + App.fmtRelTime(listing.first_seen);
     card.appendChild(srcline);
 
+    var sChip = statusChip(listing);
+    if (sChip) card.appendChild(sChip);
+
     // ratings
     var ratings = App.el('div', 'rating-block');
     ratings.appendChild(ratingRow(listing, 'p1'));
@@ -263,6 +287,28 @@
     rb.appendChild(ratingRow(listing, 'p2'));
     c.appendChild(rb);
 
+    // status (shared)
+    c.appendChild(App.el('div', 'section-title', 'Status'));
+    var statusSeg = App.el('div', 'status-seg');
+    var statusButtons = [];
+    STATUS_OPTIONS.forEach(function (s) {
+      var cur = Store.getRating(listing.id).status;
+      var btn = App.el('button', 'status-opt ' + s.cls + (cur === s.key ? ' active' : ''), s.label);
+      btn.type = 'button';
+      btn.dataset.key = s.key;
+      btn.dataset.cls = s.cls;
+      btn.addEventListener('click', function () {
+        Store.setStatus(listing.id, s.key);
+        var now = Store.getRating(listing.id).status;
+        statusButtons.forEach(function (b) {
+          b.className = 'status-opt ' + b.dataset.cls + (now === b.dataset.key ? ' active' : '');
+        });
+      });
+      statusButtons.push(btn);
+      statusSeg.appendChild(btn);
+    });
+    c.appendChild(statusSeg);
+
     // shared note
     c.appendChild(App.el('div', 'section-title', 'Gemeinsame Notiz'));
     var note = document.createElement('textarea');
@@ -293,6 +339,19 @@
     var open = openLink(listing, 'btn btn-primary');
     open.style.marginTop = '14px';
     c.appendChild(open);
+
+    var loc = listing.location || '';
+    var mapQuery = (loc && !/pr(?:ü|ue)fen/i.test(loc)) ? loc : (window.ListFilter ? ListFilter.townOf(listing) : '');
+    if (mapQuery) {
+      var mapLink = App.el('a', 'btn btn-secondary');
+      mapLink.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(mapQuery);
+      mapLink.target = '_blank';
+      mapLink.rel = 'noopener noreferrer';
+      mapLink.style.marginTop = '10px';
+      mapLink.textContent = 'Auf Karte zeigen';
+      mapLink.appendChild(App.icon('pin', 15));
+      c.appendChild(mapLink);
+    }
 
     var r = Store.getRating(listing.id);
     var hideBtn = App.el('button', 'btn btn-secondary', r.hidden ? 'Wieder einblenden' : 'Ausblenden');
@@ -374,6 +433,14 @@
     });
     sortSel.addEventListener('change', function () { ListFilter.setState({ sort: sortSel.value }); renderList(); });
     sortRow.appendChild(sortSel);
+
+    var filterBtn = App.el('button', 'sort-filter-btn' + (hasActiveFilters(state) ? ' has-active' : ''));
+    filterBtn.type = 'button';
+    filterBtn.setAttribute('aria-label', 'Filter');
+    filterBtn.appendChild(App.icon('filter', 18));
+    filterBtn.addEventListener('click', function () { openFilterSheet(container); });
+    sortRow.appendChild(filterBtn);
+
     view.appendChild(sortRow);
 
     var listWrap = App.el('div', 'listing-list');
@@ -399,6 +466,22 @@
       var all = Feed.getListings();
       var ratings = Store.getAllRatings();
       var filtered = ListFilter.apply(all, { ratings: ratings, newIds: newIds });
+
+      // Prominent banner for new results since the user last acknowledged.
+      var newTotal = App.newCount();
+      if (newTotal > 0) {
+        var nb = App.el('div', 'new-banner');
+        var nbText = App.el('div', 'new-banner-text');
+        nbText.appendChild(App.icon('sparkles', 18));
+        nbText.appendChild(App.el('span', null,
+          newTotal + (newTotal === 1 ? ' neue Wohnung' : ' neue Wohnungen') + ' seit deinem letzten Besuch'));
+        nb.appendChild(nbText);
+        var ack = App.el('button', 'new-banner-ack', 'Als gesehen markieren');
+        ack.type = 'button';
+        ack.addEventListener('click', function (e) { e.stopPropagation(); App.markAllSeen(); });
+        nb.appendChild(ack);
+        listWrap.appendChild(nb);
+      }
 
       info.textContent = filtered.length + (filtered.length === 1 ? ' Wohnung' : ' Wohnungen');
 
@@ -430,6 +513,85 @@
     e.appendChild(App.el('div', 'empty-title', title));
     e.appendChild(App.el('div', null, text));
     return e;
+  }
+
+  function hasActiveFilters(state) {
+    return !!(state.maxPrice || state.ort || state.withImage || state.unratedOnly);
+  }
+
+  function switchControl(checked, onChange) {
+    var sw = App.el('label', 'switch');
+    var cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.checked = !!checked;
+    cb.addEventListener('change', function () { onChange(cb.checked); });
+    sw.appendChild(cb);
+    sw.appendChild(App.el('span', 'switch-track'));
+    return sw;
+  }
+
+  function openFilterSheet(container) {
+    var state = ListFilter.getState();
+    var c = App.el('div', 'filter-sheet');
+
+    // max rent
+    var pf = App.el('div', 'filter-field');
+    pf.appendChild(App.el('div', 'form-label', 'Höchstmiete (€)'));
+    var priceInput = document.createElement('input');
+    priceInput.type = 'number';
+    priceInput.inputMode = 'numeric';
+    priceInput.className = 'input';
+    priceInput.placeholder = 'z. B. 900';
+    priceInput.value = state.maxPrice != null ? String(state.maxPrice) : '';
+    priceInput.addEventListener('change', function () {
+      var v = parseInt(priceInput.value, 10);
+      ListFilter.setState({ maxPrice: isFinite(v) && v > 0 ? v : null });
+      App.rerender();
+    });
+    pf.appendChild(priceInput);
+    c.appendChild(pf);
+
+    // town / search area
+    var towns = {};
+    Feed.getListings().forEach(function (l) { var t = ListFilter.townOf(l); if (t) towns[t] = true; });
+    var townList = Object.keys(towns).sort(function (a, b) { return a.localeCompare(b, 'de'); });
+    var of = App.el('div', 'filter-field');
+    of.appendChild(App.el('div', 'form-label', 'Ort / Suchgebiet'));
+    var ortSel = document.createElement('select');
+    ortSel.className = 'input';
+    var optAll = document.createElement('option'); optAll.value = ''; optAll.textContent = 'Alle Orte';
+    ortSel.appendChild(optAll);
+    townList.forEach(function (t) {
+      var o = document.createElement('option'); o.value = t; o.textContent = t;
+      if (state.ort === t) o.selected = true;
+      ortSel.appendChild(o);
+    });
+    ortSel.addEventListener('change', function () { ListFilter.setState({ ort: ortSel.value }); App.rerender(); });
+    of.appendChild(ortSel);
+    c.appendChild(of);
+
+    // toggles
+    var row1 = App.el('div', 'filter-switch-row');
+    row1.appendChild(App.el('span', null, 'Nur mit Foto'));
+    row1.appendChild(switchControl(state.withImage, function (on) { ListFilter.setState({ withImage: on }); App.rerender(); }));
+    c.appendChild(row1);
+
+    var row2 = App.el('div', 'filter-switch-row');
+    row2.appendChild(App.el('span', null, 'Nur unbewertete'));
+    row2.appendChild(switchControl(state.unratedOnly, function (on) { ListFilter.setState({ unratedOnly: on }); App.rerender(); }));
+    c.appendChild(row2);
+
+    var reset = App.el('button', 'btn btn-secondary', 'Filter zurücksetzen');
+    reset.type = 'button';
+    reset.style.marginTop = '16px';
+    reset.addEventListener('click', function () {
+      ListFilter.setState({ maxPrice: null, ort: '', withImage: false, unratedOnly: false });
+      App.rerender();
+      openFilterSheet(container);
+    });
+    c.appendChild(reset);
+
+    App.showSheet({ title: 'Filter', content: c });
   }
 
   Views.listings = {

@@ -83,6 +83,7 @@
   }
 
   var VALID_RATINGS = { gut: 1, vielleicht: 1, schlecht: 1 };
+  var VALID_STATUS = { angefragt: 1, besichtigung: 1, zusage: 1, absage: 1 };
 
   function normalizeRating(raw) {
     raw = raw && typeof raw === 'object' ? raw : {};
@@ -92,6 +93,7 @@
       p2: pr(raw.p2),
       favorite: !!raw.favorite,
       hidden: !!raw.hidden,
+      status: typeof raw.status === 'string' && VALID_STATUS[raw.status] ? raw.status : '',
       note: typeof raw.note === 'string' ? raw.note : '',
       updatedAt: typeof raw.updatedAt === 'string' ? raw.updatedAt : nowISO()
     };
@@ -339,6 +341,10 @@
     return mutate(id, { note: typeof note === 'string' ? note : '' });
   }
 
+  function setStatus(id, value) {
+    return mutate(id, { status: VALID_STATUS[value] ? value : '' });
+  }
+
   function getSettings() {
     return { onboarded: settings.onboarded, members: settings.members.map(function (m) { return Object.assign({}, m); }) };
   }
@@ -407,6 +413,7 @@
     toggleFavorite: toggleFavorite,
     setHidden: setHidden,
     setNote: setNote,
+    setStatus: setStatus,
     getSettings: getSettings,
     updateSettings: updateSettings,
     memberName: memberName,

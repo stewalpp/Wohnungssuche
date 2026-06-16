@@ -10,7 +10,7 @@
   var App = window.App = window.App || {};
 
   App.currentTab = 'listings';
-  App.newSince = null;
+  App.lastSeen = null;   // high-water mark: newest first_seen the user acknowledged
 
   var REFRESH_MS = 5 * 60 * 1000;
   var refreshTimer = null;
@@ -71,27 +71,55 @@
 
   /* ---------------- "new since last visit" ---------------- */
 
-  function initNewSince() {
-    var prev = null;
-    try { prev = localStorage.getItem('ws.lastVisit'); } catch (e) {}
-    App.newSince = prev || null;
-    try { localStorage.setItem('ws.lastVisit', new Date().toISOString()); } catch (e) {}
+  function newestFirstSeen() {
+    var max = '';
+    Feed.getListings().forEach(function (l) {
+      if (l.first_seen && l.first_seen > max) max = l.first_seen;
+    });
+    return max;
   }
 
-  function newCount() {
-    if (!App.newSince) return 0;
+  // High-water mark of the newest first_seen the user has acknowledged. It is
+  // NOT advanced on every app open (that would make "NEU" vanish instantly) —
+  // only on the very first launch and when the user taps "Als gesehen markieren".
+  function initNew() {
+    var stored = null;
+    try { stored = localStorage.getItem('ws.lastSeen'); } catch (e) {}
+    if (stored) {
+      App.lastSeen = stored;
+    } else {
+      App.lastSeen = newestFirstSeen() || new Date().toISOString();
+      try { localStorage.setItem('ws.lastSeen', App.lastSeen); } catch (e) {}
+    }
+  }
+
+  App.isNew = function (listing) {
+    return !!(App.lastSeen && listing && listing.first_seen && listing.first_seen > App.lastSeen);
+  };
+
+  App.newCount = function () {
     var ratings = Store.getAllRatings();
     return Feed.getListings().filter(function (l) {
       var r = ratings[l.id] || {};
-      return !r.hidden && l.first_seen && l.first_seen > App.newSince;
+      return !r.hidden && App.isNew(l);
     }).length;
-  }
+  };
+
+  // Mark everything currently in the feed as seen (clears the NEU markers).
+  App.markAllSeen = function () {
+    var newest = newestFirstSeen();
+    if (newest) {
+      App.lastSeen = newest;
+      try { localStorage.setItem('ws.lastSeen', newest); } catch (e) {}
+    }
+    App.rerender();
+  };
 
   function updateTabBadge() {
     var tab = document.querySelector('.tab-item[data-tab="listings"]');
     if (!tab) return;
     var existing = tab.querySelector('.tab-badge');
-    var n = newCount();
+    var n = App.newCount();
     if (n > 0) {
       if (!existing) {
         existing = App.el('span', 'tab-badge');
@@ -183,8 +211,8 @@
   /* ---------------- boot ---------------- */
 
   function start() {
-    initNewSince();
     Feed.init();
+    initNew();
     wireTabBar();
     Store.onChange(App.rerender);
     Feed.onChange(App.rerender);

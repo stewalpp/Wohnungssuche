@@ -12,8 +12,20 @@
     scope: 'alle',      // 'alle' | 'neu' | 'match' | 'review' | 'favoriten'
     query: '',
     sort: 'neu',        // 'neu' | 'preis' | 'flaeche'
-    maxPrice: null      // number or null
+    maxPrice: null,     // number or null
+    ort: '',            // '' = alle; otherwise a town name (from the source)
+    withImage: false,   // only listings that have a photo
+    unratedOnly: false  // only listings neither partner has rated yet
   };
+
+  // Coarse town/search-area for a listing, derived from its source name
+  // (e.g. "Immowelt Gehrden 3 Zimmer" -> "Gehrden"). Reliable for grouping.
+  function townOf(listing) {
+    var s = (listing && listing.source) || '';
+    s = s.replace(/^(Immowelt|Kleinanzeigen|Immobilo|Wohnungsb(?:ö|oe)rse|ImmoScout24)\s+/i, '');
+    s = s.replace(/\s*\d+(?:[.,]\d+)?\s*Zimmer.*$/i, '');
+    return s.trim();
+  }
 
   var state = load();
 
@@ -53,6 +65,12 @@
         if (p !== null && p > state.maxPrice) return false;
       }
 
+      if (state.withImage && !l.image) return false;
+
+      if (state.unratedOnly && (r.p1 || r.p2)) return false;
+
+      if (state.ort && townOf(l).toLowerCase() !== state.ort.toLowerCase()) return false;
+
       if (q) {
         var hay = ((l.title || '') + ' ' + (l.location || '') + ' ' + (l.source || '')).toLowerCase();
         if (hay.indexOf(q) === -1) return false;
@@ -91,6 +109,7 @@
     setState: setState,
     reset: reset,
     apply: apply,
+    townOf: townOf,
     DEFAULT: DEFAULT
   };
 })();
