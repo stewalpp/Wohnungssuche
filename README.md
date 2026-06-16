@@ -1,9 +1,9 @@
 # Wohnungssuche Hannover - Barsinghausen
 
-Diese Automation sucht viermal taeglich nach neuen Mietwohnungen ausserhalb
-von Hannover-Stadt im Korridor Richtung Barsinghausen bis Bad Nenndorf.
-Bereits gemeldete Wohnungen werden in `data/seen_listings.json` gespeichert
-und beim naechsten Lauf nicht erneut ausgegeben.
+Diese Automation sucht viermal taeglich nach neuen Mietwohnungen in
+Barsinghausen und den Barsinghaeuser Ortsteilen. Bereits gemeldete Wohnungen
+werden in `data/seen_listings.json` gespeichert und beim naechsten Lauf nicht
+erneut ausgegeben.
 
 ## Kriterien
 
@@ -66,9 +66,9 @@ Suchseiten, auf denen die Portalfilter schon gesetzt sind:
 - Miete bis 1.000 EUR
 - mindestens 3 Zimmer
 - mindestens 70 qm
-- Ort oder Suchradius ausserhalb Hannover-Stadt entlang Seelze, Letter,
-  Ronnenberg, Empelde, Gehrden, Wennigsen, Barsinghausen, Haste,
-  Hohnhorst und Bad Nenndorf
+- Ort oder Suchradius in Barsinghausen und den Ortsteilen wie Bantorf,
+  Egestorf, Grossgoltern, Gross Munzel, Kirchdorf, Langreder und
+  Winninghausen
 
 Wenn ein Portal RSS anbietet, setze `type: rss`. Fuer normale Suchseiten
 nutze `type: html`. Bereits gezeigte Inserate koennen durch Loeschen des

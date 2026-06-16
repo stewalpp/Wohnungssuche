@@ -20,8 +20,8 @@ CRITERIA = {
     "require_ground_floor": True,
     "allow_unknown_floor": True,
     "strict_location": True,
-    "allowed_location_terms": ["barsinghausen", "seelze", "bad nenndorf", "haste"],
-    "excluded_location_terms": [", hannover", "hannover ("],
+    "allowed_location_terms": ["barsinghausen", "bantorf", "goxe", "gross munzel"],
+    "excluded_location_terms": [", hannover", "hannover (", "bad nenndorf", "seelze"],
     "desired_floor_terms": ["erdgeschoss", "eg", "parterre", "hochparterre"],
     "excluded_terms": ["altbau", "dachgeschoss"],
 }
@@ -111,7 +111,7 @@ class FilteringTests(unittest.TestCase):
         result = evaluate_listing(listing, CRITERIA)
 
         self.assertFalse(result.accepted)
-        self.assertIn("Stadt Hannover", result.reasons[0])
+        self.assertIn("ausgeschlossen", result.reasons[0])
 
     def test_allows_region_hannover_outside_city(self):
         listing = build_listing(
@@ -125,7 +125,19 @@ class FilteringTests(unittest.TestCase):
 
         self.assertTrue(result.accepted)
 
-    def test_allows_bad_nenndorf_area(self):
+    def test_allows_barsinghausen_district_with_german_character(self):
+        listing = build_listing(
+            "test",
+            "Wohnung zur Miete 3 Zimmer, 80 qm, EG",
+            "https://example.test/gross-munzel",
+            "3 Zimmer 80 qm 900 EUR EG Gro\u00df Munzel (30890)",
+        )
+
+        result = evaluate_listing(listing, CRITERIA)
+
+        self.assertTrue(result.accepted)
+
+    def test_rejects_bad_nenndorf_outside_scope(self):
         listing = build_listing(
             "test",
             "Wohnung zur Miete 3 Zimmer, 80 qm, EG",
@@ -135,7 +147,21 @@ class FilteringTests(unittest.TestCase):
 
         result = evaluate_listing(listing, CRITERIA)
 
-        self.assertTrue(result.accepted)
+        self.assertFalse(result.accepted)
+        self.assertIn("ausgeschlossen", result.reasons[0])
+
+    def test_rejects_external_place_even_when_source_location_is_barsinghausen(self):
+        listing = build_listing(
+            "test",
+            "Hochwertige 3 Zimmer Wohnung Bestlage in Bad Nenndorf",
+            "https://example.test/bad-nenndorf-in-barsinghausen-source",
+            "3 Zimmer 79 qm 987 EUR 30890 Barsinghausen Hochwertige 3 Zimmer Wohnung Bestlage in Bad Nenndorf",
+        )
+
+        result = evaluate_listing(listing, CRITERIA)
+
+        self.assertFalse(result.accepted)
+        self.assertIn("ausgeschlossen", result.reasons[0])
 
     def test_seen_state_marks_listing_once(self):
         listing = Listing(

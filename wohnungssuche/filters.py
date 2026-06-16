@@ -17,6 +17,16 @@ class MatchResult:
 def normalize_text(value: str) -> str:
     value = value or ""
     for source, replacement in {
+        "\u00e4": "ae",
+        "\u00f6": "oe",
+        "\u00fc": "ue",
+        "\u00df": "ss",
+        "\u00c4": "ae",
+        "\u00d6": "oe",
+        "\u00dc": "ue",
+    }.items():
+        value = value.replace(source, replacement)
+    for source, replacement in {
         "ä": "ae",
         "ö": "oe",
         "ü": "ue",
@@ -64,7 +74,7 @@ def evaluate_listing(listing: Listing, criteria: dict) -> MatchResult:
     if excluded_locations:
         return MatchResult(
             False,
-            [f"ausgeschlossen: Stadt Hannover ({', '.join(excluded_locations)})"],
+            [f"ausgeschlossen: Ort ausserhalb Barsinghausen ({', '.join(excluded_locations)})"],
             review_notes,
         )
 

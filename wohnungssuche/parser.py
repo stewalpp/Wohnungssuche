@@ -151,8 +151,19 @@ def title_from_url(url: str) -> str:
         "maisonette": "Maisonette",
         "wohnug": "Wohnung",
     }
-    words = [replacements.get(word.lower(), word) for word in value.split()]
+    words = [format_slug_word(word, replacements) for word in value.split()]
     return " ".join(words).strip()
+
+
+def format_slug_word(word: str, replacements: dict[str, str]) -> str:
+    lowered = word.lower()
+    if lowered in replacements:
+        return replacements[lowered]
+    if any(character.isdigit() for character in word):
+        return word
+    if lowered in {"ab", "als", "am", "im", "in", "mit", "und", "von", "zur"}:
+        return lowered
+    return word[:1].upper() + word[1:]
 
 
 def parse_rss(content: bytes, source: dict) -> list[Listing]:

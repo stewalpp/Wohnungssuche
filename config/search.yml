@@ -8,38 +8,39 @@ criteria:
   strict_location: true
   allowed_location_terms:
     - barsinghausen
+    - bantorf
+    - barrigsen
+    - eckerde
+    - egestorf
+    - goxe
+    - grossgoltern
+    - gross munzel
+    - hohenbostel
+    - holtensen
+    - kirchdorf
+    - landringhausen
+    - langreder
+    - nordgoltern
+    - ostermunzel
+    - stemmen
+    - wichtringhausen
+    - winninghausen
+  excluded_location_terms:
+    - ", hannover"
+    - "hannover ("
+    - "hannover,"
+    - "stadt hannover"
+    - bad nenndorf
+    - haste
+    - hohnhorst
+    - suthfeld
+    - rodenberg
     - seelze
     - letter
     - ronnenberg
     - empelde
     - gehrden
     - wennigsen
-    - bad nenndorf
-    - haste
-    - hohnhorst
-    - suthfeld
-    - waltringhausen
-    - riepen
-    - horsten
-    - riehe
-    - bantorf
-    - egestorf
-    - kirchdorf
-    - winninghausen
-    - grossgoltern
-    - gross munzel
-    - lohnde
-    - sorsum
-    - weetzen
-    - velber
-    - harenberg
-    - lenthe
-    - benthe
-  excluded_location_terms:
-    - ", hannover"
-    - "hannover ("
-    - "hannover,"
-    - "stadt hannover"
   desired_floor_terms:
     - erdgeschoss
     - eg
@@ -77,11 +78,6 @@ sources:
     type: html
     url: https://www.immowelt.de/suche/mieten/wohnung/zimmer-3/niedersachsen/barsinghausen-30890/ad08de1299
 
-  - name: Immowelt Bad Nenndorf 3 Zimmer
-    enabled: true
-    type: html
-    url: https://www.immowelt.de/suche/mieten/wohnung/zimmer-3/niedersachsen/bad-nenndorf-31542/ad08de1502
-
   - name: ImmoScout24 Hannover 3 Zimmer
     enabled: false
     type: html
@@ -92,12 +88,7 @@ sources:
     type: html
     url: https://www.immobilienscout24.de/Suche/de/niedersachsen/hannover-kreis/wohnung-bis-1000-euro-warm
 
-  - name: Kleinanzeigen Hannover Wohnung mieten
+  - name: Kleinanzeigen Barsinghausen 3 Zimmer
     enabled: true
     type: html
-    url: https://www.kleinanzeigen.de/s-wohnung-mieten/hannover/c203l3155
-
-  - name: Kleinanzeigen Bad Nenndorf 3 Zimmer
-    enabled: true
-    type: html
-    url: https://www.kleinanzeigen.de/s-wohnung-mieten/bad-nenndorf/3-zimmer-wohnung/k0c203l10522
+    url: https://www.kleinanzeigen.de/s-wohnung-mieten/barsinghausen/3-zimmer-wohnung/k0c203l2858
