@@ -9,6 +9,7 @@ import urllib.request
 
 API_ROOT = "https://api.github.com"
 ISSUE_TITLE = "Neue Wohnungsangebote"
+ISSUE_DASHBOARD_MARKER = "<!-- wohnungssuche-dashboard -->"
 STATUS_COMMENT_MARKER = "<!-- wohnungssuche-status -->"
 
 
@@ -25,11 +26,18 @@ def post_report_to_issue(markdown: str, title: str = ISSUE_TITLE) -> str | None:
     mentions = notification_mentions()
     body = f"{mentions}\n\n{markdown}" if mentions else markdown
     issue_number = find_or_create_issue(repository, token, title)
-    request_json(
+    created_comment = request_json(
         "POST",
         f"/repos/{repository}/issues/{issue_number}/comments",
         token,
         {"body": body},
+    )
+    update_issue_dashboard(
+        repository,
+        token,
+        issue_number,
+        markdown,
+        created_comment.get("html_url") if created_comment else None,
     )
     return f"https://github.com/{repository}/issues/{issue_number}"
 
@@ -42,6 +50,13 @@ def post_run_status_to_issue(markdown: str, title: str = ISSUE_TITLE) -> str | N
 
     issue_number = find_or_create_issue(repository, token, title)
     status_body = status_body_from_report(markdown)
+    update_issue_dashboard(
+        repository,
+        token,
+        issue_number,
+        markdown,
+        find_latest_report_comment_url(repository, token, issue_number),
+    )
     status_comment_id = find_status_comment(repository, token, issue_number)
     if status_comment_id is None:
         request_json(
@@ -58,6 +73,73 @@ def post_run_status_to_issue(markdown: str, title: str = ISSUE_TITLE) -> str | N
             {"body": status_body},
         )
     return f"https://github.com/{repository}/issues/{issue_number}"
+
+
+def update_issue_dashboard(
+    repository: str,
+    token: str,
+    issue_number: int,
+    markdown: str,
+    latest_report_url: str | None,
+) -> None:
+    request_json(
+        "PATCH",
+        f"/repos/{repository}/issues/{issue_number}",
+        token,
+        {"body": dashboard_body_from_report(markdown, latest_report_url)},
+    )
+
+
+def dashboard_body_from_report(markdown: str, latest_report_url: str | None = None) -> str:
+    lines = [line.strip() for line in markdown.splitlines() if line.strip()]
+    title = lines[0].lstrip("# ").strip() if lines else "Wohnungssuche"
+    summary_lines = report_summary_lines(lines)
+    summary = " ".join(summary_lines) if summary_lines else "Suchlauf wurde ausgefuehrt."
+    report = markdown.strip()
+    if report.startswith("# "):
+        report = f"## {report[2:]}"
+
+    body_lines = [
+        ISSUE_DASHBOARD_MARKER,
+        "# Aktueller Stand",
+        "",
+        f"**{title}**",
+        "",
+        summary,
+        "",
+    ]
+    if latest_report_url:
+        body_lines.extend(
+            [
+                f"Letzte Trefferliste: [Kommentar oeffnen]({latest_report_url})",
+                "",
+            ]
+        )
+    body_lines.extend(
+        [
+            "Der neueste Suchlauf steht immer hier oben. Fruehere Suchlaeufe bleiben unten in den Kommentaren.",
+            "",
+            "---",
+            "",
+            report,
+        ]
+    )
+    return "\n".join(body_lines).rstrip() + "\n"
+
+
+def find_latest_report_comment_url(repository: str, token: str, issue_number: int) -> str | None:
+    comments = request_json(
+        "GET",
+        f"/repos/{repository}/issues/{issue_number}/comments?per_page=100",
+        token,
+    )
+    for comment in reversed(comments):
+        body = comment.get("body", "")
+        if STATUS_COMMENT_MARKER in body:
+            continue
+        if re.search(r"\d+\s+neue passende Inserate gefunden", body):
+            return str(comment.get("html_url", ""))
+    return None
 
 
 def find_status_comment(repository: str, token: str, issue_number: int) -> int | None:

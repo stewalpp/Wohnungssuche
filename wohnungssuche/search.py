@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import os
 import sys
+import time
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -22,6 +23,14 @@ USER_AGENT = (
     "Mozilla/5.0 (compatible; WohnungssucheBot/0.1; "
     "+https://github.com/stewalpp/Wohnungssuche)"
 )
+REQUEST_HEADERS = {
+    "User-Agent": USER_AGENT,
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "de-DE,de;q=0.9,en-US;q=0.6,en;q=0.5",
+    "Cache-Control": "no-cache",
+    "Pragma": "no-cache",
+}
+RETRYABLE_STATUS_CODES = {403, 429, 500, 502, 503, 504}
 RATING_PEOPLE = (
     ("stewalpp", "Blau", "\U0001F535"),
     ("gishaa-create", "Gruen", "\U0001F7E2"),
@@ -129,8 +138,7 @@ def load_config(path: Path) -> dict:
 
 def fetch_and_parse_source(source: dict) -> list[Listing]:
     url = source["url"]
-    response = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=30)
-    response.raise_for_status()
+    response = fetch_url(url)
     content_type = response.headers.get("Content-Type", "").lower()
     source_type = source.get("type", "html").lower()
 
@@ -139,6 +147,27 @@ def fetch_and_parse_source(source: dict) -> list[Listing]:
     if source_type == "html":
         return parse_html(response.content, source)
     raise ValueError(f"Unbekannter Quellentyp: {source_type}")
+
+
+def fetch_url(url: str) -> requests.Response:
+    last_error: Exception | None = None
+    for attempt in range(3):
+        try:
+            response = requests.get(url, headers=REQUEST_HEADERS, timeout=30)
+            if response.status_code in RETRYABLE_STATUS_CODES and attempt < 2:
+                time.sleep(2**attempt)
+                continue
+            response.raise_for_status()
+            return response
+        except requests.RequestException as exc:
+            last_error = exc
+            if attempt < 2:
+                time.sleep(2**attempt)
+                continue
+            raise
+    if last_error:
+        raise last_error
+    raise RuntimeError(f"Quelle konnte nicht geladen werden: {url}")
 
 
 def dedupe_matches(

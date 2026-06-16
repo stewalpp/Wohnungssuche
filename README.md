@@ -85,12 +85,18 @@ jeweiligen Eintrags in `data/seen_listings.json` erneut angezeigt werden.
 
 Die GitHub Action erstellt oder aktualisiert automatisch ein Issue mit dem
 Titel `Neue Wohnungsangebote`, wenn neue passende Treffer gefunden werden.
-Im Issue gibt es ausserdem einen festen Kommentar `Letzter Suchlauf`, der bei
-jedem Lauf aktualisiert wird. So ist sichtbar, dass die Suche gelaufen ist,
-auch wenn es keine neuen Treffer gab. Neue Treffer-Kommentare erwaehnen
-`@stewalpp` und `@gishaa-create`, damit GitHub Mobile direkte
-Benachrichtigungen ausloesen kann. Jeder Treffer wird nur einmal kommentiert,
-weil seine ID im Seen-State gespeichert wird.
+Der Issue-Text ganz oben wird bei jedem Lauf aktualisiert, damit der neueste
+Suchlauf ohne Scrollen sichtbar ist. Im Issue gibt es ausserdem einen festen
+Kommentar `Letzter Suchlauf`, der bei jedem Lauf aktualisiert wird. So ist
+sichtbar, dass die Suche gelaufen ist, auch wenn es keine neuen Treffer gab.
+Neue Treffer-Kommentare erwaehnen `@stewalpp` und `@gishaa-create`, damit
+GitHub Mobile direkte Benachrichtigungen ausloesen kann. Jeder Treffer wird
+nur einmal kommentiert, weil seine ID im Seen-State gespeichert wird.
+
+GitHub verschickt fuer bearbeitete Issue-Texte oder aktualisierte Kommentare
+nicht immer eine Push-Benachrichtigung. Eine sichere Push-Benachrichtigung
+ohne neue Issue-Kommentare braucht deshalb E-Mail, SMS oder einen externen
+Push-Dienst.
 
 Jedes Inserat enthaelt ausserdem einen aufklappbaren Bereich
 `Bewertung anklicken`. Dort gibt es eine blaue Zeile fuer `stewalpp` und

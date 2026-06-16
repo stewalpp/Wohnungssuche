@@ -1,9 +1,13 @@
 import unittest
+from unittest.mock import patch
+
+import requests
 
 from wohnungssuche.filters import MatchResult
 from wohnungssuche.models import Listing
 from wohnungssuche.search import (
     dedupe_report_matches,
+    fetch_url,
     format_listing,
     format_report,
     should_fail_run,
@@ -44,6 +48,29 @@ class SearchReportTests(unittest.TestCase):
     def test_partial_source_errors_do_not_fail_run(self):
         self.assertFalse(should_fail_run(["Immowelt: 403"], successful_sources=1))
         self.assertTrue(should_fail_run(["Immowelt: 403"], successful_sources=0))
+
+    def test_fetch_url_retries_transient_403(self):
+        class DummyResponse:
+            def __init__(self, status_code):
+                self.status_code = status_code
+                self.headers = {}
+                self.content = b"ok"
+
+            def raise_for_status(self):
+                if self.status_code >= 400:
+                    raise requests.HTTPError(f"{self.status_code} error")
+
+        with (
+            patch("wohnungssuche.search.requests.get") as get,
+            patch("wohnungssuche.search.time.sleep") as sleep,
+        ):
+            get.side_effect = [DummyResponse(403), DummyResponse(200)]
+
+            response = fetch_url("https://example.test")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(get.call_count, 2)
+        sleep.assert_called_once_with(1)
 
     def test_floor_review_duplicate_wins_over_exact_match(self):
         exact_listing = Listing(

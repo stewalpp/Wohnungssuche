@@ -2,7 +2,11 @@ import os
 import unittest
 from unittest.mock import patch
 
-from wohnungssuche.github_issue import notification_mentions, status_body_from_report
+from wohnungssuche.github_issue import (
+    dashboard_body_from_report,
+    notification_mentions,
+    status_body_from_report,
+)
 
 
 class GitHubIssueTests(unittest.TestCase):
@@ -68,6 +72,27 @@ class GitHubIssueTests(unittest.TestCase):
         self.assertIn("14 neue passende Inserate gefunden.", body)
         self.assertNotIn("<details>", body.replace("<!-- wohnungssuche-status -->", ""))
         self.assertNotIn("Beispielwohnung", body)
+
+    def test_dashboard_body_puts_latest_run_at_top(self):
+        markdown = (
+            "# Neue Wohnungsangebote (2026-06-16 16:22)\n\n"
+            "14 neue passende Inserate gefunden.\n\n"
+            "Legende: \U0001F7E9 NEU passt gut.\n\n"
+            "### \U0001F7E9 NEU 1. Beispielwohnung\n\n"
+            "- Preis: 740 EUR\n"
+        )
+
+        body = dashboard_body_from_report(
+            markdown,
+            "https://github.com/stewalpp/Wohnungssuche/issues/1#issuecomment-1",
+        )
+
+        self.assertTrue(body.startswith("<!-- wohnungssuche-dashboard -->"))
+        self.assertIn("# Aktueller Stand", body)
+        self.assertIn("14 neue passende Inserate gefunden.", body)
+        self.assertIn("Letzte Trefferliste: [Kommentar oeffnen]", body)
+        self.assertIn("## Neue Wohnungsangebote (2026-06-16 16:22)", body)
+        self.assertIn("### \U0001F7E9 NEU 1. Beispielwohnung", body)
 
 
 if __name__ == "__main__":
