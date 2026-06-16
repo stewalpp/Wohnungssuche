@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-06-16T21:39:42+02:00",
+  "generated_at": "2026-06-16T21:55:44+02:00",
   "criteria": {
     "min_rooms": 3,
     "min_area_sqm": 70,
@@ -12,30 +12,6 @@
     "review": 9
   },
   "listings": [
-    {
-      "id": "f55db252a3513486",
-      "title": "Wohnung Gepflegtes Mehrfamilienhaus mit guter Mieterstruktur in ruhiger Lage. Zum Komfort di...",
-      "url": "https://www.immowelt.de/expose/26asjcdk4x7a",
-      "source": "Immobilo Ronnenberg 3 Zimmer",
-      "portal": "immowelt",
-      "price_eur": 480.0,
-      "area_sqm": null,
-      "rooms": 3.0,
-      "location": "30952 Ronnenberg",
-      "floor": null,
-      "image": null,
-      "status": "match",
-      "reasons": [
-        "3 Zimmer",
-        "480 EUR"
-      ],
-      "review_notes": [
-        "Etage pruefen",
-        "Wohnflaeche pruefen"
-      ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
     {
       "id": "f19f6c74b54ec835",
       "title": "Wohnung zur Miete 3 Zimmer, 80 qm, Geschoss 1/2",
@@ -53,80 +29,8 @@
         "kein EG/Parterre: 1. geschoss"
       ],
       "review_notes": [],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "e4ad55637515d10e",
-      "title": "Wohnung in Seelze",
-      "url": "https://www.immowelt.de/expose/a08ad840-bc16-4801-aa81-50ecba610cf1",
-      "source": "Immobilo Seelze 3 Zimmer",
-      "portal": "immowelt",
-      "price_eur": 635.39,
-      "area_sqm": null,
-      "rooms": 3.0,
-      "location": "30926 Seelze",
-      "floor": null,
-      "image": null,
-      "status": "match",
-      "reasons": [
-        "3 Zimmer",
-        "635.39 EUR"
-      ],
-      "review_notes": [
-        "Etage pruefen",
-        "Wohnflaeche pruefen"
-      ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "e323ed49690006ce",
-      "title": "Wohnung Ronnenberg",
-      "url": "https://www.wohnungsboerse.net/immodetail/36112679",
-      "source": "Wohnungsboerse Barsinghausen 3 Zimmer",
-      "portal": "wohnungsboerse",
-      "price_eur": 800.0,
-      "area_sqm": 85.0,
-      "rooms": 3.0,
-      "location": null,
-      "floor": null,
-      "image": "https://www.wohnungsboerse.net/assets/estates/400x400/5l1uid2GpcBMO9Vx07BPw2pEKcbgOpwds5UsdwHf.jpg?id=46673636",
-      "status": "match",
-      "reasons": [
-        "3 Zimmer",
-        "85 qm",
-        "800 EUR"
-      ],
-      "review_notes": [
-        "Etage pruefen"
-      ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "ddc872ce04381a24",
-      "title": "Attraktive 3 Zimmer Wohnung mit Weitblick in Zentraler Lage von Barsinghausen",
-      "url": "https://www.kleinanzeigen.de/s-anzeige/attraktive-3-zimmer-wohnung-mit-weitblick-in-zentraler-lage-von-barsinghausen/3419834797-203-2862",
-      "source": "Kleinanzeigen Barsinghausen 3 Zimmer",
-      "portal": "kleinanzeigen",
-      "price_eur": 990.0,
-      "area_sqm": 90.0,
-      "rooms": 3.0,
-      "location": "30890 Barsinghausen Attraktive",
-      "floor": null,
-      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/78/78119244-b0a9-44ad-8c71-84d1fb38da97?rule=$_2.AUTO",
-      "status": "match",
-      "reasons": [
-        "3 Zimmer",
-        "90 qm",
-        "990 EUR"
-      ],
-      "review_notes": [
-        "Etage pruefen"
-      ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
+      "first_seen": "2026-06-16T19:55:44.432689+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
     },
     {
       "id": "c2c2c7eac5fc9a6d",
@@ -149,96 +53,56 @@
       "review_notes": [
         "Etage pruefen"
       ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
+      "first_seen": "2026-06-16T19:55:44.432689+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
     },
     {
-      "id": "bd780341c0d19730",
-      "title": "Wohnung zur Miete 3 Zimmer, 78 qm, Geschoss 3/3",
-      "url": "https://www.immowelt.de/expose/26yymgwzmldu",
-      "source": "Immowelt Region Hannover 3 Zimmer",
+      "id": "f55db252a3513486",
+      "title": "Wohnung Gepflegtes Mehrfamilienhaus mit guter Mieterstruktur in ruhiger Lage. Zum Komfort di...",
+      "url": "https://www.immowelt.de/expose/26asjcdk4x7a",
+      "source": "Immobilo Ronnenberg 3 Zimmer",
       "portal": "immowelt",
-      "price_eur": 700.0,
-      "area_sqm": 78.0,
+      "price_eur": 480.0,
+      "area_sqm": null,
       "rooms": 3.0,
-      "location": "30890 Barsinghausen",
-      "floor": "3. geschoss",
-      "image": "https://mms.immowelt.de/0/3/f/c/03fcc1d6-9d28-4d02-bfed-8b000bc0e26d.jpg?ci_seal=426c43870ef4f531de0dfd654c45b30c18726714&w=525&h=394",
-      "status": "review",
-      "reasons": [
-        "kein EG/Parterre: 3. geschoss"
-      ],
-      "review_notes": [],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "bd6f99e0c74fd8a7",
-      "title": "4 Zimmer Wohnung 3 Etage 92 Qm Fahrstuhl Balkon",
-      "url": "https://www.kleinanzeigen.de/s-anzeige/4-zimmer-wohnung-3-etage-92-qm-fahrstuhl-balkon/3435555096-203-2862",
-      "source": "Kleinanzeigen Barsinghausen 3 Zimmer",
-      "portal": "kleinanzeigen",
-      "price_eur": 920.0,
-      "area_sqm": 92.0,
-      "rooms": 4.0,
-      "location": "30890 Barsinghausen",
+      "location": "30952 Ronnenberg",
       "floor": null,
-      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/a9/a99ace5d-4639-499c-83cd-6ddd3da13057?rule=$_2.AUTO",
+      "image": null,
       "status": "match",
       "reasons": [
-        "4 Zimmer",
-        "92 qm",
-        "920 EUR"
+        "3 Zimmer",
+        "480 EUR"
+      ],
+      "review_notes": [
+        "Etage pruefen",
+        "Wohnflaeche pruefen"
+      ],
+      "first_seen": "2026-06-16T14:48:24.184659+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "e323ed49690006ce",
+      "title": "Wohnung Ronnenberg",
+      "url": "https://www.wohnungsboerse.net/immodetail/36112679",
+      "source": "Wohnungsboerse Barsinghausen 3 Zimmer",
+      "portal": "wohnungsboerse",
+      "price_eur": 800.0,
+      "area_sqm": 85.0,
+      "rooms": 3.0,
+      "location": null,
+      "floor": null,
+      "image": "https://www.wohnungsboerse.net/assets/estates/400x400/5l1uid2GpcBMO9Vx07BPw2pEKcbgOpwds5UsdwHf.jpg?id=46673636",
+      "status": "match",
+      "reasons": [
+        "3 Zimmer",
+        "85 qm",
+        "800 EUR"
       ],
       "review_notes": [
         "Etage pruefen"
       ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "a8ba9d8f78bdde56",
-      "title": "Helle 3 Zimmer Wohnung in Lohnde",
-      "url": "https://www.kleinanzeigen.de/s-anzeige/helle-3-zimmer-wohnung-in-lohnde/3435064449-203-2921",
-      "source": "Kleinanzeigen Seelze 3 Zimmer",
-      "portal": "kleinanzeigen",
-      "price_eur": 600.0,
-      "area_sqm": 80.0,
-      "rooms": 3.0,
-      "location": "30926 Seelze Helle",
-      "floor": "1.og",
-      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/9b/9b8c5c3a-dc5a-4240-be59-6a4c7bfafffb?rule=$_2.AUTO",
-      "status": "review",
-      "reasons": [
-        "kein EG/Parterre: 1.og"
-      ],
-      "review_notes": [],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "a58cf2ec63cfe366",
-      "title": "Ansprechende 3 5 Zimmer Wohnung mit Tageslichtbad und Balkon",
-      "url": "https://www.kleinanzeigen.de/s-anzeige/ansprechende-3-5-zimmer-wohnung-mit-tageslichtbad-und-balkon/3421193758-203-2921",
-      "source": "Kleinanzeigen Seelze 3 Zimmer",
-      "portal": "kleinanzeigen",
-      "price_eur": 759.0,
-      "area_sqm": 77.2,
-      "rooms": 3.5,
-      "location": "30926 Seelze Ansprechende",
-      "floor": null,
-      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/da/dada1a0c-d3fd-4996-bc6a-ebbb49555b8c?rule=$_2.AUTO",
-      "status": "match",
-      "reasons": [
-        "3.5 Zimmer",
-        "77.2 qm",
-        "759 EUR"
-      ],
-      "review_notes": [
-        "Etage pruefen"
-      ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
+      "first_seen": "2026-06-16T14:48:24.184659+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
     },
     {
       "id": "a241235bb7d9431c",
@@ -257,261 +121,8 @@
         "kein EG/Parterre: 1. geschoss"
       ],
       "review_notes": [],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "9d300ba06d25b48a",
-      "title": "3 Zimmer Eg Wohnung am Ortsrand mit Garten Pferdehaltung Moegl",
-      "url": "https://www.kleinanzeigen.de/s-anzeige/3-zimmer-eg-wohnung-am-ortsrand-mit-garten-pferdehaltung-moegl-/3430080621-203-2921",
-      "source": "Kleinanzeigen Seelze 3 Zimmer",
-      "portal": "kleinanzeigen",
-      "price_eur": 976.0,
-      "area_sqm": 84.0,
-      "rooms": 3.0,
-      "location": "30926 Seelze",
-      "floor": "eg",
-      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/43/43d331d3-a815-40b1-b8f1-ed650c8e3b2e?rule=$_2.AUTO",
-      "status": "match",
-      "reasons": [
-        "3 Zimmer",
-        "84 qm",
-        "976 EUR",
-        "EG/Parterre-Hinweis gefunden"
-      ],
-      "review_notes": [],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "951a576440a61792",
-      "title": "Wohnung - Nähe Bahnhof Barsinghausen",
-      "url": "https://www.immowelt.de/expose/a69d801b-7125-4757-96e1-9ff804002062",
-      "source": "Immobilo Barsinghausen 3 Zimmer",
-      "portal": "immowelt",
-      "price_eur": 684.0,
-      "area_sqm": null,
-      "rooms": 3.0,
-      "location": "30890 Barsinghausen",
-      "floor": null,
-      "image": null,
-      "status": "match",
-      "reasons": [
-        "3 Zimmer",
-        "684 EUR"
-      ],
-      "review_notes": [
-        "Etage pruefen",
-        "Wohnflaeche pruefen"
-      ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "937a736a9dd28161",
-      "title": "Renovierte 3 Zimmer Wohnung mit Gaeste Wc in Harenberg",
-      "url": "https://www.kleinanzeigen.de/s-anzeige/renovierte-3-zimmer-wohnung-mit-gaeste-wc-in-harenberg/3349733687-203-2921",
-      "source": "Kleinanzeigen Seelze 3 Zimmer",
-      "portal": "kleinanzeigen",
-      "price_eur": 850.0,
-      "area_sqm": 87.0,
-      "rooms": 3.0,
-      "location": "30926 Seelze Renovierte",
-      "floor": null,
-      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/a5/a5b13e9f-4e38-4070-8610-ea245c8b46bf?rule=$_2.AUTO",
-      "status": "match",
-      "reasons": [
-        "3 Zimmer",
-        "87 qm",
-        "850 EUR"
-      ],
-      "review_notes": [
-        "Etage pruefen"
-      ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "836726824ec5c8aa",
-      "title": "Wohnung zur Miete 3 Zimmer, 100,3 qm, EG",
-      "url": "https://www.immowelt.de/expose/523021a0-bc7a-46cb-9716-6377cbcaf7fb",
-      "source": "Immowelt Barsinghausen 3 Zimmer",
-      "portal": "immowelt",
-      "price_eur": 959.0,
-      "area_sqm": 100.3,
-      "rooms": 3.0,
-      "location": null,
-      "floor": "eg",
-      "image": "https://mms.immowelt.de/f/5/3/3/f53301a8-30cc-43a4-8a0a-e7ec4b08924a.jpg?ci_seal=854d270ee31e22017a0a85dda94397a9a0e3f6a8&h=50",
-      "status": "match",
-      "reasons": [
-        "3 Zimmer",
-        "100.3 qm",
-        "959 EUR",
-        "EG/Parterre-Hinweis gefunden"
-      ],
-      "review_notes": [],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "7fe05dffb699b575",
-      "title": "Wohnung mit fantastischem Ausblick",
-      "url": "https://www.immowelt.de/expose/26xntsmfhqba",
-      "source": "Immobilo Barsinghausen 3 Zimmer",
-      "portal": "immowelt",
-      "price_eur": 550.0,
-      "area_sqm": null,
-      "rooms": 3.0,
-      "location": "30890 Barsinghausen",
-      "floor": null,
-      "image": null,
-      "status": "match",
-      "reasons": [
-        "3 Zimmer",
-        "550 EUR"
-      ],
-      "review_notes": [
-        "Etage pruefen",
-        "Wohnflaeche pruefen"
-      ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "76d2ef7695ba2613",
-      "title": "Wo Das Leben So Spielt Ruhige 3 Zimmer Wohnung mit Balkon",
-      "url": "https://www.kleinanzeigen.de/s-anzeige/wo-das-leben-so-spielt-ruhige-3-zimmer-wohnung-mit-balkon/3421193556-203-2921",
-      "source": "Kleinanzeigen Seelze 3 Zimmer",
-      "portal": "kleinanzeigen",
-      "price_eur": 728.0,
-      "area_sqm": 72.0,
-      "rooms": 3.0,
-      "location": "30926 Seelze Wo das Leben so spielt - ruhi",
-      "floor": null,
-      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/62/62c2d718-384f-4c4b-850e-49f0beb41c36?rule=$_2.AUTO",
-      "status": "match",
-      "reasons": [
-        "3 Zimmer",
-        "72 qm",
-        "728 EUR"
-      ],
-      "review_notes": [
-        "Etage pruefen"
-      ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "7297956522363c59",
-      "title": "3 Z Wohnung Erdgeschoss Balkon Inkl Garage in Seelze Hannover",
-      "url": "https://www.kleinanzeigen.de/s-anzeige/3-z-wohnung-erdgeschoss-balkon-inkl-garage-in-seelze-hannover-/3429344720-203-2921",
-      "source": "Kleinanzeigen Seelze 3 Zimmer",
-      "portal": "kleinanzeigen",
-      "price_eur": 975.0,
-      "area_sqm": 70.0,
-      "rooms": 3.0,
-      "location": "30926 Seelze",
-      "floor": "erdgeschoss",
-      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/4f/4f4e5471-209c-4a09-9581-6ba766e1c0c8?rule=$_2.AUTO",
-      "status": "match",
-      "reasons": [
-        "3 Zimmer",
-        "70 qm",
-        "975 EUR",
-        "EG/Parterre-Hinweis gefunden"
-      ],
-      "review_notes": [],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "70b52a3dd1ffe7aa",
-      "title": "3 Zimmer Wohnung zur Miete",
-      "url": "https://www.kleinanzeigen.de/s-anzeige/3-zimmer-wohnung-zur-miete/3421455261-203-2903",
-      "source": "Kleinanzeigen Gehrden 3 Zimmer",
-      "portal": "kleinanzeigen",
-      "price_eur": 1000.0,
-      "area_sqm": 70.0,
-      "rooms": 3.0,
-      "location": "30989 Gehrden",
-      "floor": null,
-      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/8e/8e0ec1a4-f7dd-4b8a-b1f7-dbde8ac70e4b?rule=$_2.AUTO",
-      "status": "match",
-      "reasons": [
-        "3 Zimmer",
-        "70 qm",
-        "1000 EUR"
-      ],
-      "review_notes": [
-        "Etage pruefen"
-      ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "6b2a66fa75be9009",
-      "title": "3 5 Zi Nichtraucherwhg mit Gr Balkon Einbaukueche",
-      "url": "https://www.kleinanzeigen.de/s-anzeige/3-5-zi-nichtraucherwhg-mit-gr-balkon-einbaukueche/3390551070-203-2862",
-      "source": "Kleinanzeigen Barsinghausen 3 Zimmer",
-      "portal": "kleinanzeigen",
-      "price_eur": 990.0,
-      "area_sqm": 110.0,
-      "rooms": 3.5,
-      "location": "30890 Barsinghausen",
-      "floor": "1.og",
-      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/42/427b6afa-52aa-4a9e-a0a6-74c4a81a508f?rule=$_2.AUTO",
-      "status": "review",
-      "reasons": [
-        "kein EG/Parterre: 1.og"
-      ],
-      "review_notes": [],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "5e37e9041b107871",
-      "title": "2 und 3 Zimmer Wohnungen in Gehrden Suedbalkon Kfw 40 Neubau",
-      "url": "https://www.kleinanzeigen.de/s-anzeige/2-und-3-zimmer-wohnungen-in-gehrden-suedbalkon-kfw-40-neubau/3426653625-203-2903",
-      "source": "Kleinanzeigen Gehrden 3 Zimmer",
-      "portal": "kleinanzeigen",
-      "price_eur": null,
-      "area_sqm": 85.0,
-      "rooms": 3.0,
-      "location": "30989 Gehrden",
-      "floor": null,
-      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/87/8718e53b-5c50-4176-a788-aabdb6bc710c?rule=$_2.AUTO",
-      "status": "match",
-      "reasons": [
-        "3 Zimmer",
-        "85 qm"
-      ],
-      "review_notes": [
-        "Etage pruefen",
-        "Miete und Nebenkosten pruefen"
-      ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "5bf0e56ac407c37b",
-      "title": "Wohnung zur Miete 3 Zimmer, 74,5 qm, 5. Geschoss Egestorf, Barsinghausen / Egestorf am Deiste",
-      "url": "https://www.immowelt.de/expose/3a096ce6-6ca9-4a11-9a49-a7420aa6c4b2",
-      "source": "Immowelt Barsinghausen 3 Zimmer",
-      "portal": "immowelt",
-      "price_eur": 730.0,
-      "area_sqm": 74.5,
-      "rooms": 3.0,
-      "location": null,
-      "floor": "5. geschoss",
-      "image": "https://mms.immowelt.de/c/d/f/f/cdffc168-79ae-4898-ad31-bdf725d275be.jpg?ci_seal=4d4fa82b39848af84fbe7efdb27bdfe3ae469976&h=50",
-      "status": "review",
-      "reasons": [
-        "kein EG/Parterre: 5. geschoss"
-      ],
-      "review_notes": [],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
+      "first_seen": "2026-06-16T14:48:24.184659+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
     },
     {
       "id": "59a70640d8284893",
@@ -534,8 +145,194 @@
         "Etage pruefen",
         "Wohnflaeche pruefen"
       ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
+      "first_seen": "2026-06-16T14:48:24.184659+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "a8ba9d8f78bdde56",
+      "title": "Helle 3 Zimmer Wohnung in Lohnde",
+      "url": "https://www.kleinanzeigen.de/s-anzeige/helle-3-zimmer-wohnung-in-lohnde/3435064449-203-2921",
+      "source": "Kleinanzeigen Seelze 3 Zimmer",
+      "portal": "kleinanzeigen",
+      "price_eur": 600.0,
+      "area_sqm": 80.0,
+      "rooms": 3.0,
+      "location": "30926 Seelze Helle",
+      "floor": "1.og",
+      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/9b/9b8c5c3a-dc5a-4240-be59-6a4c7bfafffb?rule=$_2.AUTO",
+      "status": "review",
+      "reasons": [
+        "kein EG/Parterre: 1.og"
+      ],
+      "review_notes": [],
+      "first_seen": "2026-06-16T14:22:06.114015+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "a58cf2ec63cfe366",
+      "title": "Ansprechende 3 5 Zimmer Wohnung mit Tageslichtbad und Balkon",
+      "url": "https://www.kleinanzeigen.de/s-anzeige/ansprechende-3-5-zimmer-wohnung-mit-tageslichtbad-und-balkon/3421193758-203-2921",
+      "source": "Kleinanzeigen Seelze 3 Zimmer",
+      "portal": "kleinanzeigen",
+      "price_eur": 759.0,
+      "area_sqm": 77.2,
+      "rooms": 3.5,
+      "location": "30926 Seelze Ansprechende",
+      "floor": null,
+      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/da/dada1a0c-d3fd-4996-bc6a-ebbb49555b8c?rule=$_2.AUTO",
+      "status": "match",
+      "reasons": [
+        "3.5 Zimmer",
+        "77.2 qm",
+        "759 EUR"
+      ],
+      "review_notes": [
+        "Etage pruefen"
+      ],
+      "first_seen": "2026-06-16T14:22:06.114015+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "9d300ba06d25b48a",
+      "title": "3 Zimmer Eg Wohnung am Ortsrand mit Garten Pferdehaltung Moegl",
+      "url": "https://www.kleinanzeigen.de/s-anzeige/3-zimmer-eg-wohnung-am-ortsrand-mit-garten-pferdehaltung-moegl-/3430080621-203-2921",
+      "source": "Kleinanzeigen Seelze 3 Zimmer",
+      "portal": "kleinanzeigen",
+      "price_eur": 976.0,
+      "area_sqm": 84.0,
+      "rooms": 3.0,
+      "location": "30926 Seelze",
+      "floor": "eg",
+      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/43/43d331d3-a815-40b1-b8f1-ed650c8e3b2e?rule=$_2.AUTO",
+      "status": "match",
+      "reasons": [
+        "3 Zimmer",
+        "84 qm",
+        "976 EUR",
+        "EG/Parterre-Hinweis gefunden"
+      ],
+      "review_notes": [],
+      "first_seen": "2026-06-16T14:22:06.114015+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "937a736a9dd28161",
+      "title": "Renovierte 3 Zimmer Wohnung mit Gaeste Wc in Harenberg",
+      "url": "https://www.kleinanzeigen.de/s-anzeige/renovierte-3-zimmer-wohnung-mit-gaeste-wc-in-harenberg/3349733687-203-2921",
+      "source": "Kleinanzeigen Seelze 3 Zimmer",
+      "portal": "kleinanzeigen",
+      "price_eur": 850.0,
+      "area_sqm": 87.0,
+      "rooms": 3.0,
+      "location": "30926 Seelze Renovierte",
+      "floor": null,
+      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/a5/a5b13e9f-4e38-4070-8610-ea245c8b46bf?rule=$_2.AUTO",
+      "status": "match",
+      "reasons": [
+        "3 Zimmer",
+        "87 qm",
+        "850 EUR"
+      ],
+      "review_notes": [
+        "Etage pruefen"
+      ],
+      "first_seen": "2026-06-16T14:22:06.114015+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "76d2ef7695ba2613",
+      "title": "Wo Das Leben So Spielt Ruhige 3 Zimmer Wohnung mit Balkon",
+      "url": "https://www.kleinanzeigen.de/s-anzeige/wo-das-leben-so-spielt-ruhige-3-zimmer-wohnung-mit-balkon/3421193556-203-2921",
+      "source": "Kleinanzeigen Seelze 3 Zimmer",
+      "portal": "kleinanzeigen",
+      "price_eur": 728.0,
+      "area_sqm": 72.0,
+      "rooms": 3.0,
+      "location": "30926 Seelze Wo das Leben so spielt - ruhi",
+      "floor": null,
+      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/62/62c2d718-384f-4c4b-850e-49f0beb41c36?rule=$_2.AUTO",
+      "status": "match",
+      "reasons": [
+        "3 Zimmer",
+        "72 qm",
+        "728 EUR"
+      ],
+      "review_notes": [
+        "Etage pruefen"
+      ],
+      "first_seen": "2026-06-16T14:22:06.114015+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "7297956522363c59",
+      "title": "3 Z Wohnung Erdgeschoss Balkon Inkl Garage in Seelze Hannover",
+      "url": "https://www.kleinanzeigen.de/s-anzeige/3-z-wohnung-erdgeschoss-balkon-inkl-garage-in-seelze-hannover-/3429344720-203-2921",
+      "source": "Kleinanzeigen Seelze 3 Zimmer",
+      "portal": "kleinanzeigen",
+      "price_eur": 975.0,
+      "area_sqm": 70.0,
+      "rooms": 3.0,
+      "location": "30926 Seelze",
+      "floor": "erdgeschoss",
+      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/4f/4f4e5471-209c-4a09-9581-6ba766e1c0c8?rule=$_2.AUTO",
+      "status": "match",
+      "reasons": [
+        "3 Zimmer",
+        "70 qm",
+        "975 EUR",
+        "EG/Parterre-Hinweis gefunden"
+      ],
+      "review_notes": [],
+      "first_seen": "2026-06-16T14:22:06.114015+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "70b52a3dd1ffe7aa",
+      "title": "3 Zimmer Wohnung zur Miete",
+      "url": "https://www.kleinanzeigen.de/s-anzeige/3-zimmer-wohnung-zur-miete/3421455261-203-2903",
+      "source": "Kleinanzeigen Gehrden 3 Zimmer",
+      "portal": "kleinanzeigen",
+      "price_eur": 1000.0,
+      "area_sqm": 70.0,
+      "rooms": 3.0,
+      "location": "30989 Gehrden",
+      "floor": null,
+      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/8e/8e0ec1a4-f7dd-4b8a-b1f7-dbde8ac70e4b?rule=$_2.AUTO",
+      "status": "match",
+      "reasons": [
+        "3 Zimmer",
+        "70 qm",
+        "1000 EUR"
+      ],
+      "review_notes": [
+        "Etage pruefen"
+      ],
+      "first_seen": "2026-06-16T14:22:06.114015+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "5e37e9041b107871",
+      "title": "2 und 3 Zimmer Wohnungen in Gehrden Suedbalkon Kfw 40 Neubau",
+      "url": "https://www.kleinanzeigen.de/s-anzeige/2-und-3-zimmer-wohnungen-in-gehrden-suedbalkon-kfw-40-neubau/3426653625-203-2903",
+      "source": "Kleinanzeigen Gehrden 3 Zimmer",
+      "portal": "kleinanzeigen",
+      "price_eur": null,
+      "area_sqm": 85.0,
+      "rooms": 3.0,
+      "location": "30989 Gehrden",
+      "floor": null,
+      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/87/8718e53b-5c50-4176-a788-aabdb6bc710c?rule=$_2.AUTO",
+      "status": "match",
+      "reasons": [
+        "3 Zimmer",
+        "85 qm"
+      ],
+      "review_notes": [
+        "Etage pruefen",
+        "Miete und Nebenkosten pruefen"
+      ],
+      "first_seen": "2026-06-16T14:22:06.114015+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
     },
     {
       "id": "54a481f254d70947",
@@ -558,8 +355,8 @@
       "review_notes": [
         "Etage pruefen"
       ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
+      "first_seen": "2026-06-16T14:22:06.114015+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
     },
     {
       "id": "52169aa9d0a96226",
@@ -582,76 +379,8 @@
       "review_notes": [
         "Etage pruefen"
       ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "4beac5d73d4b572d",
-      "title": "Wohnung zur Miete 3 Zimmer, 72 qm, 1. Geschoss",
-      "url": "https://www.immowelt.de/expose/72a7aefe-51c4-4e23-821c-d80db0a70465",
-      "source": "Immowelt Barsinghausen 3 Zimmer",
-      "portal": "immowelt",
-      "price_eur": 727.0,
-      "area_sqm": 72.0,
-      "rooms": 3.0,
-      "location": null,
-      "floor": "1. geschoss",
-      "image": "https://mms.immowelt.de/a/9/d/1/a9d1ea60-d0aa-4cd5-a9ed-c714b32c0a77.jpg?ci_seal=72128111f13b65a853d4638e292546e08473132c&h=50",
-      "status": "review",
-      "reasons": [
-        "kein EG/Parterre: 1. geschoss"
-      ],
-      "review_notes": [],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "47392491b8de4c1a",
-      "title": "Sanierte 3 Zimmer Wohnung mit Loggia Aufzug Traumhaftem Weitblick in Barsingh Egestorf",
-      "url": "https://www.kleinanzeigen.de/s-anzeige/sanierte-3-zimmer-wohnung-mit-loggia-aufzug-traumhaftem-weitblick-in-barsingh-egestorf/3402468679-203-2862",
-      "source": "Kleinanzeigen Barsinghausen 3 Zimmer",
-      "portal": "kleinanzeigen",
-      "price_eur": 730.0,
-      "area_sqm": 74.51,
-      "rooms": 3.0,
-      "location": "30890 Barsinghausen Sanierte",
-      "floor": null,
-      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/39/39674ee8-fb73-42cd-8c2a-7f70c168acd5?rule=$_2.AUTO",
-      "status": "match",
-      "reasons": [
-        "3 Zimmer",
-        "74.51 qm",
-        "730 EUR"
-      ],
-      "review_notes": [
-        "Etage pruefen"
-      ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "40c7559281958119",
-      "title": "Perfekte Familienwohnung in Barsinghausen Die Heide 71 3 Zimmer Wohnung mit Weitblick",
-      "url": "https://www.kleinanzeigen.de/s-anzeige/perfekte-familienwohnung-in-barsinghausen-die-heide-71-3-zimmer-wohnung-mit-weitblick/3344014570-203-2862",
-      "source": "Kleinanzeigen Barsinghausen 3 Zimmer",
-      "portal": "kleinanzeigen",
-      "price_eur": 690.0,
-      "area_sqm": 78.0,
-      "rooms": 3.0,
-      "location": "30890 Barsinghausen Perfekte Familienwohnu",
-      "floor": null,
-      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/85/85d373a8-d689-4eba-b19a-91ff06ae9538?rule=$_1.AUTO",
-      "status": "match",
-      "reasons": [
-        "3 Zimmer",
-        "78 qm",
-        "690 EUR"
-      ],
-      "review_notes": [
-        "Etage pruefen"
-      ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
+      "first_seen": "2026-06-16T14:22:06.114015+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
     },
     {
       "id": "3e68f5cc62738b8c",
@@ -670,8 +399,8 @@
         "kein EG/Parterre: 1. og"
       ],
       "review_notes": [],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
+      "first_seen": "2026-06-16T14:22:06.114015+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
     },
     {
       "id": "39dd20e28f80c777",
@@ -693,8 +422,8 @@
         "EG/Parterre-Hinweis gefunden"
       ],
       "review_notes": [],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
+      "first_seen": "2026-06-16T14:22:06.114015+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
     },
     {
       "id": "364366aaed753692",
@@ -718,8 +447,8 @@
         "Etage pruefen",
         "nebenkosten pruefen"
       ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
+      "first_seen": "2026-06-16T14:22:06.114015+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
     },
     {
       "id": "33d7ba59b15e47af",
@@ -742,8 +471,8 @@
       "review_notes": [
         "Etage pruefen"
       ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
+      "first_seen": "2026-06-16T14:22:06.114015+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
     },
     {
       "id": "215d89cabc477ebd",
@@ -766,52 +495,8 @@
       "review_notes": [
         "Etage pruefen"
       ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "16561d548ea5a165",
-      "title": "Wohnung zur Miete 3 Zimmer, 117 qm, 1. Geschoss Empelde, Ronnenberg (30952) Empelde: Gepflegte",
-      "url": "https://www.immowelt.de/expose/174c54e9-b985-4e04-8479-97a466a5da30",
-      "source": "Immowelt Barsinghausen 3 Zimmer",
-      "portal": "immowelt",
-      "price_eur": 910.0,
-      "area_sqm": 117.0,
-      "rooms": 3.0,
-      "location": null,
-      "floor": "1. geschoss",
-      "image": "https://mms.immowelt.de/e/7/7/4/e77497b9-5d60-4a1a-aecc-2c05e5e77b3e.jpg?ci_seal=d213ee7a4aaca556dc87309ede86338b75f4e4ef&h=50",
-      "status": "review",
-      "reasons": [
-        "kein EG/Parterre: 1. geschoss"
-      ],
-      "review_notes": [],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
-    },
-    {
-      "id": "1387dfe40f50e2e3",
-      "title": "Wohnung mit Balkon",
-      "url": "https://www.immowelt.de/expose/8e294093-346c-44a9-8967-daa3ebb898b7",
-      "source": "Immobilo Seelze 3 Zimmer",
-      "portal": "immowelt",
-      "price_eur": 715.38,
-      "area_sqm": null,
-      "rooms": 3.0,
-      "location": "30926 Seelze",
-      "floor": null,
-      "image": null,
-      "status": "match",
-      "reasons": [
-        "3 Zimmer",
-        "715.38 EUR"
-      ],
-      "review_notes": [
-        "Etage pruefen",
-        "Wohnflaeche pruefen"
-      ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
+      "first_seen": "2026-06-16T14:22:06.114015+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
     },
     {
       "id": "0c789e481a4c1229",
@@ -834,8 +519,323 @@
       "review_notes": [
         "Etage pruefen"
       ],
-      "first_seen": "2026-06-16T19:39:42.851538+00:00",
-      "last_seen": "2026-06-16T19:39:42.851538+00:00"
+      "first_seen": "2026-06-16T14:22:06.114015+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "ddc872ce04381a24",
+      "title": "Attraktive 3 Zimmer Wohnung mit Weitblick in Zentraler Lage von Barsinghausen",
+      "url": "https://www.kleinanzeigen.de/s-anzeige/attraktive-3-zimmer-wohnung-mit-weitblick-in-zentraler-lage-von-barsinghausen/3419834797-203-2862",
+      "source": "Kleinanzeigen Barsinghausen 3 Zimmer",
+      "portal": "kleinanzeigen",
+      "price_eur": 990.0,
+      "area_sqm": 90.0,
+      "rooms": 3.0,
+      "location": "30890 Barsinghausen Attraktive",
+      "floor": null,
+      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/78/78119244-b0a9-44ad-8c71-84d1fb38da97?rule=$_2.AUTO",
+      "status": "match",
+      "reasons": [
+        "3 Zimmer",
+        "90 qm",
+        "990 EUR"
+      ],
+      "review_notes": [
+        "Etage pruefen"
+      ],
+      "first_seen": "2026-06-16T13:50:26.504416+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "bd6f99e0c74fd8a7",
+      "title": "4 Zimmer Wohnung 3 Etage 92 Qm Fahrstuhl Balkon",
+      "url": "https://www.kleinanzeigen.de/s-anzeige/4-zimmer-wohnung-3-etage-92-qm-fahrstuhl-balkon/3435555096-203-2862",
+      "source": "Kleinanzeigen Barsinghausen 3 Zimmer",
+      "portal": "kleinanzeigen",
+      "price_eur": 920.0,
+      "area_sqm": 92.0,
+      "rooms": 4.0,
+      "location": "30890 Barsinghausen",
+      "floor": null,
+      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/a9/a99ace5d-4639-499c-83cd-6ddd3da13057?rule=$_2.AUTO",
+      "status": "match",
+      "reasons": [
+        "4 Zimmer",
+        "92 qm",
+        "920 EUR"
+      ],
+      "review_notes": [
+        "Etage pruefen"
+      ],
+      "first_seen": "2026-06-16T13:50:26.504416+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "6b2a66fa75be9009",
+      "title": "3 5 Zi Nichtraucherwhg mit Gr Balkon Einbaukueche",
+      "url": "https://www.kleinanzeigen.de/s-anzeige/3-5-zi-nichtraucherwhg-mit-gr-balkon-einbaukueche/3390551070-203-2862",
+      "source": "Kleinanzeigen Barsinghausen 3 Zimmer",
+      "portal": "kleinanzeigen",
+      "price_eur": 990.0,
+      "area_sqm": 110.0,
+      "rooms": 3.5,
+      "location": "30890 Barsinghausen",
+      "floor": "1.og",
+      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/42/427b6afa-52aa-4a9e-a0a6-74c4a81a508f?rule=$_2.AUTO",
+      "status": "review",
+      "reasons": [
+        "kein EG/Parterre: 1.og"
+      ],
+      "review_notes": [],
+      "first_seen": "2026-06-16T13:50:26.504416+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "47392491b8de4c1a",
+      "title": "Sanierte 3 Zimmer Wohnung mit Loggia Aufzug Traumhaftem Weitblick in Barsingh Egestorf",
+      "url": "https://www.kleinanzeigen.de/s-anzeige/sanierte-3-zimmer-wohnung-mit-loggia-aufzug-traumhaftem-weitblick-in-barsingh-egestorf/3402468679-203-2862",
+      "source": "Kleinanzeigen Barsinghausen 3 Zimmer",
+      "portal": "kleinanzeigen",
+      "price_eur": 730.0,
+      "area_sqm": 74.51,
+      "rooms": 3.0,
+      "location": "30890 Barsinghausen Sanierte",
+      "floor": null,
+      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/39/39674ee8-fb73-42cd-8c2a-7f70c168acd5?rule=$_2.AUTO",
+      "status": "match",
+      "reasons": [
+        "3 Zimmer",
+        "74.51 qm",
+        "730 EUR"
+      ],
+      "review_notes": [
+        "Etage pruefen"
+      ],
+      "first_seen": "2026-06-16T13:50:26.504416+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "40c7559281958119",
+      "title": "Perfekte Familienwohnung in Barsinghausen Die Heide 71 3 Zimmer Wohnung mit Weitblick",
+      "url": "https://www.kleinanzeigen.de/s-anzeige/perfekte-familienwohnung-in-barsinghausen-die-heide-71-3-zimmer-wohnung-mit-weitblick/3344014570-203-2862",
+      "source": "Kleinanzeigen Barsinghausen 3 Zimmer",
+      "portal": "kleinanzeigen",
+      "price_eur": 690.0,
+      "area_sqm": 78.0,
+      "rooms": 3.0,
+      "location": "30890 Barsinghausen Perfekte Familienwohnu",
+      "floor": null,
+      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/85/85d373a8-d689-4eba-b19a-91ff06ae9538?rule=$_1.AUTO",
+      "status": "match",
+      "reasons": [
+        "3 Zimmer",
+        "78 qm",
+        "690 EUR"
+      ],
+      "review_notes": [
+        "Etage pruefen"
+      ],
+      "first_seen": "2026-06-16T13:50:26.504416+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "e4ad55637515d10e",
+      "title": "Wohnung in Seelze",
+      "url": "https://www.immowelt.de/expose/a08ad840-bc16-4801-aa81-50ecba610cf1",
+      "source": "Immobilo Seelze 3 Zimmer",
+      "portal": "immowelt",
+      "price_eur": 635.39,
+      "area_sqm": null,
+      "rooms": 3.0,
+      "location": "30926 Seelze",
+      "floor": null,
+      "image": null,
+      "status": "match",
+      "reasons": [
+        "3 Zimmer",
+        "635.39 EUR"
+      ],
+      "review_notes": [
+        "Etage pruefen",
+        "Wohnflaeche pruefen"
+      ],
+      "first_seen": "2026-06-16T07:37:14.605931+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "bd780341c0d19730",
+      "title": "Wohnung zur Miete 3 Zimmer, 78 qm, Geschoss 3/3",
+      "url": "https://www.immowelt.de/expose/26yymgwzmldu",
+      "source": "Immowelt Region Hannover 3 Zimmer",
+      "portal": "immowelt",
+      "price_eur": 700.0,
+      "area_sqm": 78.0,
+      "rooms": 3.0,
+      "location": "30890 Barsinghausen",
+      "floor": "3. geschoss",
+      "image": "https://mms.immowelt.de/0/3/f/c/03fcc1d6-9d28-4d02-bfed-8b000bc0e26d.jpg?ci_seal=426c43870ef4f531de0dfd654c45b30c18726714&w=525&h=394",
+      "status": "review",
+      "reasons": [
+        "kein EG/Parterre: 3. geschoss"
+      ],
+      "review_notes": [],
+      "first_seen": "2026-06-16T07:37:14.605931+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "951a576440a61792",
+      "title": "Wohnung - Nähe Bahnhof Barsinghausen",
+      "url": "https://www.immowelt.de/expose/a69d801b-7125-4757-96e1-9ff804002062",
+      "source": "Immobilo Barsinghausen 3 Zimmer",
+      "portal": "immowelt",
+      "price_eur": 684.0,
+      "area_sqm": null,
+      "rooms": 3.0,
+      "location": "30890 Barsinghausen",
+      "floor": null,
+      "image": null,
+      "status": "match",
+      "reasons": [
+        "3 Zimmer",
+        "684 EUR"
+      ],
+      "review_notes": [
+        "Etage pruefen",
+        "Wohnflaeche pruefen"
+      ],
+      "first_seen": "2026-06-16T07:37:14.605931+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "7fe05dffb699b575",
+      "title": "Wohnung mit fantastischem Ausblick",
+      "url": "https://www.immowelt.de/expose/26xntsmfhqba",
+      "source": "Immobilo Barsinghausen 3 Zimmer",
+      "portal": "immowelt",
+      "price_eur": 550.0,
+      "area_sqm": null,
+      "rooms": 3.0,
+      "location": "30890 Barsinghausen",
+      "floor": null,
+      "image": null,
+      "status": "match",
+      "reasons": [
+        "3 Zimmer",
+        "550 EUR"
+      ],
+      "review_notes": [
+        "Etage pruefen",
+        "Wohnflaeche pruefen"
+      ],
+      "first_seen": "2026-06-16T07:37:14.605931+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "5bf0e56ac407c37b",
+      "title": "Wohnung zur Miete 3 Zimmer, 74,5 qm, 5. Geschoss Egestorf, Barsinghausen / Egestorf am Deiste",
+      "url": "https://www.immowelt.de/expose/3a096ce6-6ca9-4a11-9a49-a7420aa6c4b2",
+      "source": "Immowelt Barsinghausen 3 Zimmer",
+      "portal": "immowelt",
+      "price_eur": 730.0,
+      "area_sqm": 74.5,
+      "rooms": 3.0,
+      "location": null,
+      "floor": "5. geschoss",
+      "image": "https://mms.immowelt.de/c/d/f/f/cdffc168-79ae-4898-ad31-bdf725d275be.jpg?ci_seal=4d4fa82b39848af84fbe7efdb27bdfe3ae469976&h=50",
+      "status": "review",
+      "reasons": [
+        "kein EG/Parterre: 5. geschoss"
+      ],
+      "review_notes": [],
+      "first_seen": "2026-06-16T07:37:14.605931+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "4beac5d73d4b572d",
+      "title": "Wohnung zur Miete 3 Zimmer, 72 qm, 1. Geschoss",
+      "url": "https://www.immowelt.de/expose/72a7aefe-51c4-4e23-821c-d80db0a70465",
+      "source": "Immowelt Barsinghausen 3 Zimmer",
+      "portal": "immowelt",
+      "price_eur": 727.0,
+      "area_sqm": 72.0,
+      "rooms": 3.0,
+      "location": null,
+      "floor": "1. geschoss",
+      "image": "https://mms.immowelt.de/a/9/d/1/a9d1ea60-d0aa-4cd5-a9ed-c714b32c0a77.jpg?ci_seal=72128111f13b65a853d4638e292546e08473132c&h=50",
+      "status": "review",
+      "reasons": [
+        "kein EG/Parterre: 1. geschoss"
+      ],
+      "review_notes": [],
+      "first_seen": "2026-06-16T07:37:14.605931+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "16561d548ea5a165",
+      "title": "Wohnung zur Miete 3 Zimmer, 117 qm, 1. Geschoss Empelde, Ronnenberg (30952) Empelde: Gepflegte",
+      "url": "https://www.immowelt.de/expose/174c54e9-b985-4e04-8479-97a466a5da30",
+      "source": "Immowelt Barsinghausen 3 Zimmer",
+      "portal": "immowelt",
+      "price_eur": 910.0,
+      "area_sqm": 117.0,
+      "rooms": 3.0,
+      "location": null,
+      "floor": "1. geschoss",
+      "image": "https://mms.immowelt.de/e/7/7/4/e77497b9-5d60-4a1a-aecc-2c05e5e77b3e.jpg?ci_seal=d213ee7a4aaca556dc87309ede86338b75f4e4ef&h=50",
+      "status": "review",
+      "reasons": [
+        "kein EG/Parterre: 1. geschoss"
+      ],
+      "review_notes": [],
+      "first_seen": "2026-06-16T07:37:14.605931+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "1387dfe40f50e2e3",
+      "title": "Wohnung mit Balkon",
+      "url": "https://www.immowelt.de/expose/8e294093-346c-44a9-8967-daa3ebb898b7",
+      "source": "Immobilo Seelze 3 Zimmer",
+      "portal": "immowelt",
+      "price_eur": 715.38,
+      "area_sqm": null,
+      "rooms": 3.0,
+      "location": "30926 Seelze",
+      "floor": null,
+      "image": null,
+      "status": "match",
+      "reasons": [
+        "3 Zimmer",
+        "715.38 EUR"
+      ],
+      "review_notes": [
+        "Etage pruefen",
+        "Wohnflaeche pruefen"
+      ],
+      "first_seen": "2026-06-16T07:37:14.605931+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+    },
+    {
+      "id": "836726824ec5c8aa",
+      "title": "Wohnung zur Miete 3 Zimmer, 100,3 qm, EG",
+      "url": "https://www.immowelt.de/expose/523021a0-bc7a-46cb-9716-6377cbcaf7fb",
+      "source": "Immowelt Barsinghausen 3 Zimmer",
+      "portal": "immowelt",
+      "price_eur": 959.0,
+      "area_sqm": 100.3,
+      "rooms": 3.0,
+      "location": null,
+      "floor": "eg",
+      "image": "https://mms.immowelt.de/f/5/3/3/f53301a8-30cc-43a4-8a0a-e7ec4b08924a.jpg?ci_seal=854d270ee31e22017a0a85dda94397a9a0e3f6a8&h=50",
+      "status": "match",
+      "reasons": [
+        "3 Zimmer",
+        "100.3 qm",
+        "959 EUR",
+        "EG/Parterre-Hinweis gefunden"
+      ],
+      "review_notes": [],
+      "first_seen": "2026-06-16T07:18:23.368301+00:00",
+      "last_seen": "2026-06-16T19:55:44.432712+00:00"
     }
   ]
 }
