@@ -61,8 +61,10 @@ def main(argv: list[str] | None = None) -> int:
             elif should_include_floor_review(result, criteria):
                 floor_review_matches.append((listing, result))
 
-    all_matches = dedupe_matches(all_matches)
-    floor_review_matches = dedupe_matches(floor_review_matches)
+    all_matches, floor_review_matches = dedupe_report_matches(
+        all_matches,
+        floor_review_matches,
+    )
     markdown = format_report(all_matches, floor_review_matches, errors)
     print_markdown(markdown)
     append_step_summary(markdown)
@@ -155,6 +157,15 @@ def dedupe_matches(
             item[0].title,
         ),
     )
+
+
+def dedupe_report_matches(
+    matches: list[tuple[Listing, MatchResult]],
+    floor_review_matches: list[tuple[Listing, MatchResult]],
+) -> tuple[list[tuple[Listing, MatchResult]], list[tuple[Listing, MatchResult]]]:
+    floor_review_ids = {listing.id for listing, _ in floor_review_matches}
+    exact_matches = [item for item in matches if item[0].id not in floor_review_ids]
+    return dedupe_matches(exact_matches), dedupe_matches(floor_review_matches)
 
 
 def should_include_floor_review(result: MatchResult, criteria: dict) -> bool:

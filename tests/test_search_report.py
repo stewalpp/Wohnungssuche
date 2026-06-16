@@ -2,7 +2,7 @@ import unittest
 
 from wohnungssuche.filters import MatchResult
 from wohnungssuche.models import Listing
-from wohnungssuche.search import format_listing, should_fail_run
+from wohnungssuche.search import dedupe_report_matches, format_listing, should_fail_run
 
 
 class SearchReportTests(unittest.TestCase):
@@ -38,6 +38,38 @@ class SearchReportTests(unittest.TestCase):
     def test_partial_source_errors_do_not_fail_run(self):
         self.assertFalse(should_fail_run(["Immowelt: 403"], successful_sources=1))
         self.assertTrue(should_fail_run(["Immowelt: 403"], successful_sources=0))
+
+    def test_floor_review_duplicate_wins_over_exact_match(self):
+        exact_listing = Listing(
+            source_name="test",
+            title="3 Zimmer Wohnung",
+            url="https://example.test/listing",
+            text="3 Zimmer 80 qm 900 EUR Barsinghausen",
+        )
+        floor_review_listing = Listing(
+            source_name="test",
+            title="3 Zimmer Wohnung im 1. OG",
+            url="https://example.test/listing",
+            text="3 Zimmer 80 qm 900 EUR 1. OG Barsinghausen",
+        )
+
+        exact, floor_review = dedupe_report_matches(
+            [
+                (
+                    exact_listing,
+                    MatchResult(True, ["3 Zimmer", "80 qm", "900 EUR"], ["Etage pruefen"]),
+                )
+            ],
+            [
+                (
+                    floor_review_listing,
+                    MatchResult(False, ["kein EG/Parterre: 1. og"], []),
+                )
+            ],
+        )
+
+        self.assertEqual(exact, [])
+        self.assertEqual([listing.id for listing, _ in floor_review], [floor_review_listing.id])
 
 
 if __name__ == "__main__":

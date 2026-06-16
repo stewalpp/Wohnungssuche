@@ -19,10 +19,13 @@ ROOMS_RE = re.compile(
     re.IGNORECASE,
 )
 FLOOR_TERM_RE = re.compile(
-    r"\b(eg|erdgeschoss|parterre|hochparterre|souterrain|dg|dachgeschoss|\d+\.\s*geschoss)\b",
+    r"\b(eg|erdgeschoss|parterre|hochparterre|souterrain|dg|dachgeschoss|\d+\.?\s*(?:geschoss|og|stock))\b",
     re.IGNORECASE,
 )
-FLOOR_AFTER_WORD_RE = re.compile(r"\bgeschoss\s*(\d+)(?:\s*/\s*\d+)?\b", re.IGNORECASE)
+FLOOR_AFTER_WORD_RE = re.compile(
+    r"\b(?:geschoss|og|stock)\s*(\d+)(?:\s*/\s*\d+)?\b",
+    re.IGNORECASE,
+)
 LOCATION_RE = re.compile(
     r"\b(30\d{3}|31\d{3})\s+([A-ZÄÖÜ][A-Za-zÄÖÜäöüß\-\s]{2,35})"
 )

@@ -99,3 +99,23 @@ sources:
     enabled: true
     type: html
     url: https://www.kleinanzeigen.de/s-wohnung-mieten/barsinghausen/3-zimmer-wohnung/k0c203l2858
+
+  - name: Kleinanzeigen Gehrden 3 Zimmer
+    enabled: true
+    type: html
+    url: https://www.kleinanzeigen.de/s-wohnung-mieten/gehrden/3-zimmer-wohnung/k0c203l14210
+
+  - name: Kleinanzeigen Wennigsen 3 Zimmer
+    enabled: true
+    type: html
+    url: https://www.kleinanzeigen.de/s-wohnung-mieten/wennigsen/3-zimmer-wohnung/k0c203l14212
+
+  - name: Kleinanzeigen Ronnenberg 3 Zimmer
+    enabled: true
+    type: html
+    url: https://www.kleinanzeigen.de/s-wohnung-mieten/ronnenberg/3-zimmer-wohnung/k0c203l2902
+
+  - name: Kleinanzeigen Seelze 3 Zimmer
+    enabled: true
+    type: html
+    url: https://www.kleinanzeigen.de/s-wohnung-mieten/seelze/3-zimmer-wohnung/k0c203l2920

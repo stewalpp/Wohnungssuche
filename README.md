@@ -72,6 +72,11 @@ Suchseiten, auf denen die Portalfilter schon gesetzt sind:
   Winninghausen, plus angrenzende Orte wie Gehrden, Wennigsen,
   Ronnenberg/Empelde und Seelze/Letter
 
+Wichtig bei manuellen Suchlaeufen in GitHub Actions: `Run workflow` startet
+immer den aktuellen Stand von `main`. `Re-run jobs` startet dagegen den alten
+Code des bereits vorhandenen Laufs erneut und kann deshalb alte Uhrzeiten oder
+alte Suchquellen anzeigen.
+
 Wenn ein Portal RSS anbietet, setze `type: rss`. Fuer normale Suchseiten
 nutze `type: html`. Bereits gezeigte Inserate koennen durch Loeschen des
 jeweiligen Eintrags in `data/seen_listings.json` erneut angezeigt werden.

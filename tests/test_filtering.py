@@ -43,6 +43,8 @@ class FilteringTests(unittest.TestCase):
         self.assertEqual(parse_rooms(text), 3)
         self.assertEqual(parse_area(text), 70.6)
         self.assertEqual(parse_floor("Geschoss 6/7"), "6. geschoss")
+        self.assertEqual(parse_floor("im 1. OG mit Balkon"), "1. og")
+        self.assertEqual(parse_floor("2 Stock"), "2 stock")
 
     def test_parse_price_after_image_counter(self):
         self.assertEqual(parse_price("1 / 9 800 EUR Kaltmiete"), 800)
