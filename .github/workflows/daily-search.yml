@@ -2,7 +2,7 @@ name: Apartment search
 
 on:
   schedule:
-    - cron: "30 5,10,16 * * *"
+    - cron: "30 5,10,16,18 * * *"
   workflow_dispatch:
 
 permissions:
