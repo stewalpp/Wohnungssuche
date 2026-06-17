@@ -27,6 +27,12 @@ def send_search_notifications(
     if sms_result:
         results.append(sms_result)
 
+    ntfy_result = try_delivery(
+        "ntfy", lambda: send_ntfy(exact_matches, review_candidates, issue_url)
+    )
+    if ntfy_result:
+        results.append(ntfy_result)
+
     return results
 
 
@@ -111,6 +117,49 @@ def send_sms(body: str) -> str | None:
     return f"SMS gesendet an {mask_phone(to_number)}"
 
 
+def send_ntfy(
+    exact_matches: int, review_candidates: int, issue_url: str | None = None
+) -> str | None:
+    """Free instant push via ntfy.sh (or a self-hosted server).
+
+    Sends only when NTFY_TOPIC is set. The topic is the only access control, so
+    it should be long/unguessable. Header values stay ASCII; the body is UTF-8.
+    """
+    topic = os.environ.get("NTFY_TOPIC")
+    if not topic or not topic.strip():
+        return None
+    topic = topic.strip()
+    server = (os.environ.get("NTFY_SERVER") or "https://ntfy.sh").rstrip("/")
+
+    lines: list[str] = []
+    if exact_matches:
+        lines.append(f"{exact_matches} neue passende Wohnung(en)")
+    if review_candidates:
+        lines.append(f"{review_candidates} Pruefkandidat(en) zum Pruefen")
+    body = "\n".join(lines) or "Neue Suchergebnisse"
+
+    headers = {
+        "Title": "Wohnungssuche: neue Treffer",  # header values must stay ASCII
+        "Priority": "high",
+        "Tags": "house",
+        "User-Agent": "wohnungssuche-bot",
+    }
+    click = os.environ.get("NTFY_CLICK") or issue_url
+    if click:
+        headers["Click"] = click
+
+    request = urllib.request.Request(
+        f"{server}/{urllib.parse.quote(topic)}",
+        data=body.encode("utf-8"),
+        method="POST",
+        headers=headers,
+    )
+    with urllib.request.urlopen(request, timeout=30) as response:
+        response.read()
+
+    return f"ntfy gesendet (Topic {mask_topic(topic)})"
+
+
 def env_bool(name: str, *, default: bool) -> bool:
     value = os.environ.get(name)
     if value is None or not value.strip():
@@ -138,3 +187,7 @@ def mask_phone(value: str) -> str:
     if len(digits) <= 4:
         return "***"
     return f"***{digits[-4:]}"
+
+
+def mask_topic(value: str) -> str:
+    return f"{value[:6]}***" if len(value) > 6 else "***"
