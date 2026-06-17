@@ -107,7 +107,8 @@
     var c = meta.counts || {};
     dataCard.appendChild(kv('Wohnungen im Feed', String(c.total != null ? c.total : Feed.getListings().length)));
     dataCard.appendChild(kv('Davon „Passt"', String(c.match != null ? c.match : '–')));
-    dataCard.appendChild(kv('Zuletzt aktualisiert', meta.generated_at ? App.fmtDateTime(meta.generated_at) : 'unbekannt'));
+    dataCard.appendChild(kv('Datenstand', meta.generated_at ? App.fmtDateTime(meta.generated_at) : 'unbekannt'));
+    if (meta.lastFetched) dataCard.appendChild(kv('Zuletzt geprüft', App.fmtDateTime(meta.lastFetched)));
     if (meta.lastError) dataCard.appendChild(kv('Hinweis', 'Letzter Abruf fehlgeschlagen', 'warn'));
     var refresh = App.el('button', 'btn btn-secondary', 'Jetzt aktualisieren');
     refresh.type = 'button';
@@ -116,7 +117,7 @@
       refresh.disabled = true;
       refresh.textContent = 'Aktualisiere …';
       Feed.refresh().then(function (res) {
-        App.toast(res.ok ? (res.changed ? 'Neue Daten geladen' : 'Bereits aktuell') : 'Abruf fehlgeschlagen – keine Verbindung');
+        App.toast(App.refreshToastText ? App.refreshToastText(res) : (res.ok ? 'Liste geprüft' : 'Abruf fehlgeschlagen – keine Verbindung'));
         render(container);
       });
     });

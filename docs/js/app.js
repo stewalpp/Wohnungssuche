@@ -55,19 +55,42 @@
     if (App.currentTab === 'dashboard' || App.currentTab === 'listings' || App.currentTab === 'favorites') {
       var btn = App.el('button', 'icon-btn');
       btn.type = 'button';
-      btn.setAttribute('aria-label', 'Aktualisieren');
+      btn.setAttribute('aria-label', 'Wohnungsliste aktualisieren');
+      btn.title = 'Wohnungsliste aktualisieren';
       btn.appendChild(App.icon('refresh', 20));
       btn.addEventListener('click', function () {
+        btn.disabled = true;
+        btn.setAttribute('aria-busy', 'true');
         btn.classList.add('spinning');
         Feed.refresh().then(function (res) {
           btn.classList.remove('spinning');
-          if (!res.ok) App.toast('Keine Verbindung – gespeicherte Liste');
-          else App.toast(res.changed ? 'Aktualisiert' : 'Bereits aktuell');
+          btn.disabled = false;
+          btn.removeAttribute('aria-busy');
+          App.rerender();
+          App.toast(refreshToastText(res));
         });
       });
       actions.appendChild(btn);
     }
   }
+
+  function refreshToastText(res) {
+    if (!res || !res.ok) return 'Keine Verbindung – gespeicherte Liste bleibt sichtbar';
+    if (res.changed) return 'Neue Daten geladen';
+    var meta = Feed.getMeta();
+    var stamp = meta.generated_at ? App.fmtDateTime(meta.generated_at) : (meta.lastFetched ? App.fmtDateTime(meta.lastFetched) : '');
+    return stamp ? 'Liste geprüft · Stand ' + stamp : 'Liste geprüft';
+  }
+
+  App.refreshToastText = refreshToastText;
+
+  App.refreshFeedNow = function () {
+    return Feed.refresh().then(function (res) {
+      App.rerender();
+      App.toast(refreshToastText(res));
+      return res;
+    });
+  };
 
   /* ---------------- "new since last visit" ---------------- */
 

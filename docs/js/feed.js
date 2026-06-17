@@ -28,7 +28,7 @@
       var raw = localStorage.getItem(LS_FEED);
       if (!raw) return null;
       var v = JSON.parse(raw);
-      return v && Array.isArray(v.listings) ? v : null;
+      return normalize(v);
     } catch (e) { return null; }
   }
 
