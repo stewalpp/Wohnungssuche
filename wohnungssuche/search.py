@@ -78,6 +78,13 @@ def main(argv: list[str] | None = None) -> int:
             already_seen = is_seen(state, listing)
             if already_seen:
                 if result.accepted or should_include_floor_review(result, criteria):
+                    # Capture cost fields (Nebenkosten/Warmmiete) for listings that
+                    # were first recorded before we parsed them: enrich once from
+                    # the detail page, then the seen-state remembers it.
+                    seen_entry = state.get("seen", {}).get(listing.id, {})
+                    if not has_cost_data(seen_entry) and not seen_entry.get("cost_checked"):
+                        listing = enrich_listing_from_detail_page(listing)
+                        result = evaluate_listing(listing, criteria)
                     feed_candidates.append((listing, feed_result(result, criteria)))
                 continue
 
@@ -283,6 +290,14 @@ def should_fetch_detail_page(result: MatchResult, criteria: dict) -> bool:
     return should_include_floor_review(result, criteria)
 
 
+def has_cost_data(entry: dict) -> bool:
+    """Whether the seen-state entry already has a parsed cost figure."""
+    return any(
+        entry.get(key) is not None
+        for key in ("kaltmiete_eur", "nebenkosten_eur", "heizkosten_eur", "warmmiete_eur")
+    )
+
+
 def enrich_listing_from_detail_page(listing: Listing) -> Listing:
     if not listing.url:
         return listing
@@ -301,18 +316,28 @@ def enrich_listing_from_detail_page(listing: Listing) -> Listing:
 
 
 def merge_listing_details(original: Listing, detail: Listing) -> Listing:
+    def prefer(detail_value, original_value):
+        return detail_value if detail_value is not None else original_value
+
     return Listing(
         source_name=original.source_name,
         title=best_title(original.title, detail.title),
         url=original.url,
         text=" ".join([original.text, detail.text]),
-        price_eur=detail.price_eur if detail.price_eur is not None else original.price_eur,
-        area_sqm=detail.area_sqm if detail.area_sqm is not None else original.area_sqm,
-        rooms=detail.rooms if detail.rooms is not None else original.rooms,
+        price_eur=prefer(detail.price_eur, original.price_eur),
+        area_sqm=prefer(detail.area_sqm, original.area_sqm),
+        rooms=prefer(detail.rooms, original.rooms),
         location=detail.location or original.location,
         floor=detail.floor or original.floor,
         published=original.published or detail.published,
         image=detail.image or original.image,
+        images=detail.images or original.images,
+        # Cost fields parsed from the (richer) detail-page text must survive the
+        # merge — otherwise stated Nebenkosten/Warmmiete are silently dropped.
+        kaltmiete_eur=prefer(detail.kaltmiete_eur, original.kaltmiete_eur),
+        nebenkosten_eur=prefer(detail.nebenkosten_eur, original.nebenkosten_eur),
+        heizkosten_eur=prefer(detail.heizkosten_eur, original.heizkosten_eur),
+        warmmiete_eur=prefer(detail.warmmiete_eur, original.warmmiete_eur),
     )
 
 

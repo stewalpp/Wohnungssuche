@@ -83,6 +83,9 @@ def record_listings(
         set_if_present(entry, "nebenkosten_eur", listing.nebenkosten_eur)
         set_if_present(entry, "heizkosten_eur", listing.heizkosten_eur)
         set_if_present(entry, "warmmiete_eur", listing.warmmiete_eur)
+        # Mark that we've attempted to capture cost data, so already-seen listings
+        # aren't re-fetched from their detail page on every run.
+        entry["cost_checked"] = True
         entry["match_status"] = MATCH_STATUS if result.accepted else REVIEW_STATUS
         entry["reasons"] = list(result.reasons)
         entry["review_notes"] = list(result.review_notes)
