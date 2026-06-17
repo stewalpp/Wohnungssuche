@@ -158,6 +158,11 @@ def parse_cost_fields(text: str) -> dict[str, float | None]:
         if best_field not in chosen_dist or best_dist < chosen_dist[best_field]:
             result[best_field] = value
             chosen_dist[best_field] = best_dist
+
+    # Sanity: a Warmmiete below the Kaltmiete is impossible (warm = cold + extras),
+    # so a "warm" amount that lost the label tug-of-war is a mis-assignment — drop it.
+    if result["warm"] is not None and result["kalt"] is not None and result["warm"] < result["kalt"]:
+        result["warm"] = None
     return result
 
 

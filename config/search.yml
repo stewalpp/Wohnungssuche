@@ -135,9 +135,13 @@ sources:
     url: https://www.immobilienscout24.de/Suche/de/niedersachsen/hannover/3-zimmer-wohnung-mieten
 
   - name: ImmoScout24 Hannover-Kreis bis 1000 warm
-    enabled: true
+    # Disabled: ImmoScout's AWS WAF blocks GitHub Actions datacenter IPs even via
+    # a headless browser (HTTP 401 challenge). The render path stays in the code;
+    # re-enable (enabled: true) only together with a residential proxy + the
+    # "playwright install chromium" workflow step.
+    enabled: false
     type: html
-    render: true   # JS anti-bot wall (AWS WAF) -> load via headless browser
+    render: true
     url: https://www.immobilienscout24.de/Suche/de/niedersachsen/hannover-kreis/wohnung-bis-1000-euro-warm
 
   - name: Kleinanzeigen Barsinghausen 3 Zimmer

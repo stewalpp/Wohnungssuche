@@ -445,6 +445,10 @@
     else if (warmReal != null && price != null && Math.abs(price - warmReal) < 1) kalt = null;
     else kalt = price;
 
+    // A stated Warmmiete below the Kaltmiete is impossible (warm = cold + extras)
+    // and indicates a mis-parsed figure — ignore it and compute from real parts.
+    if (warmReal != null && kalt != null && warmReal < kalt) warmReal = null;
+
     // Warmmiete: a stated value wins; otherwise only computed from REAL parts.
     var warm = null, warmStated = false;
     if (warmReal != null) { warm = warmReal; warmStated = true; }

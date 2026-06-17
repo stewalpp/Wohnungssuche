@@ -64,6 +64,12 @@ class CostLabelParsingTests(unittest.TestCase):
         self.assertIsNone(parse_kaltmiete(text))
         self.assertEqual(parse_nebenkosten(text), 180.0)
 
+    def test_warmmiete_below_kaltmiete_is_dropped(self):
+        # warm < kalt is impossible -> the mis-assigned warm figure is discarded.
+        text = "Kaltmiete 1.000 € Warmmiete 700 €"
+        self.assertEqual(parse_kaltmiete(text), 1000.0)
+        self.assertIsNone(parse_warmmiete(text))
+
     def test_no_amount(self):
         self.assertIsNone(parse_warmmiete("Warmmiete auf Anfrage"))
         self.assertIsNone(parse_nebenkosten("Nebenkosten nicht enthalten"))
