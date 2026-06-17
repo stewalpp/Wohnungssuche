@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-06-17T16:10:36+02:00",
+  "generated_at": "2026-06-17T16:20:26+02:00",
   "criteria": {
     "min_rooms": 3,
     "min_area_sqm": 70,
@@ -8,8 +8,8 @@
   },
   "counts": {
     "total": 26,
-    "match": 4,
-    "review": 22
+    "match": 2,
+    "review": 24
   },
   "listings": [
     {
@@ -27,20 +27,17 @@
       "images": [
         "https://img.kleinanzeigen.de/api/v1/prod-ads/images/54/54b7b7d6-5ede-4f62-a49d-86f16e6d3235?rule=$_2.AUTO"
       ],
-      "kaltmiete_eur": null,
-      "nebenkosten_eur": null,
+      "kaltmiete_eur": 790.0,
+      "nebenkosten_eur": 185.0,
       "heizkosten_eur": null,
       "warmmiete_eur": null,
-      "status": "match",
+      "status": "review",
       "reasons": [
-        "3.5 Zimmer",
-        "93 qm",
-        "790 EUR",
-        "EG/Parterre-Hinweis gefunden"
+        "ausgeschlossen: dachgeschoss, souterrain, gesuch"
       ],
       "review_notes": [],
       "first_seen": "2026-06-16T20:46:37.260643+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "c2c2c7eac5fc9a6d",
@@ -73,7 +70,7 @@
         "Etage pruefen"
       ],
       "first_seen": "2026-06-16T19:55:44.432689+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "f55db252a3513486",
@@ -102,7 +99,7 @@
         "Wohnflaeche pruefen"
       ],
       "first_seen": "2026-06-16T14:48:24.184659+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "e323ed49690006ce",
@@ -133,7 +130,7 @@
         "Etage pruefen"
       ],
       "first_seen": "2026-06-16T14:48:24.184659+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "a241235bb7d9431c",
@@ -172,26 +169,22 @@
       "area_sqm": 70.0,
       "rooms": 3.0,
       "location": "30989 Gehrden",
-      "floor": null,
+      "floor": "hochparterre",
       "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/8e/8e0ec1a4-f7dd-4b8a-b1f7-dbde8ac70e4b?rule=$_2.AUTO",
       "images": [
         "https://img.kleinanzeigen.de/api/v1/prod-ads/images/8e/8e0ec1a4-f7dd-4b8a-b1f7-dbde8ac70e4b?rule=$_2.AUTO"
       ],
-      "kaltmiete_eur": null,
-      "nebenkosten_eur": null,
-      "heizkosten_eur": null,
-      "warmmiete_eur": null,
+      "kaltmiete_eur": 700.0,
+      "nebenkosten_eur": 100.0,
+      "heizkosten_eur": 150.0,
+      "warmmiete_eur": 700.0,
       "status": "review",
       "reasons": [
-        "3 Zimmer",
-        "70 qm",
-        "1000 EUR"
+        "ausgeschlossen: dachgeschoss, souterrain"
       ],
-      "review_notes": [
-        "Etage pruefen"
-      ],
+      "review_notes": [],
       "first_seen": "2026-06-16T14:22:06.114015+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "5e37e9041b107871",
@@ -199,11 +192,11 @@
       "url": "https://www.kleinanzeigen.de/s-anzeige/2-und-3-zimmer-wohnungen-in-gehrden-suedbalkon-kfw-40-neubau/3426653625-203-2903",
       "source": "Kleinanzeigen Gehrden 3 Zimmer",
       "portal": "kleinanzeigen",
-      "price_eur": null,
+      "price_eur": 105.0,
       "area_sqm": 85.0,
       "rooms": 3.0,
       "location": "30989 Gehrden",
-      "floor": null,
+      "floor": "1. og",
       "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/87/8718e53b-5c50-4176-a788-aabdb6bc710c?rule=$_2.AUTO",
       "images": [
         "https://img.kleinanzeigen.de/api/v1/prod-ads/images/87/8718e53b-5c50-4176-a788-aabdb6bc710c?rule=$_2.AUTO"
@@ -211,18 +204,14 @@
       "kaltmiete_eur": null,
       "nebenkosten_eur": null,
       "heizkosten_eur": null,
-      "warmmiete_eur": null,
+      "warmmiete_eur": 1300.0,
       "status": "review",
       "reasons": [
-        "3 Zimmer",
-        "85 qm"
+        "ausgeschlossen: dachgeschoss, souterrain, gesuch"
       ],
-      "review_notes": [
-        "Etage pruefen",
-        "Miete und Nebenkosten pruefen"
-      ],
+      "review_notes": [],
       "first_seen": "2026-06-16T14:22:06.114015+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "54a481f254d70947",
@@ -234,26 +223,22 @@
       "area_sqm": 82.0,
       "rooms": 3.0,
       "location": "30952 Ronnenberg",
-      "floor": null,
+      "floor": "hochparterre",
       "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/de/de9b2783-7a45-42d5-8598-a562e5019969?rule=$_2.AUTO",
       "images": [
         "https://img.kleinanzeigen.de/api/v1/prod-ads/images/de/de9b2783-7a45-42d5-8598-a562e5019969?rule=$_2.AUTO"
       ],
-      "kaltmiete_eur": null,
-      "nebenkosten_eur": null,
-      "heizkosten_eur": null,
-      "warmmiete_eur": null,
+      "kaltmiete_eur": 850.0,
+      "nebenkosten_eur": 150.0,
+      "heizkosten_eur": 160.0,
+      "warmmiete_eur": 1250.0,
       "status": "review",
       "reasons": [
-        "3 Zimmer",
-        "82 qm",
-        "950 EUR"
+        "ausgeschlossen: dachgeschoss, souterrain"
       ],
-      "review_notes": [
-        "Etage pruefen"
-      ],
+      "review_notes": [],
       "first_seen": "2026-06-16T14:22:06.114015+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "52169aa9d0a96226",
@@ -302,19 +287,16 @@
         "https://img.kleinanzeigen.de/api/v1/prod-ads/images/7a/7a5b49c3-db2c-4667-b7ef-224ebcdb3dee?rule=$_2.AUTO"
       ],
       "kaltmiete_eur": null,
-      "nebenkosten_eur": null,
+      "nebenkosten_eur": 120.0,
       "heizkosten_eur": null,
       "warmmiete_eur": null,
-      "status": "match",
+      "status": "review",
       "reasons": [
-        "3 Zimmer",
-        "83 qm",
-        "740 EUR",
-        "EG/Parterre-Hinweis gefunden"
+        "ausgeschlossen: dachgeschoss, souterrain"
       ],
       "review_notes": [],
       "first_seen": "2026-06-16T14:22:06.114015+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "364366aaed753692",
@@ -326,27 +308,22 @@
       "area_sqm": 76.0,
       "rooms": 3.0,
       "location": "30952 Ronnenberg",
-      "floor": null,
+      "floor": "dachgeschoss",
       "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/25/25935485-2045-46bb-8e17-861757507e1c?rule=$_2.AUTO",
       "images": [
         "https://img.kleinanzeigen.de/api/v1/prod-ads/images/25/25935485-2045-46bb-8e17-861757507e1c?rule=$_2.AUTO"
       ],
       "kaltmiete_eur": null,
-      "nebenkosten_eur": null,
+      "nebenkosten_eur": 275.0,
       "heizkosten_eur": null,
       "warmmiete_eur": null,
       "status": "review",
       "reasons": [
-        "3 Zimmer",
-        "76 qm",
-        "950 EUR"
+        "ausgeschlossen: dachgeschoss, dg, souterrain"
       ],
-      "review_notes": [
-        "Etage pruefen",
-        "nebenkosten pruefen"
-      ],
+      "review_notes": [],
       "first_seen": "2026-06-16T14:22:06.114015+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "33d7ba59b15e47af",
@@ -358,26 +335,22 @@
       "area_sqm": 117.0,
       "rooms": 3.0,
       "location": "30952 Ronnenberg",
-      "floor": null,
+      "floor": "hochparterre",
       "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/28/2823aa2c-e61b-4413-84cb-7c45d0e96038?rule=$_2.AUTO",
       "images": [
         "https://img.kleinanzeigen.de/api/v1/prod-ads/images/28/2823aa2c-e61b-4413-84cb-7c45d0e96038?rule=$_2.AUTO"
       ],
       "kaltmiete_eur": null,
-      "nebenkosten_eur": null,
+      "nebenkosten_eur": 180.0,
       "heizkosten_eur": null,
       "warmmiete_eur": null,
       "status": "review",
       "reasons": [
-        "3 Zimmer",
-        "117 qm",
-        "910 EUR"
+        "ausgeschlossen: dachgeschoss, souterrain"
       ],
-      "review_notes": [
-        "Etage pruefen"
-      ],
+      "review_notes": [],
       "first_seen": "2026-06-16T14:22:06.114015+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "215d89cabc477ebd",
@@ -389,26 +362,22 @@
       "area_sqm": 70.0,
       "rooms": 3.0,
       "location": "30989 Gehrden",
-      "floor": null,
+      "floor": "1. og",
       "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/28/284f1bff-7342-443f-9f35-eb7b41ad8507?rule=$_2.AUTO",
       "images": [
         "https://img.kleinanzeigen.de/api/v1/prod-ads/images/28/284f1bff-7342-443f-9f35-eb7b41ad8507?rule=$_2.AUTO"
       ],
-      "kaltmiete_eur": null,
-      "nebenkosten_eur": null,
-      "heizkosten_eur": null,
-      "warmmiete_eur": null,
+      "kaltmiete_eur": 700.0,
+      "nebenkosten_eur": 100.0,
+      "heizkosten_eur": 150.0,
+      "warmmiete_eur": 1000.0,
       "status": "review",
       "reasons": [
-        "3 Zimmer",
-        "70 qm",
-        "1000 EUR"
+        "ausgeschlossen: dachgeschoss, souterrain"
       ],
-      "review_notes": [
-        "Etage pruefen"
-      ],
+      "review_notes": [],
       "first_seen": "2026-06-16T14:22:06.114015+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "0c789e481a4c1229",
@@ -451,26 +420,22 @@
       "area_sqm": 90.0,
       "rooms": 3.0,
       "location": "30890 Barsinghausen Attraktive",
-      "floor": null,
+      "floor": "hochparterre",
       "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/78/78119244-b0a9-44ad-8c71-84d1fb38da97?rule=$_2.AUTO",
       "images": [
         "https://img.kleinanzeigen.de/api/v1/prod-ads/images/78/78119244-b0a9-44ad-8c71-84d1fb38da97?rule=$_2.AUTO"
       ],
       "kaltmiete_eur": null,
-      "nebenkosten_eur": null,
+      "nebenkosten_eur": 275.0,
       "heizkosten_eur": null,
-      "warmmiete_eur": null,
+      "warmmiete_eur": 1265.0,
       "status": "review",
       "reasons": [
-        "3 Zimmer",
-        "90 qm",
-        "990 EUR"
+        "ausgeschlossen: dachgeschoss, souterrain, gesuch"
       ],
-      "review_notes": [
-        "Etage pruefen"
-      ],
+      "review_notes": [],
       "first_seen": "2026-06-16T13:50:26.504416+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "bd6f99e0c74fd8a7",
@@ -482,26 +447,22 @@
       "area_sqm": 92.0,
       "rooms": 4.0,
       "location": "30890 Barsinghausen",
-      "floor": null,
+      "floor": "1.og",
       "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/a9/a99ace5d-4639-499c-83cd-6ddd3da13057?rule=$_2.AUTO",
       "images": [
         "https://img.kleinanzeigen.de/api/v1/prod-ads/images/a9/a99ace5d-4639-499c-83cd-6ddd3da13057?rule=$_2.AUTO"
       ],
       "kaltmiete_eur": null,
-      "nebenkosten_eur": null,
-      "heizkosten_eur": null,
+      "nebenkosten_eur": 130.0,
+      "heizkosten_eur": 225.0,
       "warmmiete_eur": null,
       "status": "review",
       "reasons": [
-        "4 Zimmer",
-        "92 qm",
-        "920 EUR"
+        "ausgeschlossen: dachgeschoss, souterrain, gesuch"
       ],
-      "review_notes": [
-        "Etage pruefen"
-      ],
+      "review_notes": [],
       "first_seen": "2026-06-16T13:50:26.504416+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "6b2a66fa75be9009",
@@ -511,7 +472,7 @@
       "portal": "kleinanzeigen",
       "price_eur": 990.0,
       "area_sqm": 110.0,
-      "rooms": 3.5,
+      "rooms": 5.0,
       "location": "30890 Barsinghausen",
       "floor": "1.og",
       "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/42/427b6afa-52aa-4a9e-a0a6-74c4a81a508f?rule=$_2.AUTO",
@@ -519,16 +480,16 @@
         "https://img.kleinanzeigen.de/api/v1/prod-ads/images/42/427b6afa-52aa-4a9e-a0a6-74c4a81a508f?rule=$_2.AUTO"
       ],
       "kaltmiete_eur": null,
-      "nebenkosten_eur": null,
-      "heizkosten_eur": null,
-      "warmmiete_eur": null,
+      "nebenkosten_eur": 110.0,
+      "heizkosten_eur": 130.0,
+      "warmmiete_eur": 1260.0,
       "status": "review",
       "reasons": [
-        "kein EG/Parterre: 1.og"
+        "ausgeschlossen: altbau, dachgeschoss, souterrain, gesuch"
       ],
       "review_notes": [],
       "first_seen": "2026-06-16T13:50:26.504416+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "47392491b8de4c1a",
@@ -540,26 +501,22 @@
       "area_sqm": 74.51,
       "rooms": 3.0,
       "location": "30890 Barsinghausen Sanierte",
-      "floor": null,
+      "floor": "hochparterre",
       "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/39/39674ee8-fb73-42cd-8c2a-7f70c168acd5?rule=$_2.AUTO",
       "images": [
         "https://img.kleinanzeigen.de/api/v1/prod-ads/images/39/39674ee8-fb73-42cd-8c2a-7f70c168acd5?rule=$_2.AUTO"
       ],
-      "kaltmiete_eur": null,
-      "nebenkosten_eur": null,
-      "heizkosten_eur": null,
-      "warmmiete_eur": null,
+      "kaltmiete_eur": 730.0,
+      "nebenkosten_eur": 245.0,
+      "heizkosten_eur": 135.0,
+      "warmmiete_eur": 975.0,
       "status": "review",
       "reasons": [
-        "3 Zimmer",
-        "74.51 qm",
-        "730 EUR"
+        "ausgeschlossen: dachgeschoss, souterrain"
       ],
-      "review_notes": [
-        "Etage pruefen"
-      ],
+      "review_notes": [],
       "first_seen": "2026-06-16T13:50:26.504416+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "40c7559281958119",
@@ -571,27 +528,23 @@
       "area_sqm": 78.0,
       "rooms": 3.0,
       "location": "30890 Barsinghausen Perfekte Familienwohnu",
-      "floor": null,
+      "floor": "hochparterre",
       "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/85/85d373a8-d689-4eba-b19a-91ff06ae9538?rule=$_1.AUTO",
       "images": [
         "https://img.kleinanzeigen.de/api/v1/prod-ads/images/85/85d373a8-d689-4eba-b19a-91ff06ae9538?rule=$_1.AUTO",
         "https://img.kleinanzeigen.de/api/v1/prod-user/images/96/961633b2-74fe-46d7-8fa4-97387863e114?rule=$_2.JPG"
       ],
       "kaltmiete_eur": null,
-      "nebenkosten_eur": null,
-      "heizkosten_eur": null,
-      "warmmiete_eur": null,
+      "nebenkosten_eur": 120.0,
+      "heizkosten_eur": 140.0,
+      "warmmiete_eur": 950.0,
       "status": "review",
       "reasons": [
-        "3 Zimmer",
-        "78 qm",
-        "690 EUR"
+        "ausgeschlossen: dachgeschoss, souterrain"
       ],
-      "review_notes": [
-        "Etage pruefen"
-      ],
+      "review_notes": [],
       "first_seen": "2026-06-16T13:50:26.504416+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "bd780341c0d19730",
@@ -620,7 +573,7 @@
       ],
       "review_notes": [],
       "first_seen": "2026-06-16T07:37:14.605931+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "951a576440a61792",
@@ -650,7 +603,7 @@
       ],
       "review_notes": [],
       "first_seen": "2026-06-16T07:37:14.605931+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "7fe05dffb699b575",
@@ -679,7 +632,7 @@
       ],
       "review_notes": [],
       "first_seen": "2026-06-16T07:37:14.605931+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "5bf0e56ac407c37b",
@@ -709,7 +662,7 @@
       ],
       "review_notes": [],
       "first_seen": "2026-06-16T07:37:14.605931+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "4beac5d73d4b572d",
@@ -766,7 +719,7 @@
       ],
       "review_notes": [],
       "first_seen": "2026-06-16T07:37:14.605931+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     },
     {
       "id": "836726824ec5c8aa",
@@ -799,7 +752,7 @@
       ],
       "review_notes": [],
       "first_seen": "2026-06-16T07:18:23.368301+00:00",
-      "last_seen": "2026-06-17T14:10:36.422852+00:00"
+      "last_seen": "2026-06-17T14:20:26.735117+00:00"
     }
   ]
 }
