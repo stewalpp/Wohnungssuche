@@ -123,22 +123,55 @@
     });
     dataCard.appendChild(refresh);
 
-    // Trigger a fresh scrape on GitHub. A fully automatic trigger would need a
-    // GitHub token in the client — unsafe in a public repo — so this opens the
-    // workflow page where one tap on "Run workflow" starts it (uses the user's
-    // own GitHub login, no secret stored).
+    // Trigger a fresh scrape. If a serverless proxy is configured (Cloudflare
+    // Worker holding the GitHub token), one tap starts the workflow directly.
+    // Otherwise (and always as a fallback) we open the GitHub Actions page where
+    // one tap on "Run workflow" starts it — no token stored in the client.
     var repo = (window.WS_CONFIG && WS_CONFIG.issueRepo) || '';
+    var triggerCfg = (window.WS_CONFIG && WS_CONFIG.trigger) || {};
+
+    if (triggerCfg.url) {
+      var startBtn = App.el('button', 'btn btn-primary');
+      startBtn.type = 'button';
+      startBtn.style.marginTop = '10px';
+      startBtn.textContent = 'Neue Suche jetzt starten';
+      startBtn.appendChild(App.icon('refresh', 15));
+      startBtn.addEventListener('click', function () {
+        if (startBtn.disabled) return;
+        startBtn.disabled = true;
+        startBtn.style.opacity = '0.6';
+        var headers = { 'Content-Type': 'application/json' };
+        if (triggerCfg.secret) headers['X-App-Secret'] = triggerCfg.secret;
+        fetch(triggerCfg.url, { method: 'POST', headers: headers, body: '{}' })
+          .then(function (res) {
+            App.toast(res.ok ? 'Suche gestartet ✓ – neue Treffer in 1–2 Min.'
+              : 'Start fehlgeschlagen (' + res.status + ')');
+          })
+          .catch(function () { App.toast('Keine Verbindung zum Trigger'); })
+          .then(function () {
+            // brief cool-down so the button can't be spam-tapped
+            setTimeout(function () { startBtn.disabled = false; startBtn.style.opacity = ''; }, 8000);
+          });
+      });
+      dataCard.appendChild(startBtn);
+      dataCard.appendChild(App.el('div', 'card-hint',
+        'Startet die Suche direkt. Neue Treffer erscheinen 1–2 Minuten später automatisch hier in der App.'));
+    }
+
     if (repo) {
-      var trigger = App.el('a', 'btn btn-primary');
+      var secondary = !!triggerCfg.url;
+      var trigger = App.el('a', secondary ? 'btn btn-secondary' : 'btn btn-primary');
       trigger.href = 'https://github.com/' + repo + '/actions/workflows/daily-search.yml';
       trigger.target = '_blank';
       trigger.rel = 'noopener noreferrer';
       trigger.style.marginTop = '10px';
-      trigger.textContent = 'Neue Suche auf GitHub starten';
+      trigger.textContent = secondary ? 'Alternativ: auf GitHub starten' : 'Neue Suche auf GitHub starten';
       trigger.appendChild(App.icon('external', 15));
       dataCard.appendChild(trigger);
-      dataCard.appendChild(App.el('div', 'card-hint',
-        'Öffnet die GitHub-Suche – dort einmal auf „Run workflow" tippen. Neue Treffer erscheinen 1–2 Minuten später automatisch hier in der App.'));
+      if (!secondary) {
+        dataCard.appendChild(App.el('div', 'card-hint',
+          'Öffnet die GitHub-Suche – dort einmal auf „Run workflow" tippen. Neue Treffer erscheinen 1–2 Minuten später automatisch hier in der App.'));
+      }
     }
 
     var critHint = App.el('div', 'card-hint', criteriaText(meta.criteria));

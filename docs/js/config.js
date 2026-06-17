@@ -53,6 +53,17 @@
     },
 
     // The GitHub issue used for push notifications (kept as-is).
-    issueRepo: 'stewalpp/Wohnungssuche'
+    issueRepo: 'stewalpp/Wohnungssuche',
+
+    // Optional one-tap search trigger via a serverless proxy (Cloudflare Worker)
+    // that holds the GitHub token server-side. Leave `url` empty to keep the
+    // simple "open GitHub Actions" fallback button. NOTE: `secret` ships inside
+    // the app, so it is NOT truly secret — it only deters casual abuse; the real
+    // protection is that the token never leaves the Worker. Setup: see
+    // cloudflare-worker/README.md.
+    trigger: {
+      url: '',      // e.g. 'https://wohnungssuche-trigger.<dein-name>.workers.dev'
+      secret: ''    // must equal the Worker's APP_SECRET (or leave both empty)
+    }
   };
 })();

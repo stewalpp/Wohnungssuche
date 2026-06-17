@@ -1,0 +1,15 @@
+# Cloudflare Worker config for the Wohnungssuche search-trigger proxy.
+# Deploy with:  wrangler deploy   (after `wrangler login`)
+# Secrets are NOT stored here — set them with `wrangler secret put` (see README).
+
+name = "wohnungssuche-trigger"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+[vars]
+# Your GitHub Pages origin (scheme + host, NO path, NO trailing slash).
+# Custom domain? put that instead, e.g. "https://wohnung.example.com".
+ALLOW_ORIGIN = "https://stewalpp.github.io"
+REPO = "stewalpp/Wohnungssuche"
+WORKFLOW = "daily-search.yml"
+REF = "main"
