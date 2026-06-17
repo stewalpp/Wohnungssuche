@@ -5,8 +5,11 @@ import yaml
 
 
 class SearchConfigTests(unittest.TestCase):
+    def load_config(self):
+        return yaml.safe_load(Path("config/search.yml").read_text(encoding="utf-8"))
+
     def load_sources(self):
-        config = yaml.safe_load(Path("config/search.yml").read_text(encoding="utf-8"))
+        config = self.load_config()
         return {source["name"]: source["url"] for source in config["sources"]}
 
     def test_extended_kleinanzeigen_sources_use_location_ids(self):
@@ -39,7 +42,7 @@ class SearchConfigTests(unittest.TestCase):
                 self.assertIn(source_name, sources)
 
     def test_seelze_is_excluded(self):
-        config = yaml.safe_load(Path("config/search.yml").read_text(encoding="utf-8"))
+        config = self.load_config()
         criteria = config["criteria"]
         sources = self.load_sources()
 
@@ -49,6 +52,15 @@ class SearchConfigTests(unittest.TestCase):
         )
         self.assertNotIn("seelze", criteria["allowed_location_terms"])
         self.assertIn("seelze", criteria["excluded_location_terms"])
+
+    def test_preferred_places_have_high_priority(self):
+        criteria = self.load_config()["criteria"]
+
+        self.assertIn("wennigser mark", criteria["allowed_location_terms"])
+        self.assertEqual(
+            criteria["location_priority_terms"]["high"],
+            ["barsinghausen", "egestorf", "wennigsen", "wennigser mark", "kirchdorf"],
+        )
 
 
 if __name__ == "__main__":

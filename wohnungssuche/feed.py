@@ -67,13 +67,13 @@ def record_listings(
             seen[listing.id] = entry
 
         entry["source"] = listing.source_name
-        entry["title"] = listing.title
-        entry["url"] = listing.url
-        entry["price_eur"] = listing.price_eur
-        entry["area_sqm"] = listing.area_sqm
-        entry["rooms"] = listing.rooms
-        entry["location"] = listing.location
-        entry["floor"] = listing.floor
+        entry["title"] = listing.title or entry.get("title", "")
+        entry["url"] = listing.url or entry.get("url", "")
+        set_if_present(entry, "price_eur", listing.price_eur)
+        set_if_present(entry, "area_sqm", listing.area_sqm)
+        set_if_present(entry, "rooms", listing.rooms)
+        set_if_present(entry, "location", listing.location)
+        set_if_present(entry, "floor", listing.floor)
         if listing.image:
             entry["image"] = listing.image
         entry["match_status"] = MATCH_STATUS if result.accepted else REVIEW_STATUS
@@ -87,6 +87,13 @@ def record_listings(
         if previous_status == STATUS_UNAVAILABLE:
             entry["status_changed_at"] = now_iso
             entry.pop("last_missing_from_search", None)
+
+
+def set_if_present(entry: dict, key: str, value: object | None) -> None:
+    if value is not None:
+        entry[key] = value
+    elif key not in entry:
+        entry[key] = None
 
 
 def _parse_dt(value: str | None) -> datetime | None:

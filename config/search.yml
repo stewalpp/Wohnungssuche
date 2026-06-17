@@ -27,12 +27,45 @@ criteria:
     - winninghausen
     - gehrden
     - wennigsen
+    - wennigser mark
     - ronnenberg
     - empelde
     - sorsum
     - weetzen
     - lenthe
     - benthe
+  location_priority_terms:
+    high:
+      - barsinghausen
+      - egestorf
+      - wennigsen
+      - wennigser mark
+      - kirchdorf
+    medium:
+      - bantorf
+      - barrigsen
+      - eckerde
+      - goxe
+      - grossgoltern
+      - gross munzel
+      - hohenbostel
+      - holtensen
+      - landringhausen
+      - langreder
+      - nordgoltern
+      - ostermunzel
+      - stemmen
+      - wichtringhausen
+      - winninghausen
+      - gehrden
+    low:
+      - wennigsen-deister
+      - ronnenberg
+      - empelde
+      - sorsum
+      - weetzen
+      - lenthe
+      - benthe
   excluded_location_terms:
     - seelze
     - ", hannover"

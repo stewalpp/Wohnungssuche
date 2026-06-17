@@ -38,6 +38,9 @@ vollstaendig. Die Automation markiert solche Treffer deshalb mit
 `Bitte pruefen`, damit sie nicht faelschlich ausgeschlossen werden.
 Wohnungen, die bei Preis, Groesse, Zimmerzahl und Lage passen, aber nicht im
 Erdgeschoss/Parterre liegen, erscheinen getrennt als `Pruefkandidaten`.
+Barsinghausen, Egestorf, Wennigsen, Wennigser Mark und Kirchdorf bekommen
+eine hoehere Prioritaet und werden in der Uebersicht weiter oben einsortiert.
+Weiter entfernte Orte bleiben sichtbar, aber mit niedrigerer Prioritaet.
 
 ## Einrichtung
 
@@ -62,7 +65,8 @@ python -m wohnungssuche.search --config config/search.yml --state data/seen_list
 Der Report wird nur dann in `reports/latest.md` und `reports/archive/`
 geschrieben, wenn neue passende Inserate oder neue Pruefkandidaten gefunden
 wurden. Die aktuelle Ausgabe steht immer im Terminal und in GitHub Actions im
-Step Summary.
+Step Summary. Neue Treffer werden ausserdem in `reports/history.md` als
+laufender Verlauf gespeichert.
 
 ## Woechentlicher Verfuegbarkeitscheck
 
@@ -98,6 +102,9 @@ alte Suchquellen anzeigen.
 Wenn ein Portal RSS anbietet, setze `type: rss`. Fuer normale Suchseiten
 nutze `type: html`. Bereits gezeigte Inserate koennen durch Loeschen des
 jeweiligen Eintrags in `data/seen_listings.json` erneut angezeigt werden.
+Bei moeglichen Treffern laedt die Automation nach der Suchseite auch die
+Detailseite des Inserats nach. Dadurch werden Preis, Groesse, Etage und Ort
+haeufig genauer erkannt als nur aus der Kachelansicht.
 
 Aktiv durchsucht werden aktuell Immowelt, Kleinanzeigen, immobilo und
 Wohnungsboerse. ImmoScout24 ist vorbereitet, aber deaktiviert, weil direkte
@@ -130,6 +137,10 @@ die alte Auswahl wieder abwaehlen.
 Neue Treffer sind in den Ueberschriften farbig markiert: Gruen `NEU` bedeutet
 passendes neues Inserat, Gelb `PRUEFEN` bedeutet neuer Pruefkandidat mit
 unklarer oder wahrscheinlich nicht passender Etage.
+Direkt unter der Ueberschrift steht eine `Schnelluebersicht` mit Prioritaet,
+Score, Ort, Preis, Groesse, Etage und Link. Die neuesten Suchlaeufe werden im
+Issue oben angezeigt, damit auf dem iPhone kein Scrollen bis ans Ende noetig
+ist.
 
 Optional kann der Suchlauf neue Treffer zusaetzlich per E-Mail oder SMS
 verschicken. Die Werte werden nicht im Code gespeichert, sondern als GitHub
