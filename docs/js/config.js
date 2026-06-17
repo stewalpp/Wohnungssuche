@@ -62,8 +62,8 @@
     // protection is that the token never leaves the Worker. Setup: see
     // cloudflare-worker/README.md.
     trigger: {
-      url: '',      // e.g. 'https://wohnungssuche-trigger.<dein-name>.workers.dev'
-      secret: ''    // must equal the Worker's APP_SECRET (or leave both empty)
+      url: 'https://wohnungssuche-trigger.steffen-walpurgis.workers.dev',
+      secret: 'f73f2a6ecbee235bd3e90f5a42dd6e94'   // must equal the Worker's APP_SECRET
     }
   };
 })();
