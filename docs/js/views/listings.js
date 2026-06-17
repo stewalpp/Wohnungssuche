@@ -449,19 +449,31 @@
     // and indicates a mis-parsed figure — ignore it and compute from real parts.
     if (warmReal != null && kalt != null && warmReal < kalt) warmReal = null;
 
-    // Warmmiete: a stated value wins; otherwise only computed from REAL parts.
-    var warm = null, warmStated = false;
-    if (warmReal != null) { warm = warmReal; warmStated = true; }
-    else if (kalt != null && nebenReal != null) warm = kalt + nebenReal + (heizReal || 0);
+    // Estimate Heizung/Gas whenever the listing gives no own heating figure AND
+    // no full Warmmiete — even when Nebenkosten are stated (those are often the
+    // cold operating costs, heating separate). A stated Heizkosten value wins.
+    var gasEst = (heizReal == null && warmReal == null && area != null) ? area * heizRate : null;
+    var heizShown = heizReal != null ? heizReal : gasEst;
+    var heizIsReal = heizReal != null;
 
-    // Estimated Gas/Heizung only when nothing warm/NK is stated, so it's never
-    // added on top of a real Nebenkosten (which often already covers heating).
-    var gasEst = (warm == null && nebenReal == null && area != null) ? area * heizRate : null;
+    // Warmmiete: a stated value wins. Otherwise compute from Kaltmiete + stated
+    // Nebenkosten + heating (real or estimated). warmEstimated flags that the sum
+    // includes the Gas estimate, so it's labelled "ca." rather than "lt. Inserat".
+    var warm = null, warmStated = false, warmEstimated = false;
+    if (warmReal != null) {
+      warm = warmReal;
+      warmStated = true;
+    } else if (kalt != null && nebenReal != null) {
+      warm = kalt + nebenReal + (heizShown || 0);
+      warmEstimated = (heizReal == null && gasEst != null);
+      warmStated = !warmEstimated;
+    }
 
     return {
       area: area, persons: persons, strom: strom,
-      kalt: kalt, nebenReal: nebenReal, heizReal: heizReal,
-      warm: warm, warmStated: warmStated, gasEst: gasEst
+      kalt: kalt, nebenReal: nebenReal,
+      heizShown: heizShown, heizIsReal: heizIsReal,
+      warm: warm, warmStated: warmStated, warmEstimated: warmEstimated
     };
   }
 
@@ -483,21 +495,28 @@
 
     if (ce.kalt != null) card.appendChild(costRow('Kaltmiete', App.fmtEUR(ce.kalt)));
     if (ce.nebenReal != null) card.appendChild(costRow('Nebenkosten', '+ ' + App.fmtEUR(ce.nebenReal), real));
-    if (ce.heizReal != null) card.appendChild(costRow('Heizung · Gas', '+ ' + App.fmtEUR(ce.heizReal), real));
-    if (ce.gasEst != null) card.appendChild(costRow('Heizung · Gas', '+ ' + App.fmtEUR(ce.gasEst), est));
+    if (ce.heizShown != null) {
+      card.appendChild(costRow('Heizung · Gas', '+ ' + App.fmtEUR(ce.heizShown), ce.heizIsReal ? real : est));
+    }
 
     if (ce.warm != null) {
-      card.appendChild(costRow('Warmmiete', App.fmtEUR(ce.warm),
-        ce.warmStated ? { strong: true, tag: 'lt. Inserat', tagKind: 'real' } : { strong: true }));
+      var warmOpts = { strong: true };
+      if (ce.warmStated) { warmOpts.tag = 'lt. Inserat'; warmOpts.tagKind = 'real'; }
+      else if (ce.warmEstimated) { warmOpts.tag = 'ca.'; warmOpts.tagKind = 'est'; }
+      card.appendChild(costRow('Warmmiete', App.fmtEUR(ce.warm), warmOpts));
       card.appendChild(costRow('Strom', '+ ' + App.fmtEUR(ce.strom), { tag: 'ca. ' + ce.persons + ' Pers.', tagKind: 'est' }));
       card.appendChild(costRow('Gesamt / Monat', App.fmtEUR(ce.warm + ce.strom), { total: true }));
       card.appendChild(App.el('div', 'cost-hint',
-        'Strom ist eine grobe Schätzung (Haushaltsgröße); die übrigen Werte stammen aus dem Inserat.'));
+        ce.warmEstimated
+          ? 'Heizung/Gas & Strom sind grobe Schätzungen; Kaltmiete & Nebenkosten stammen aus dem Inserat.'
+          : 'Strom ist eine grobe Schätzung (Haushaltsgröße); die übrigen Werte stammen aus dem Inserat.'));
     } else {
       card.appendChild(costRow('Strom', '+ ' + App.fmtEUR(ce.strom), { tag: 'ca. ' + ce.persons + ' Pers.', tagKind: 'est' }));
       card.appendChild(App.el('div', 'cost-hint',
         'Nebenkosten stehen nicht im Inserat und sind hier nicht enthalten. ' +
-        'Strom & Gas sind grobe Schätzungen aus Wohnfläche und Haushaltsgröße.'));
+        (ce.heizIsReal
+          ? 'Strom ist eine grobe Schätzung.'
+          : 'Strom & Gas sind grobe Schätzungen aus Wohnfläche und Haushaltsgröße.')));
     }
     return card;
   }
