@@ -232,5 +232,52 @@ class FilteringTests(unittest.TestCase):
         self.assertTrue(is_seen(state, listing))
 
 
+class DecimalSeparatorTests(unittest.TestCase):
+    def test_dot_is_decimal_for_area_and_rooms(self):
+        # English-style dot decimals must not be read as thousands separators.
+        self.assertEqual(parse_area("72.50 m2"), 72.5)
+        self.assertEqual(parse_rooms("3.5 Zimmer"), 3.5)
+        # German comma decimals keep working.
+        self.assertEqual(parse_area("72,5 qm"), 72.5)
+        self.assertEqual(parse_rooms("3,5 Zi."), 3.5)
+
+    def test_dot_stays_thousands_for_price(self):
+        self.assertEqual(parse_price("Kaltmiete 1.234 EUR"), 1234.0)
+        self.assertEqual(parse_price("1.250,50 EUR"), 1250.5)
+
+
+class ExcludedLocationWordBoundaryTests(unittest.TestCase):
+    CRIT = {
+        "min_rooms": 3,
+        "min_area_sqm": 70,
+        "max_total_rent_eur": 1000,
+        "allow_unknown_floor": True,
+        "strict_location": True,
+        "allowed_location_terms": ["barsinghausen"],
+        "excluded_location_terms": ["haste"],
+        "excluded_terms": [],
+    }
+
+    def _flat(self, text):
+        return Listing(
+            source_name="Kleinanzeigen Barsinghausen 3 Zimmer",
+            title="3 Zimmer Wohnung",
+            url="https://www.kleinanzeigen.de/s-anzeige/a/1",
+            text=text,
+            rooms=3.0, area_sqm=80.0, price_eur=700.0,
+            kaltmiete_eur=700.0, nebenkosten_eur=150.0,
+        )
+
+    def test_verb_hasten_does_not_trigger_haste_exclusion(self):
+        flat = self._flat("3 Zimmer 80 qm Barsinghausen Erdgeschoss, morgens nicht hasten")
+        self.assertTrue(evaluate_listing(flat, self.CRIT).accepted)
+
+    def test_real_haste_location_is_still_excluded(self):
+        flat = self._flat("3 Zimmer 80 qm Erdgeschoss 31559 Haste schoene Wohnung")
+        result = evaluate_listing(flat, self.CRIT)
+        self.assertFalse(result.accepted)
+        self.assertIn("Suchgebiet", result.reasons[0])
+
+
 if __name__ == "__main__":
     unittest.main()

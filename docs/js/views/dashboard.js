@@ -9,6 +9,19 @@
 
   var Views = window.Views = window.Views || {};
 
+  // Open the listings tab showing exactly the set a dashboard tile counted.
+  // The tile counts are computed over the whole active set, so we clear the
+  // per-device advanced filters (price/area/rooms/ort/photo/zu-bewerten/query)
+  // first — otherwise a left-over filter would make the destination list show
+  // fewer items than the number on the tile.
+  function openList(patch) {
+    ListFilter.setState(Object.assign({
+      query: '', priceMin: null, priceMax: null, areaMin: null, areaMax: null,
+      roomsMin: null, roomsMax: null, ort: '', withImage: false, unratedOnly: false
+    }, patch));
+    App.switchTab('listings');
+  }
+
   function statTile(value, label, tone, onClick) {
     var t = App.el('div', 'stat' + (onClick ? ' tappable' : ''));
     var v = App.el('div', 'stat-value' + (tone ? ' ' + tone : ''), value);
@@ -80,19 +93,21 @@
 
     // key numbers
     var newCount = App.newCount();
-    var favCount = active.filter(function (l) { return (ratings[l.id] || {}).favorite; }).length;
+    // Favoriten = starred and not both-rejected (hidden ones still count, matching
+    // the Favoriten tab and the 'favoriten' listing scope).
+    var favCount = listings.filter(function (l) { return (ratings[l.id] || {}).favorite && !bothBad(l); }).length;
     var toRate = active.filter(function (l) { var r = ratings[l.id] || {}; return !(r.p1 && r.p2); }).length;
 
     var stats = App.el('div', 'stat-grid');
     stats.appendChild(statTile(String(active.length), 'Wohnungen', null, function () {
-      ListFilter.setState({ scope: 'alle' }); App.switchTab('listings');
+      openList({ scope: 'alle' });
     }));
     stats.appendChild(statTile(String(newCount), 'Neu', newCount > 0 ? 'pos' : null, function () {
-      ListFilter.setState({ scope: 'neu' }); App.switchTab('listings');
+      openList({ scope: 'neu' });
     }));
     stats.appendChild(statTile(String(favCount), 'Favoriten', null, function () { App.switchTab('favorites'); }));
     stats.appendChild(statTile(String(toRate), 'Zu bewerten', null, function () {
-      ListFilter.setState({ scope: 'alle', unratedOnly: true }); App.switchTab('listings');
+      openList({ scope: 'alle', unratedOnly: true });
     }));
     view.appendChild(stats);
 
@@ -103,8 +118,10 @@
       top.forEach(function (l) { view.appendChild(Views.listings.card(l, newIds)); });
     }
 
-    // both like it
-    var both = active.filter(bothGood);
+    // both like it — same set as the Favoriten tab's "Beide mögen sie" section
+    // (both rated "Gut", not already a starred favourite), so the count here and
+    // the section it links to always agree.
+    var both = active.filter(function (l) { return bothGood(l) && !(ratings[l.id] || {}).favorite; });
     if (both.length) {
       var bg = App.el('div', 'card tappable');
       var bgHead = App.el('div', 'dash-row');
@@ -146,7 +163,7 @@
       var so = App.el('button', 'link-row');
       so.type = 'button';
       so.textContent = sortedOut + (sortedOut === 1 ? ' aussortierte Wohnung ansehen' : ' aussortierte Wohnungen ansehen');
-      so.addEventListener('click', function () { ListFilter.setState({ scope: 'aussortiert' }); App.switchTab('listings'); });
+      so.addEventListener('click', function () { openList({ scope: 'aussortiert' }); });
       view.appendChild(so);
     }
 

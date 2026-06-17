@@ -128,23 +128,22 @@ def dashboard_body_from_report(markdown: str, latest_report_url: str | None = No
 
 
 def find_latest_report_comment_url(repository: str, token: str, issue_number: int) -> str | None:
-    comments = request_json(
-        "GET",
+    comments = request_all_pages(
         f"/repos/{repository}/issues/{issue_number}/comments?per_page=100",
         token,
     )
+    # reversed() over the FULL comment set (all pages) walks truly newest-first.
     for comment in reversed(comments):
         body = comment.get("body", "")
         if STATUS_COMMENT_MARKER in body:
             continue
-        if re.search(r"\d+\s+neue passende Inserate gefunden", body):
+        if is_report_comment(body):
             return str(comment.get("html_url", ""))
     return None
 
 
 def find_status_comment(repository: str, token: str, issue_number: int) -> int | None:
-    comments = request_json(
-        "GET",
+    comments = request_all_pages(
         f"/repos/{repository}/issues/{issue_number}/comments?per_page=100",
         token,
     )
@@ -182,10 +181,14 @@ def report_summary_lines(lines: list[str]) -> list[str]:
     for line in lines[1:]:
         if line.startswith("### ") or line.startswith("<details>"):
             break
-        if line.startswith("#") or line.startswith("- ") or line.startswith("<"):
+        # Skip headings, list items, raw HTML, table rows/separators and the
+        # legend line — none of these are a human summary sentence. (Without the
+        # "|" / "Legende:" skips, a review-candidates-only run leaks the raw
+        # markdown table header into the status/dashboard headline.)
+        if line.startswith(("#", "- ", "<", "|")) or line.startswith("Legende:"):
             continue
         summary_lines.append(line)
-        if "neue passende Inserate gefunden" in line:
+        if "neue passende Inserate gefunden" in line or "Pruefkandidaten gefunden" in line:
             break
         if len(summary_lines) >= 2:
             break
@@ -221,7 +224,7 @@ def notification_mentions() -> str:
 
 
 def find_or_create_issue(repository: str, token: str, title: str) -> int:
-    issues = request_json("GET", f"/repos/{repository}/issues?state=open&per_page=100", token)
+    issues = request_all_pages(f"/repos/{repository}/issues?state=open&per_page=100", token)
     for issue in issues:
         if issue.get("title") == title and "pull_request" not in issue:
             return int(issue["number"])
@@ -241,10 +244,14 @@ def find_or_create_issue(repository: str, token: str, title: str) -> int:
     return int(created["number"])
 
 
-def request_json(method: str, path: str, token: str, payload: dict | None = None):
+def _request(method: str, url: str, token: str, payload: dict | None = None):
+    """Single GitHub API call. Accepts a relative path or an absolute URL (the
+    latter is what the RFC5988 ``Link`` header hands back for pagination).
+    Returns the parsed body together with the response headers."""
     data = None if payload is None else json.dumps(payload).encode("utf-8")
+    full_url = url if url.startswith("http") else f"{API_ROOT}{url}"
     request = urllib.request.Request(
-        f"{API_ROOT}{path}",
+        full_url,
         data=data,
         method=method,
         headers={
@@ -258,7 +265,51 @@ def request_json(method: str, path: str, token: str, payload: dict | None = None
     try:
         with urllib.request.urlopen(request, timeout=30) as response:
             body = response.read().decode("utf-8")
-            return json.loads(body) if body else None
+            return (json.loads(body) if body else None), response.headers
     except urllib.error.HTTPError as exc:
         detail = exc.read().decode("utf-8", errors="replace")
         raise GitHubIssueError(f"GitHub API failed ({exc.code}): {detail}") from exc
+
+
+def request_json(method: str, path: str, token: str, payload: dict | None = None):
+    parsed, _headers = _request(method, path, token, payload)
+    return parsed
+
+
+def _next_link(headers) -> str | None:
+    """Extract the rel="next" URL from a GitHub RFC5988 ``Link`` header, if any."""
+    link = headers.get("Link") if headers else None
+    if not link:
+        return None
+    for part in link.split(","):
+        segments = part.split(";")
+        if len(segments) < 2:
+            continue
+        if any(seg.strip() == 'rel="next"' for seg in segments[1:]):
+            return segments[0].strip().lstrip("<").rstrip(">").strip()
+    return None
+
+
+def request_all_pages(path: str, token: str) -> list:
+    """GET a paginated GitHub list endpoint, following every ``Link: rel=next``
+    page, and return all items concatenated. Without this, lookups that need the
+    newest comment (or scan all open issues) silently see only the first 100."""
+    items: list = []
+    url: str | None = path
+    while url:
+        page, headers = _request("GET", url, token)
+        if isinstance(page, list):
+            items.extend(page)
+        elif page is not None:
+            items.append(page)
+        url = _next_link(headers)
+    return items
+
+
+def is_report_comment(body: str) -> bool:
+    """True if a comment is a search-report comment. Matches the explicit match
+    count *or* — for a Pruefkandidaten-only run, which emits no count line — the
+    report's H1 header, so such reports aren't skipped by the dashboard link."""
+    if re.search(r"\d+\s+neue passende Inserate gefunden", body):
+        return True
+    return bool(re.search(r"(?m)^#\s+" + re.escape(ISSUE_TITLE), body))

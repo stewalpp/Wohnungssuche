@@ -3,8 +3,11 @@ import unittest
 from unittest.mock import patch
 
 from wohnungssuche.github_issue import (
+    _next_link,
     dashboard_body_from_report,
+    is_report_comment,
     notification_mentions,
+    request_all_pages,
     status_body_from_report,
 )
 
@@ -93,6 +96,47 @@ class GitHubIssueTests(unittest.TestCase):
         self.assertIn("Letzte Trefferliste: [Kommentar oeffnen]", body)
         self.assertIn("## Neue Wohnungsangebote (2026-06-16 16:22)", body)
         self.assertIn("### \U0001F7E9 NEU 1. Beispielwohnung", body)
+
+
+class ReportDetectionTests(unittest.TestCase):
+    def test_match_count_line_is_a_report(self):
+        self.assertTrue(is_report_comment("Vorspann\n\n3 neue passende Inserate gefunden\n"))
+
+    def test_pruefkandidaten_only_report_detected_via_header(self):
+        # A run with zero matches but floor-review candidates emits no count line,
+        # only the report header — it must still be recognised as a report.
+        body = (
+            "@steffen\n\n# Neue Wohnungsangebote (2026-06-17 10:00)\n\n"
+            "## Pruefkandidaten\n\n### 1. Beispiel\n"
+        )
+        self.assertTrue(is_report_comment(body))
+
+    def test_availability_report_is_not_a_search_report(self):
+        body = "# Verfuegbarkeitscheck (2026-06-17 10:00)\n\nGepruefte bekannte Inserate: 5\n"
+        self.assertFalse(is_report_comment(body))
+
+
+class PaginationTests(unittest.TestCase):
+    def test_next_link_extracts_next_url(self):
+        link = (
+            '<https://api.github.com/x?page=2>; rel="next", '
+            '<https://api.github.com/x?page=5>; rel="last"'
+        )
+        self.assertEqual(_next_link({"Link": link}), "https://api.github.com/x?page=2")
+
+    def test_next_link_none_without_next(self):
+        self.assertIsNone(_next_link({"Link": '<https://api.github.com/x?page=1>; rel="prev"'}))
+        self.assertIsNone(_next_link({}))
+        self.assertIsNone(_next_link(None))
+
+    def test_request_all_pages_concatenates_followed_pages(self):
+        pages = iter([
+            ([{"id": 1}, {"id": 2}], {"Link": '<https://api.github.com/next>; rel="next"'}),
+            ([{"id": 3}], {}),
+        ])
+        with patch("wohnungssuche.github_issue._request", side_effect=lambda *a, **k: next(pages)):
+            items = request_all_pages("/repos/x/issues/1/comments?per_page=100", "tok")
+        self.assertEqual([c["id"] for c in items], [1, 2, 3])
 
 
 if __name__ == "__main__":

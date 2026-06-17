@@ -127,7 +127,27 @@ def update_availability(
         elif new_status == STATUS_UNAVAILABLE:
             item["last_missing_from_search"] = checked_at
 
-        if previous_status != new_status:
+        # A relist breadcrumb left by the daily search (record_listings): that run
+        # already flipped status back to "available" after the flat had gone
+        # unavailable, so the plain previous->new diff below sees no change and
+        # would never surface the relist. Emit it explicitly here, then clear it.
+        relisted_at = item.pop("relisted_at", None)
+        if relisted_at and new_status == STATUS_AVAILABLE:
+            item["status_changed_at"] = checked_at
+            changes.append(
+                {
+                    "id": listing_id,
+                    "previous_status": STATUS_UNAVAILABLE,
+                    "new_status": STATUS_AVAILABLE,
+                    "note": "Wieder in den Suchergebnissen aufgetaucht.",
+                    "item": item,
+                }
+            )
+        elif previous_status is not None and previous_status != new_status:
+            # Skip the very first transition for entries that were never tracked
+            # before (previous_status is None, e.g. created only by mark_seen):
+            # otherwise a flat that has since disappeared fires a bogus "Neu nicht
+            # mehr gefunden" the first time the audit ever sees it.
             item["status_changed_at"] = checked_at
             changes.append(
                 {
@@ -177,7 +197,9 @@ def should_notify(changes: list[dict]) -> bool:
 
 
 def format_report(state: dict, changes: list[dict], source_errors: dict[str, str]) -> str:
-    checked_at = datetime.now().strftime("%Y-%m-%d %H:%M")
+    # Berlin wall-clock, to match the feed's generated_at and the search report
+    # header (both Europe/Berlin) instead of the runner's UTC.
+    checked_at = datetime.now(ZoneInfo("Europe/Berlin")).strftime("%Y-%m-%d %H:%M")
     seen = state.get("seen", {})
     counts = count_statuses(seen)
     lines = [

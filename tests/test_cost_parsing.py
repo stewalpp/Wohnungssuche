@@ -83,6 +83,14 @@ class CostLabelParsingTests(unittest.TestCase):
     def test_europa_not_euro(self):
         self.assertIsNone(parse_nebenkosten("Nebenkosten 50 europaweit"))
 
+    def test_spelled_out_euro_word_is_parsed(self):
+        # The very common spelled-out "Euro"/"Euros" must match, while "europa"
+        # still must not count as a currency token.
+        self.assertEqual(parse_kaltmiete("Kaltmiete 850 Euro"), 850.0)
+        self.assertEqual(parse_nebenkosten("Nebenkosten 120 euro"), 120.0)
+        self.assertEqual(parse_warmmiete("Warmmiete 970 Euros"), 970.0)
+        self.assertIsNone(parse_kaltmiete("Kaltmiete liegt europaweit hoch"))
+
 
 class NearestLabelAssignmentTests(unittest.TestCase):
     """Regressions distilled from the adversarial test-case generation."""

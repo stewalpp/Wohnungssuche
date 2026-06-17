@@ -713,6 +713,11 @@
 
   // -------- the view
 
+  // Set by render() to the current view's renderList closure, so update() can
+  // refresh just the list (cards/banners/count) without rebuilding the search
+  // bar — keeping focus and caret intact when a store/feed change fires.
+  var activeRenderList = null;
+
   function render(container) {
     container.innerHTML = '';
     var view = App.el('div', 'view');
@@ -831,7 +836,19 @@
       filtered.forEach(function (l) { listWrap.appendChild(listingCard(l, newIds)); });
     }
 
+    activeRenderList = renderList;
     renderList();
+  }
+
+  // Lightweight refresh used by App.rerender: re-render only the list portion
+  // (so the search input keeps focus). Returns true when it handled the update,
+  // false when the view hasn't been rendered yet (caller does a full render).
+  function update() {
+    if (typeof activeRenderList !== 'function') return false;
+    var listWrap = document.querySelector('#view-root .listing-list');
+    if (!listWrap || !document.body.contains(listWrap)) return false;
+    activeRenderList();
+    return true;
   }
 
   function emptyState(icon, title, text) {
@@ -899,7 +916,7 @@
     var state = ListFilter.getState();
     var c = App.el('div', 'filter-sheet');
 
-    c.appendChild(rangeField('Miete (€)', 'priceMin', 'priceMax', parseIntOrNull));
+    c.appendChild(rangeField('Warmmiete (€)', 'priceMin', 'priceMax', parseIntOrNull));
     c.appendChild(rangeField('Wohnfläche (m²)', 'areaMin', 'areaMax', parseFloatOrNull));
     c.appendChild(rangeField('Zimmer', 'roomsMin', 'roomsMax', parseFloatOrNull));
 
@@ -923,7 +940,7 @@
     c.appendChild(of);
 
     c.appendChild(switchRow('Nur mit Foto', 'withImage', false));
-    c.appendChild(switchRow('Nur unbewertete', 'unratedOnly', false));
+    c.appendChild(switchRow('Nur zu bewertende', 'unratedOnly', false));
 
     // scoring preferences (also feed the Score)
     c.appendChild(App.el('div', 'section-title', 'Für die Wertung'));
@@ -949,6 +966,7 @@
   Views.listings = {
     title: 'Wohnungen',
     render: render,
+    update: update,
     openDetail: openDetail,
     card: listingCard,
     newIdSet: newIdSet,

@@ -40,22 +40,27 @@ def normalize_text(value: str) -> str:
     return normalized.encode("ascii", "ignore").decode("ascii").lower()
 
 
-def contains_any(text: str, terms: list[str]) -> bool:
-    return any(term_in_text(text, term) for term in terms)
+def contains_any(text: str, terms: list[str], *, word_boundary: bool = False) -> bool:
+    return any(term_in_text(text, term, word_boundary=word_boundary) for term in terms)
 
 
-def find_terms(text: str, terms: list[str]) -> list[str]:
-    return [term for term in terms if term_in_text(text, term)]
+def find_terms(text: str, terms: list[str], *, word_boundary: bool = False) -> list[str]:
+    return [term for term in terms if term_in_text(text, term, word_boundary=word_boundary)]
 
 
-def term_in_text(text: str, term: str) -> bool:
+def term_in_text(text: str, term: str, *, word_boundary: bool = False) -> bool:
     normalized = normalize_text(text)
     normalized_term = normalize_text(term)
     if not normalized_term:
         return False
     if any(not (character.isalnum() or character.isspace()) for character in normalized_term):
         return normalized_term in normalized
-    if len(normalized_term) <= 3 or " " in normalized_term:
+    # Word-boundary matching for short/multi-word terms always; and for ALL terms
+    # when the caller asks (location names), so e.g. excluded "haste" no longer
+    # hard-rejects a flat whose prose contains "hasten", and allowed "stemmen"
+    # doesn't match "abstemmen". Product/feature exclusions keep substring matching
+    # (so compounds like "Altbauwohnung" still hit "altbau").
+    if word_boundary or len(normalized_term) <= 3 or " " in normalized_term:
         pattern = rf"(?<![a-z0-9]){re.escape(normalized_term)}(?![a-z0-9])"
         return re.search(pattern, normalized) is not None
     return normalized_term in normalized
@@ -86,7 +91,7 @@ def evaluate_listing(listing: Listing, criteria: dict) -> MatchResult:
     if excluded:
         return MatchResult(False, [f"ausgeschlossen: {', '.join(excluded)}"], review_notes)
 
-    excluded_locations = find_terms(text, criteria.get("excluded_location_terms", []))
+    excluded_locations = find_terms(text, criteria.get("excluded_location_terms", []), word_boundary=True)
     if excluded_locations:
         return MatchResult(
             False,
@@ -140,10 +145,10 @@ def evaluate_listing(listing: Listing, criteria: dict) -> MatchResult:
             review_notes.append("Miete und Nebenkosten pruefen")
 
     location_terms = criteria.get("allowed_location_terms", [])
-    if location_terms and not contains_any(text, location_terms):
+    if location_terms and not contains_any(text, location_terms, word_boundary=True):
         # A town-pinned source URL (e.g. "Kleinanzeigen Gehrden") guarantees the
         # area even when the card text omits the town name — don't hard-reject it.
-        source_in_area = contains_any(listing.source_name or "", location_terms)
+        source_in_area = contains_any(listing.source_name or "", location_terms, word_boundary=True)
         if source_in_area:
             review_notes.append("Ort im Inserat pruefen")
         elif criteria.get("strict_location", False):

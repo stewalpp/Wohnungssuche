@@ -141,6 +141,33 @@ class SearchReportTests(unittest.TestCase):
         self.assertIn("### \U0001F7E9 NEU 1.", markdown)
         self.assertIn("### \U0001F7E8 PRUEFEN 1.", markdown)
 
+    def test_review_only_report_has_clean_status_summary(self):
+        # A run with zero exact matches but floor-review candidates must emit an
+        # explicit summary sentence, so the GitHub status/dashboard headline does
+        # not leak the raw markdown table header.
+        from wohnungssuche.github_issue import report_summary_lines, status_body_from_report
+
+        review_listing = Listing(
+            source_name="test",
+            title="Wohnung zur Miete 3 Zimmer, 80 qm, 1. OG",
+            url="https://example.test/review-only",
+            text="3 Zimmer 80 qm 900 EUR 1. OG Barsinghausen",
+            rooms=3, area_sqm=80, price_eur=900, floor="1. og",
+        )
+        markdown = format_report(
+            [],
+            [(review_listing, MatchResult(False, ["kein EG/Parterre: 1. og"], []))],
+            [],
+        )
+        self.assertIn("1 Pruefkandidaten gefunden, Details pruefen.", markdown)
+
+        lines = [x.strip() for x in markdown.splitlines() if x.strip()]
+        self.assertEqual(report_summary_lines(lines), ["1 Pruefkandidaten gefunden, Details pruefen."])
+
+        status_body = status_body_from_report(markdown)
+        self.assertIn("1 Pruefkandidaten gefunden", status_body)
+        self.assertNotIn("| Typ |", status_body)
+
     def test_priority_places_score_higher_than_farther_places(self):
         criteria = {
             "min_rooms": 3,

@@ -138,6 +138,15 @@ def main(argv: list[str] | None = None) -> int:
         ):
             print(notification_result)
 
+        # Commit the seen-state right after notifying, before the remaining file
+        # I/O below. Notifications are a non-idempotent side effect: if
+        # write_reports / record_listings / write_feed crashed with the state
+        # still unpersisted, the next scheduled run would re-detect and re-notify
+        # the identical listings. (save_state runs again at the end to capture the
+        # feed-enriched state.)
+        mark_seen(state, reported_listings)
+        save_state(args.state, state)
+
         report_paths = write_reports(
             args.report,
             markdown,
@@ -146,8 +155,6 @@ def main(argv: list[str] | None = None) -> int:
         )
         for report_path in report_paths:
             print(f"Report geschrieben: {report_path}")
-
-        mark_seen(state, reported_listings)
 
     elif not args.report.exists():
         args.report.parent.mkdir(parents=True, exist_ok=True)
@@ -570,6 +577,14 @@ def format_report(
 
         if floor_review_matches:
             if not matches:
+                # Machine-readable summary sentence (mirrors the "N neue passende
+                # Inserate gefunden." line) so the GitHub status/dashboard headline
+                # has a clean line to quote on a review-candidates-only run instead
+                # of leaking the raw table header.
+                lines.append(
+                    f"{len(floor_review_matches)} Pruefkandidaten gefunden, Details pruefen."
+                )
+                lines.append("")
                 lines.append(
                     f"Legende: {NEW_LISTING_MARKER} passt gut, "
                     f"{REVIEW_LISTING_MARKER} Details pruefen."

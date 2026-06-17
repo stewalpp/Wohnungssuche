@@ -163,8 +163,17 @@
     var statusPts = listing.status === 'review' ? 2 : 5;
     parts.push({ label: 'Treffer', got: statusPts, max: 5, note: listing.status === 'review' ? 'Etage prüfen' : 'passt' });
 
-    var total = parts.reduce(function (s, p) { return s + p.got; }, 0);
-    return { total: Math.round(total), parts: parts, transit: t };
+    // Normalise to a true 0–100 score: percentage of achievable points. When a
+    // preference toggle lowers a category's max (e.g. ÖPNV 25→12 when transit is
+    // "unwichtig"), this keeps the ceiling at 100 instead of shrinking it — so an
+    // otherwise-perfect flat can still reach "gut" (>=80). With both toggles on
+    // (the default) maxSum is 100, so the number is unchanged; and since maxSum is
+    // constant across all listings for a given preference set, the ranking/sort
+    // order is identical to the raw sum.
+    var gotSum = parts.reduce(function (s, p) { return s + p.got; }, 0);
+    var maxSum = parts.reduce(function (s, p) { return s + p.max; }, 0);
+    var total = maxSum > 0 ? Math.round(gotSum / maxSum * 100) : 0;
+    return { total: total, parts: parts, transit: t };
   }
 
   function tone(total) {
@@ -191,7 +200,11 @@
   }
 
   function priceAdj(listing, prefs) {
-    var p = num(listing.price_eur);
+    // Rate the same warm total the score and the card headline use, not the
+    // bare cold rent — otherwise a flat scored on its warm rent could still get
+    // the "Preiswerte" adjective off a low Kaltmiete.
+    var p = effectiveRent(listing);
+    if (p === null) p = num(listing.price_eur);
     if (p === null) return '';
     if (p <= prefs.maxPrice * 0.6) return 'Preiswerte';
     if (p <= prefs.maxPrice * 0.85) return 'Gut bezahlbare';
@@ -226,13 +239,18 @@
   function inquiry(listing, name1, name2) {
     var rooms = num(listing.rooms);
     var area = num(listing.area_sqm);
-    var price = num(listing.price_eur);
+    // Quote the warm total when known (matching the card headline), and always
+    // label it, so the viewing request never states an unqualified Kaltmiete
+    // that contradicts the price shown on the tile.
+    var warm = effectiveRent(listing);
+    var price = (warm !== null) ? warm : num(listing.price_eur);
+    var rentLabel = (warm !== null) ? ' warm' : ' kalt';
     var town = townLabel(listing);
     var who = (name1 && name2) ? (name1 + ' und ' + name2) : (name1 || 'wir');
     var desc = (rooms ? rooms + '-Zimmer-Wohnung' : 'Wohnung') +
       (area ? ' (ca. ' + App.fmtArea(area) + ')' : '') +
       (town ? ' in ' + town : '') +
-      (price ? ' für ' + App.fmtEUR(price) : '');
+      (price ? ' für ' + App.fmtEUR(price) + rentLabel : '');
     var opener = variant(listing.id, [
       'wir haben Ihr Inserat zur ' + desc + ' gesehen und die Wohnung spricht uns sehr an.',
       'Ihre ' + desc + ' klingt für uns sehr passend.',

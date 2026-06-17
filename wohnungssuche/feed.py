@@ -97,6 +97,12 @@ def record_listings(
         if previous_status == STATUS_UNAVAILABLE:
             entry["status_changed_at"] = now_iso
             entry.pop("last_missing_from_search", None)
+            # Leave a breadcrumb for the weekly availability check. The daily run
+            # has just flipped this back to "available", so the weekly previous→new
+            # diff would otherwise see no change and never report the relist. The
+            # weekly run consumes (pops) this flag and emits the "wieder sichtbar"
+            # change/notification.
+            entry["relisted_at"] = now_iso
 
 
 def set_if_present(entry: dict, key: str, value: object | None) -> None:

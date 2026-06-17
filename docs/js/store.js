@@ -224,7 +224,17 @@
     cloud.unsubs.push(fs.onSnapshot(
       fs.doc(db, 'households', code, 'meta', 'settings'),
       function (snap) {
-        if (!snap.exists()) return;
+        if (!snap.exists()) {
+          // Server has no settings doc yet (brand-new household). If THIS device
+          // has finished onboarding, seed it so the partner device doesn't sit on
+          // default names/colors forever. A non-onboarded device stays quiet so
+          // it can never clobber real names with defaults. Only seed on a
+          // SERVER-confirmed miss (never the offline cache's initial empty
+          // snapshot), otherwise we'd overwrite real server settings with this
+          // device's local copy on every cold start.
+          if (settings.onboarded && !(snap.metadata && snap.metadata.fromCache)) cloudSetSettings();
+          return;
+        }
         settings = normalizeSettings(snap.data());
         persistSettings();
         emit();
@@ -248,9 +258,14 @@
   function ratingRef(id) { return cloud.fs.doc(cloud.db, 'households', cloud.code, 'ratings', id); }
   function settingsRef() { return cloud.fs.doc(cloud.db, 'households', cloud.code, 'meta', 'settings'); }
 
-  function cloudSetRating(id, rating) {
+  function cloudSetRating(id, data) {
     if (mode !== 'cloud' || !cloud) return;
-    cloud.fs.setDoc(ratingRef(id), clean(rating)).catch(function (e) { console.warn('Cloud-Schreibvorgang (Bewertung) fehlgeschlagen:', e); });
+    // Merge-write so we only touch the field(s) we actually changed. If both
+    // phones edit the same listing's rating doc inside the sync window, neither
+    // overwrites the other's field (p1/p2/note/status/favorite). `data` is the
+    // changed-fields patch from mutate(); on the snapshot bootstrap path it's a
+    // full rating object, which merge writes just as well.
+    cloud.fs.setDoc(ratingRef(id), clean(data), { merge: true }).catch(function (e) { console.warn('Cloud-Schreibvorgang (Bewertung) fehlgeschlagen:', e); });
   }
   function cloudSetSettings() {
     if (mode !== 'cloud' || !cloud) return;
@@ -311,10 +326,12 @@
 
   function mutate(id, patch) {
     var current = normalizeRating(ratings[id] || {});
-    var next = normalizeRating(Object.assign({}, current, patch, { updatedAt: nowISO() }));
+    var stamped = Object.assign({}, patch, { updatedAt: nowISO() });
+    var next = normalizeRating(Object.assign({}, current, stamped));
     ratings[id] = next;
     persistRatings();
-    cloudSetRating(id, next);
+    // Push only the changed fields (+updatedAt), merged — see cloudSetRating.
+    cloudSetRating(id, stamped);
     emit();
     return next;
   }

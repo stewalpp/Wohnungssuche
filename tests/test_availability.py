@@ -6,7 +6,11 @@ from wohnungssuche.availability import (
     STATUS_UNKNOWN,
     determine_availability,
     should_notify,
+    update_availability,
 )
+
+
+CHECKED_AT = "2026-06-17T10:00:00+00:00"
 
 
 class AvailabilityTests(unittest.TestCase):
@@ -63,6 +67,63 @@ class AvailabilityTests(unittest.TestCase):
         self.assertFalse(
             should_notify([{"previous_status": None, "new_status": STATUS_AVAILABLE}])
         )
+
+
+class UpdateAvailabilityTests(unittest.TestCase):
+    def test_first_check_of_untracked_entry_emits_no_false_change(self):
+        # Entry written only by mark_seen (no availability_status) that is now
+        # gone must NOT fire a bogus "Neu nicht mehr gefunden" on the first audit.
+        state = {"seen": {"x": {"url": "https://example.test/expose/1", "source": "Quelle"}}}
+        changes = update_availability(
+            state,
+            current_ids=set(),
+            current_urls=set(),
+            source_errors={},
+            active_sources={"Quelle"},
+            checked_at=CHECKED_AT,
+        )
+        self.assertEqual(changes, [])
+        self.assertEqual(state["seen"]["x"]["availability_status"], STATUS_UNAVAILABLE)
+        self.assertNotIn("status_changed_at", state["seen"]["x"])
+
+    def test_tracked_available_going_unavailable_emits_change(self):
+        state = {"seen": {"x": {
+            "url": "https://example.test/expose/1", "source": "Quelle",
+            "availability_status": STATUS_AVAILABLE,
+        }}}
+        changes = update_availability(
+            state,
+            current_ids=set(),
+            current_urls=set(),
+            source_errors={},
+            active_sources={"Quelle"},
+            checked_at=CHECKED_AT,
+        )
+        self.assertEqual(len(changes), 1)
+        self.assertEqual(changes[0]["previous_status"], STATUS_AVAILABLE)
+        self.assertEqual(changes[0]["new_status"], STATUS_UNAVAILABLE)
+
+    def test_relist_breadcrumb_emits_wieder_sichtbar_change(self):
+        # The daily search already flipped it back to "available" and left a
+        # relisted_at breadcrumb; the weekly audit must surface + notify it,
+        # even though the plain previous->new diff sees no change.
+        state = {"seen": {"x": {
+            "url": "https://example.test/expose/1", "source": "Quelle",
+            "availability_status": STATUS_AVAILABLE, "relisted_at": "2026-06-16T09:00:00+00:00",
+        }}}
+        changes = update_availability(
+            state,
+            current_ids={"x"},
+            current_urls=set(),
+            source_errors={},
+            active_sources={"Quelle"},
+            checked_at=CHECKED_AT,
+        )
+        self.assertEqual(len(changes), 1)
+        self.assertEqual(changes[0]["previous_status"], STATUS_UNAVAILABLE)
+        self.assertEqual(changes[0]["new_status"], STATUS_AVAILABLE)
+        self.assertTrue(should_notify(changes))
+        self.assertNotIn("relisted_at", state["seen"]["x"])  # consumed
 
 
 if __name__ == "__main__":

@@ -20,7 +20,7 @@
     roomsMax: null,
     ort: '',            // '' = alle; otherwise a town name (from the source)
     withImage: false,   // only listings that have a photo
-    unratedOnly: false, // only listings neither partner has rated yet
+    unratedOnly: false, // listings still missing at least one partner's rating
     groundFloorImportant: true,  // scoring preference (also used by Score)
     transitImportant: true       // scoring preference
   };
@@ -58,6 +58,14 @@
     return true;
   }
 
+  // The WARM total the card headline and the score use, with the cold rent as a
+  // fallback when warm can't be derived. The price filter and price sort must use
+  // this — not the bare cold price_eur — so they agree with what the user sees.
+  function warmRent(l) {
+    var w = (window.Score && Score.effectiveRent) ? Score.effectiveRent(l) : null;
+    return (w === null || w === undefined) ? l.price_eur : w;
+  }
+
   function bothBad(r) { return r.p1 === 'schlecht' && r.p2 === 'schlecht'; }
 
   // listings: feed array; ctx: { ratings: id->rating, newIds: Set }
@@ -81,12 +89,15 @@
       if (state.scope === 'neu' && !newIds.has(l.id)) return false;
       if (state.scope === 'favoriten' && !r.favorite) return false;
 
-      if (!inRange(l.price_eur, state.priceMin, state.priceMax)) return false;
+      if (!inRange(warmRent(l), state.priceMin, state.priceMax)) return false;
       if (!inRange(l.area_sqm, state.areaMin, state.areaMax)) return false;
       if (!inRange(l.rooms, state.roomsMin, state.roomsMax)) return false;
 
       if (state.withImage && !l.image) return false;
-      if (state.unratedOnly && (r.p1 || r.p2)) return false;
+      // "Zu bewerten" = still needs at least one partner's vote. Matches the
+      // dashboard "Zu bewerten" tile (!(p1 && p2)); a half-rated listing stays
+      // visible so the other partner can finish it.
+      if (state.unratedOnly && r.p1 && r.p2) return false;
       if (state.ort && townOf(l).toLowerCase() !== state.ort.toLowerCase()) return false;
 
       if (q) {
@@ -101,7 +112,7 @@
         return Score.score(b).total - Score.score(a).total;
       }
       if (state.sort === 'preis') {
-        var pa = num(a.price_eur), pb = num(b.price_eur);
+        var pa = num(warmRent(a)), pb = num(warmRent(b));
         if (pa === null && pb === null) return cmpNew(b, a);
         if (pa === null) return 1;
         if (pb === null) return -1;

@@ -20,8 +20,13 @@
     var byId = {};
     listings.forEach(function (l) { byId[l.id] = l; });
 
-    // Favourites: starred. Both-good: both rated "Gut" (and not hidden).
-    var starred = listings.filter(function (l) { return (ratings[l.id] || {}).favorite; });
+    // Favourites: starred, but not the ones both partners rejected (those belong
+    // only in the aussortiert bin) — matches the dashboard count and the
+    // 'favoriten' listing scope. Both-good: both rated "Gut" (and not hidden).
+    var starred = listings.filter(function (l) {
+      var r = ratings[l.id] || {};
+      return r.favorite && !(r.p1 === 'schlecht' && r.p2 === 'schlecht');
+    });
     var bothGood = listings.filter(function (l) {
       var r = ratings[l.id] || {};
       return r.p1 === 'gut' && r.p2 === 'gut' && !r.favorite && !r.hidden;

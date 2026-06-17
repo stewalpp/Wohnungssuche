@@ -44,7 +44,18 @@
     var view = window.Views && window.Views[App.currentTab];
     if (!view || typeof view.render !== 'function') return;
     var root = document.getElementById('view-root');
-    if (root) view.render(root);
+    if (!root) return;
+    // Prefer a lightweight in-place update over a full teardown. A full
+    // view.render() rebuilds the search <input> from scratch, so a Firestore
+    // snapshot (e.g. the partner rating a flat) or an auto-refresh arriving
+    // while one of us is typing would steal focus and drop keystrokes. A view
+    // that exposes update() refreshes only its dynamic parts and returns true;
+    // otherwise we fall back to a full render.
+    if (typeof view.update === 'function' && view.update() === true) {
+      updateTabBadge();
+      return;
+    }
+    view.render(root);
     updateTabBadge();
   };
 
@@ -158,7 +169,11 @@
     var ratings = Store.getAllRatings();
     return Feed.getListings().filter(function (l) {
       var r = ratings[l.id] || {};
-      return !r.hidden && App.isNew(l);
+      if (r.hidden) return false;
+      // both-rated-"schlecht" listings live only in the aussortiert bin and are
+      // hidden from the 'neu' scope, so they must not inflate the NEU count/badge.
+      if (r.p1 === 'schlecht' && r.p2 === 'schlecht') return false;
+      return App.isNew(l);
     }).length;
   };
 

@@ -31,9 +31,17 @@ LOCATION_RE = re.compile(
 )
 
 
-def parse_decimal(value: str) -> float:
-    normalized = value.replace(" ", "").replace(".", "").replace(",", ".")
-    return float(normalized)
+def parse_decimal(value: str, *, dot_is_decimal: bool = False) -> float:
+    v = value.replace(" ", "")
+    if "," in v:
+        # German convention: comma is the decimal separator, dots are thousands.
+        v = v.replace(".", "").replace(",", ".")
+    elif not dot_is_decimal:
+        # Price context: a lone dot is a thousands separator ("1.234" -> 1234).
+        v = v.replace(".", "")
+    # else: no comma and dot_is_decimal -> the dot is already a decimal point
+    # ("3.5 Zimmer" -> 3.5, "72.50 m2" -> 72.5), so leave it untouched.
+    return float(v)
 
 
 def parse_price(text: str) -> float | None:
@@ -53,12 +61,12 @@ def parse_price(text: str) -> float | None:
 
 def parse_area(text: str) -> float | None:
     match = AREA_RE.search(text)
-    return parse_decimal(match.group(1)) if match else None
+    return parse_decimal(match.group(1), dot_is_decimal=True) if match else None
 
 
 def parse_rooms(text: str) -> float | None:
     match = ROOMS_RE.search(text)
-    return parse_decimal(match.group(1)) if match else None
+    return parse_decimal(match.group(1), dot_is_decimal=True) if match else None
 
 
 def parse_floor(text: str) -> str | None:
@@ -86,9 +94,11 @@ def parse_location(text: str) -> str | None:
 # A German money amount: grouped thousands (1.234 / 1 234) or plain digits, with
 # an optional ",dd" decimal part. Two capturing groups: whole, cents.
 _AMOUNT = r"(\d{1,3}(?:[.\s]\d{3})+|\d+)(?:,(\d{1,2}))?"
-# Currency token: a literal € (may be followed by anything) or "eur" closed by a
-# word boundary (so "europa" never counts as euro).
-_CUR = r"(?:€|eur\b)"
+# Currency token: a literal € (may be followed by anything) or "eur" / "euro" /
+# "euros" closed by a word boundary. The optional "os?" lets the very common
+# spelled-out "Euro"/"Euros" match while "europa"/"europaweit" still never count
+# as euro (no word boundary after the would-be "o").
+_CUR = r"(?:€|eur(?:os?)?\b)"
 _AMOUNT_CUR_RE = re.compile(_AMOUNT + r"\s*" + _CUR, re.IGNORECASE)
 # Per-area markers near an amount mean it's a €/m² rate, not a total to use.
 _PER_AREA = ("m²", "/qm", "/m2", "pro qm", "je qm", "pro m²", "je m²")
