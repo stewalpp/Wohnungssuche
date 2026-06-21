@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "generated_at": "2026-06-21T22:12:37+02:00",
+  "generated_at": "2026-06-21T22:20:48+02:00",
   "criteria": {
     "min_rooms": 3,
     "min_area_sqm": 70,
     "max_total_rent_eur": 1000
   },
   "counts": {
-    "total": 34,
-    "match": 2,
-    "review": 32
+    "total": 25,
+    "match": 0,
+    "review": 25
   },
   "listings": [
     {
@@ -45,7 +45,7 @@
         "Ort im Inserat pruefen"
       ],
       "first_seen": "2026-06-21T09:08:26.220106+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "88c60c21ec656e56",
@@ -79,7 +79,7 @@
         "Ort im Inserat pruefen"
       ],
       "first_seen": "2026-06-20T17:54:59.649132+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "46c105e12feba92c",
@@ -109,7 +109,7 @@
       ],
       "review_notes": [],
       "first_seen": "2026-06-19T13:55:20.317303+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "ef6652e52dcc9967",
@@ -144,7 +144,7 @@
         "Ort im Inserat pruefen"
       ],
       "first_seen": "2026-06-19T09:59:15.693700+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "cdf256a3539ff5b4",
@@ -173,73 +173,7 @@
         "Wohnflaeche pruefen"
       ],
       "first_seen": "2026-06-19T09:59:15.693700+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
-    },
-    {
-      "id": "47bd5c464260ab1d",
-      "title": "Wohnung zur Miete 3 Zimmer, 70,9 qm, 3. Geschoss",
-      "url": "https://www.immowelt.de/expose/0bfa6791-cc2a-4372-8ec6-130aa4ec34ed",
-      "source": "Immowelt Barsinghausen 3 Zimmer",
-      "portal": "immowelt",
-      "price_eur": 652.0,
-      "area_sqm": 70.9,
-      "rooms": 3.0,
-      "location": null,
-      "floor": "3. geschoss",
-      "image": "https://mms.immowelt.de/a/9/d/1/a9d1ea60-d0aa-4cd5-a9ed-c714b32c0a77.jpg?ci_seal=72128111f13b65a853d4638e292546e08473132c&h=50",
-      "images": [
-        "https://mms.immowelt.de/a/9/d/1/a9d1ea60-d0aa-4cd5-a9ed-c714b32c0a77.jpg?ci_seal=72128111f13b65a853d4638e292546e08473132c&h=50",
-        "https://mms.immowelt.de/1/f/b/4/1fb4e99e-ea44-4ed1-b394-5c986edeb4ad.jpg?ci_seal=3ef5d38726804921dd8da40f04d4d227d06948ce&w=626&h=470",
-        "https://mms.immowelt.de/5/7/0/3/5703818b-efc8-4fa3-95c0-10849dc6c5e1.jpg?ci_seal=1f749b56f16cfa3af10123cca899ec9c78038e5b&w=626&h=470",
-        "https://mms.immowelt.de/0/c/1/6/0c166f19-691e-4e21-8013-c25862568b66.jpg?ci_seal=c8eda2d328b85556de2babfcec4d0a3413280516&w=626&h=470",
-        "https://mms.immowelt.de/4/1/1/4/41143a5b-9e0a-4fab-bfc9-bc23ab63eb50.jpg?ci_seal=5f96213a7d190f92864386344862112c1becd73f&w=626&h=470",
-        "https://mms.immowelt.de/2/6/2/6/2626bd79-53a3-4de1-a006-889b6c3b7e64.jpg?ci_seal=b0e5b97b3741c1354a9b6d42f148aa34565b30cd&w=626&h=470"
-      ],
-      "kaltmiete_eur": 652.0,
-      "nebenkosten_eur": null,
-      "heizkosten_eur": null,
-      "warmmiete_eur": null,
-      "status": "review",
-      "reasons": [
-        "kein EG/Parterre: 3. geschoss"
-      ],
-      "review_notes": [
-        "Ort im Inserat pruefen"
-      ],
-      "first_seen": "2026-06-19T09:59:15.693700+00:00",
-      "last_seen": "2026-06-19T09:59:15.698262+00:00"
-    },
-    {
-      "id": "c08849e7ea98d79f",
-      "title": "Wohnung zur Miete 3 Zimmer, 84 qm, 2. Geschoss Wunstorf (31515) Die 3-Zimmer-Wohnung liegt im 2",
-      "url": "https://www.immowelt.de/expose/795b7023-bae1-4075-ae7e-cbd10ac480a1",
-      "source": "Immowelt Barsinghausen 3 Zimmer",
-      "portal": "immowelt",
-      "price_eur": 650.0,
-      "area_sqm": 84.0,
-      "rooms": 3.0,
-      "location": null,
-      "floor": "2. geschoss",
-      "image": "https://mms.immowelt.de/b/c/5/5/bc559c9c-7b23-4770-835b-be4bd07ddca0.jpg?ci_seal=03fa5f968a16ca7a9bfb73e6206fea228354782e&h=50",
-      "images": [
-        "https://mms.immowelt.de/b/c/5/5/bc559c9c-7b23-4770-835b-be4bd07ddca0.jpg?ci_seal=03fa5f968a16ca7a9bfb73e6206fea228354782e&h=50",
-        "https://mms.immowelt.de/b/c/4/4/bc447886-4855-4eef-98be-02f1a9bca909.jpg?ci_seal=e6e89a308c12fa126f390dc836d8a3fa3ce4fc45&w=525&h=394",
-        "https://mms.immowelt.de/b/a/7/e/ba7e0e39-0c93-4096-a8fe-2776b454cf03.jpg?ci_seal=31862f81c7bfa59e69548a630b3ab9f5b80d8cbe&w=525&h=394",
-        "https://mms.immowelt.de/5/a/7/e/5a7e7624-c275-4454-b8cb-271461649a94.jpg?ci_seal=b3842199c6b892ee2c1641f664fe1797d0437897&w=525&h=394"
-      ],
-      "kaltmiete_eur": null,
-      "nebenkosten_eur": null,
-      "heizkosten_eur": null,
-      "warmmiete_eur": null,
-      "status": "review",
-      "reasons": [
-        "kein EG/Parterre: 2. geschoss"
-      ],
-      "review_notes": [
-        "Ort im Inserat pruefen"
-      ],
-      "first_seen": "2026-06-17T16:17:36.169707+00:00",
-      "last_seen": "2026-06-21T12:25:28.434799+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "91b65aff3f681a28",
@@ -271,7 +205,7 @@
         "Ort im Inserat pruefen"
       ],
       "first_seen": "2026-06-17T16:17:36.169707+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "84c9c57debaef65a",
@@ -306,39 +240,7 @@
         "Ort im Inserat pruefen"
       ],
       "first_seen": "2026-06-17T16:17:36.169707+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
-    },
-    {
-      "id": "136358c43cd12c85",
-      "title": "Gepflegte 3 5 Zimmerwohnung im Eg 93 qm Terrassen",
-      "url": "https://www.kleinanzeigen.de/s-anzeige/gepflegte-3-5-zimmerwohnung-im-eg-93-m-2-terrassen/3437368977-203-2862",
-      "source": "Kleinanzeigen Barsinghausen 3 Zimmer",
-      "portal": "kleinanzeigen",
-      "price_eur": 790.0,
-      "area_sqm": 93.0,
-      "rooms": 3.5,
-      "location": "30890 Barsinghausen Gepflegte",
-      "floor": "eg",
-      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/54/54b7b7d6-5ede-4f62-a49d-86f16e6d3235?rule=$_2.AUTO",
-      "images": [
-        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/54/54b7b7d6-5ede-4f62-a49d-86f16e6d3235?rule=$_2.AUTO"
-      ],
-      "kaltmiete_eur": 790.0,
-      "nebenkosten_eur": 185.0,
-      "heizkosten_eur": null,
-      "warmmiete_eur": null,
-      "status": "review",
-      "reasons": [
-        "3.5 Zimmer",
-        "93 qm",
-        "790 EUR kalt",
-        "EG/Parterre-Hinweis gefunden"
-      ],
-      "review_notes": [
-        "Miete und Nebenkosten pruefen"
-      ],
-      "first_seen": "2026-06-16T20:46:37.260643+00:00",
-      "last_seen": "2026-06-17T18:55:02.506508+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "c2c2c7eac5fc9a6d",
@@ -371,7 +273,7 @@
         "Etage pruefen"
       ],
       "first_seen": "2026-06-16T19:55:44.432689+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "f55db252a3513486",
@@ -400,7 +302,7 @@
         "Wohnflaeche pruefen"
       ],
       "first_seen": "2026-06-16T14:48:24.184659+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "e323ed49690006ce",
@@ -432,34 +334,7 @@
         "Miete und Nebenkosten pruefen"
       ],
       "first_seen": "2026-06-16T14:48:24.184659+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
-    },
-    {
-      "id": "a241235bb7d9431c",
-      "title": "Wohnung zur Miete 3 Zimmer, 75 qm, 1. Geschoss",
-      "url": "https://www.immowelt.de/expose/4fd9727d-dbbb-4e5a-8a59-acf2ecbf9183",
-      "source": "Immowelt Gehrden 3 Zimmer",
-      "portal": "immowelt",
-      "price_eur": 750.0,
-      "area_sqm": 75.0,
-      "rooms": 3.0,
-      "location": null,
-      "floor": "1. geschoss",
-      "image": "https://mms.immowelt.de/5/7/1/7/571784b9-ff6e-4b2d-b940-e504096c2e02.jpg?ci_seal=69695db28f3129c5fd070e11cc6f20657ed3d30e&h=50",
-      "images": [
-        "https://mms.immowelt.de/5/7/1/7/571784b9-ff6e-4b2d-b940-e504096c2e02.jpg?ci_seal=69695db28f3129c5fd070e11cc6f20657ed3d30e&h=50"
-      ],
-      "kaltmiete_eur": null,
-      "nebenkosten_eur": null,
-      "heizkosten_eur": null,
-      "warmmiete_eur": null,
-      "status": "review",
-      "reasons": [
-        "kein EG/Parterre: 1. geschoss"
-      ],
-      "review_notes": [],
-      "first_seen": "2026-06-16T14:48:24.184659+00:00",
-      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "5e37e9041b107871",
@@ -490,7 +365,7 @@
         "Miete und Nebenkosten pruefen"
       ],
       "first_seen": "2026-06-16T14:22:06.114015+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "54a481f254d70947",
@@ -522,68 +397,7 @@
         "Miete und Nebenkosten pruefen"
       ],
       "first_seen": "2026-06-16T14:22:06.114015+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
-    },
-    {
-      "id": "52169aa9d0a96226",
-      "title": "3 Zimmer Wohnung in Empelde ab Sofort Zu Vermieten",
-      "url": "https://www.kleinanzeigen.de/s-anzeige/3-zimmer-wohnung-in-empelde-ab-sofort-zu-vermieten/3421314886-203-2904",
-      "source": "Kleinanzeigen Gehrden 3 Zimmer",
-      "portal": "kleinanzeigen",
-      "price_eur": 950.0,
-      "area_sqm": 83.0,
-      "rooms": 3.0,
-      "location": "30952 Ronnenberg",
-      "floor": null,
-      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/55/559deb90-2a2d-406b-a922-0428664ca1e2?rule=$_2.AUTO",
-      "images": [
-        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/55/559deb90-2a2d-406b-a922-0428664ca1e2?rule=$_2.AUTO"
-      ],
-      "kaltmiete_eur": null,
-      "nebenkosten_eur": null,
-      "heizkosten_eur": null,
-      "warmmiete_eur": null,
-      "status": "match",
-      "reasons": [
-        "3 Zimmer",
-        "83 qm",
-        "950 EUR"
-      ],
-      "review_notes": [
-        "Etage pruefen"
-      ],
-      "first_seen": "2026-06-16T14:22:06.114015+00:00",
-      "last_seen": "2026-06-16T19:55:44.432712+00:00"
-    },
-    {
-      "id": "39dd20e28f80c777",
-      "title": "Gehrden Kernstadt 3 Zimmerwohnung zur Miete",
-      "url": "https://www.kleinanzeigen.de/s-anzeige/gehrden-kernstadt-3-zimmerwohnung-zur-miete/3428577682-203-2903",
-      "source": "Kleinanzeigen Gehrden 3 Zimmer",
-      "portal": "kleinanzeigen",
-      "price_eur": 740.0,
-      "area_sqm": 83.0,
-      "rooms": 3.0,
-      "location": "30989 Gehrden Gehrden Kernstadt",
-      "floor": "hochparterre",
-      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/7a/7a5b49c3-db2c-4667-b7ef-224ebcdb3dee?rule=$_2.AUTO",
-      "images": [
-        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/7a/7a5b49c3-db2c-4667-b7ef-224ebcdb3dee?rule=$_2.AUTO"
-      ],
-      "kaltmiete_eur": null,
-      "nebenkosten_eur": 120.0,
-      "heizkosten_eur": null,
-      "warmmiete_eur": null,
-      "status": "match",
-      "reasons": [
-        "3 Zimmer",
-        "83 qm",
-        "740 EUR",
-        "EG/Parterre-Hinweis gefunden"
-      ],
-      "review_notes": [],
-      "first_seen": "2026-06-16T14:22:06.114015+00:00",
-      "last_seen": "2026-06-17T15:44:39.598743+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "364366aaed753692",
@@ -616,7 +430,7 @@
         "nebenkosten pruefen"
       ],
       "first_seen": "2026-06-16T14:22:06.114015+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "33d7ba59b15e47af",
@@ -648,7 +462,7 @@
         "Miete und Nebenkosten pruefen"
       ],
       "first_seen": "2026-06-16T14:22:06.114015+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "215d89cabc477ebd",
@@ -680,38 +494,7 @@
         "Miete und Nebenkosten pruefen"
       ],
       "first_seen": "2026-06-16T14:22:06.114015+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
-    },
-    {
-      "id": "0c789e481a4c1229",
-      "title": "Modernisierte 3 Zimmer Wohnung mit Balkon am Benther Berg",
-      "url": "https://www.kleinanzeigen.de/s-anzeige/modernisierte-3-zimmer-wohnung-mit-balkon-am-benther-berg/3434909367-203-2904",
-      "source": "Kleinanzeigen Gehrden 3 Zimmer",
-      "portal": "kleinanzeigen",
-      "price_eur": 850.0,
-      "area_sqm": 71.0,
-      "rooms": 3.0,
-      "location": "30952 Ronnenberg",
-      "floor": null,
-      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/3f/3f4f63f4-823c-4d17-aed2-0df55252c329?rule=$_2.AUTO",
-      "images": [
-        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/3f/3f4f63f4-823c-4d17-aed2-0df55252c329?rule=$_2.AUTO"
-      ],
-      "kaltmiete_eur": null,
-      "nebenkosten_eur": null,
-      "heizkosten_eur": null,
-      "warmmiete_eur": null,
-      "status": "review",
-      "reasons": [
-        "3 Zimmer",
-        "71 qm",
-        "850 EUR"
-      ],
-      "review_notes": [
-        "Etage pruefen"
-      ],
-      "first_seen": "2026-06-16T14:22:06.114015+00:00",
-      "last_seen": "2026-06-17T10:14:57.188416+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "ddc872ce04381a24",
@@ -743,39 +526,7 @@
         "Miete und Nebenkosten pruefen"
       ],
       "first_seen": "2026-06-16T13:50:26.504416+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
-    },
-    {
-      "id": "bd6f99e0c74fd8a7",
-      "title": "4 Zimmer Wohnung 3 Etage 92 Qm Fahrstuhl Balkon",
-      "url": "https://www.kleinanzeigen.de/s-anzeige/4-zimmer-wohnung-3-etage-92-qm-fahrstuhl-balkon/3435555096-203-2862",
-      "source": "Kleinanzeigen Barsinghausen 3 Zimmer",
-      "portal": "kleinanzeigen",
-      "price_eur": 920.0,
-      "area_sqm": 92.0,
-      "rooms": 4.0,
-      "location": "30890 Barsinghausen",
-      "floor": "1.og",
-      "image": "https://img.kleinanzeigen.de/api/v1/prod-ads/images/a9/a99ace5d-4639-499c-83cd-6ddd3da13057?rule=$_2.AUTO",
-      "images": [
-        "https://img.kleinanzeigen.de/api/v1/prod-ads/images/a9/a99ace5d-4639-499c-83cd-6ddd3da13057?rule=$_2.AUTO"
-      ],
-      "kaltmiete_eur": null,
-      "nebenkosten_eur": 130.0,
-      "heizkosten_eur": 225.0,
-      "warmmiete_eur": null,
-      "status": "review",
-      "reasons": [
-        "4 Zimmer",
-        "92 qm",
-        "920 EUR kalt"
-      ],
-      "review_notes": [
-        "Etage pruefen",
-        "Miete und Nebenkosten pruefen"
-      ],
-      "first_seen": "2026-06-16T13:50:26.504416+00:00",
-      "last_seen": "2026-06-19T16:37:39.768663+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "6b2a66fa75be9009",
@@ -804,7 +555,7 @@
         "Miete und Nebenkosten pruefen"
       ],
       "first_seen": "2026-06-16T13:50:26.504416+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "47392491b8de4c1a",
@@ -835,7 +586,7 @@
         "Etage pruefen"
       ],
       "first_seen": "2026-06-16T13:50:26.504416+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "40c7559281958119",
@@ -867,7 +618,7 @@
         "Etage pruefen"
       ],
       "first_seen": "2026-06-16T13:50:26.504416+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "bd780341c0d19730",
@@ -896,7 +647,7 @@
       ],
       "review_notes": [],
       "first_seen": "2026-06-16T07:37:14.605931+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "951a576440a61792",
@@ -926,7 +677,7 @@
       ],
       "review_notes": [],
       "first_seen": "2026-06-16T07:37:14.605931+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "7fe05dffb699b575",
@@ -959,7 +710,7 @@
         "Wohnflaeche pruefen"
       ],
       "first_seen": "2026-06-16T07:37:14.605931+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "5bf0e56ac407c37b",
@@ -989,34 +740,7 @@
       ],
       "review_notes": [],
       "first_seen": "2026-06-16T07:37:14.605931+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
-    },
-    {
-      "id": "4beac5d73d4b572d",
-      "title": "Wohnung zur Miete 3 Zimmer, 72 qm, 1. Geschoss",
-      "url": "https://www.immowelt.de/expose/72a7aefe-51c4-4e23-821c-d80db0a70465",
-      "source": "Immowelt Barsinghausen 3 Zimmer",
-      "portal": "immowelt",
-      "price_eur": 727.0,
-      "area_sqm": 72.0,
-      "rooms": 3.0,
-      "location": null,
-      "floor": "1. geschoss",
-      "image": "https://mms.immowelt.de/a/9/d/1/a9d1ea60-d0aa-4cd5-a9ed-c714b32c0a77.jpg?ci_seal=72128111f13b65a853d4638e292546e08473132c&h=50",
-      "images": [
-        "https://mms.immowelt.de/a/9/d/1/a9d1ea60-d0aa-4cd5-a9ed-c714b32c0a77.jpg?ci_seal=72128111f13b65a853d4638e292546e08473132c&h=50"
-      ],
-      "kaltmiete_eur": null,
-      "nebenkosten_eur": null,
-      "heizkosten_eur": null,
-      "warmmiete_eur": null,
-      "status": "review",
-      "reasons": [
-        "kein EG/Parterre: 1. geschoss"
-      ],
-      "review_notes": [],
-      "first_seen": "2026-06-16T07:37:14.605931+00:00",
-      "last_seen": "2026-06-16T19:55:44.432712+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "16561d548ea5a165",
@@ -1048,7 +772,7 @@
         "Miete und Nebenkosten pruefen"
       ],
       "first_seen": "2026-06-16T07:37:14.605931+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     },
     {
       "id": "836726824ec5c8aa",
@@ -1083,7 +807,7 @@
         "Miete und Nebenkosten pruefen"
       ],
       "first_seen": "2026-06-16T07:18:23.368301+00:00",
-      "last_seen": "2026-06-21T20:12:37.576954+00:00"
+      "last_seen": "2026-06-21T20:20:35.843569+00:00"
     }
   ]
 }
