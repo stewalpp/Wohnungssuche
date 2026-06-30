@@ -8,10 +8,10 @@
 
   var App = window.App = window.App || {};
 
-  App.currentTab = 'dashboard';
+  App.currentTab = 'items';
 
   // Tabs, auf denen der „+"-Button (FAB) sichtbar ist.
-  var FAB_TABS = { dashboard: 1, items: 1, sold: 1 };
+  var FAB_TABS = { items: 1 };
 
   /* ---------------- tab switching ---------------- */
 
@@ -69,46 +69,6 @@
     ensureFab().classList.toggle('hidden', !FAB_TABS[App.currentTab]);
   }
 
-  /* ---------------- onboarding (Namen einmal setzen) ---------------- */
-
-  function showOnboarding() {
-    var content = App.el('div', '');
-    content.appendChild(App.el('p', 'info-p',
-      'Schön, dass ihr gemeinsam ausmistet! Tragt kurz eure Namen ein – dann könnt ihr bei jedem Objekt festhalten, wer sich darum kümmert.'));
-
-    var members = Store.getSettings().members;
-    var inputs = {};
-    members.forEach(function (m) {
-      var g = App.el('div', 'form-group');
-      g.appendChild(App.el('div', 'form-label', m.id === 'p1' ? 'Dein Name' : 'Name deiner Partnerin / deines Partners'));
-      var inp = document.createElement('input');
-      inp.type = 'text'; inp.className = 'input'; inp.placeholder = 'Vorname';
-      inp.value = (m.name && m.name !== 'Partnerin' && m.name !== 'Person 1' && m.name !== 'Person 2') ? m.name : '';
-      inp.setAttribute('autocapitalize', 'words');
-      g.appendChild(inp);
-      content.appendChild(g);
-      inputs[m.id] = inp;
-    });
-
-    var start = App.el('button', 'btn btn-primary', 'Los geht’s!');
-    start.type = 'button';
-    start.style.marginTop = '6px';
-    start.addEventListener('click', function () {
-      Store.updateSettings({
-        onboarded: true,
-        members: [
-          { id: 'p1', name: inputs.p1.value.trim() },
-          { id: 'p2', name: inputs.p2.value.trim() }
-        ]
-      });
-      App.closeSheet();
-      App.toast('Namen gespeichert ✓');
-    });
-    content.appendChild(start);
-
-    App.showSheet({ title: 'Willkommen', content: content });
-  }
-
   /* ---------------- wiring ---------------- */
 
   function wireTabBar() {
@@ -136,8 +96,7 @@
   function start() {
     wireTabBar();
     Store.onChange(App.rerender);
-    if (!Store.getSettings().onboarded) showOnboarding();
-    App.switchTab('dashboard');
+    App.switchTab('items');
     registerServiceWorker();
   }
 

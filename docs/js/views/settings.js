@@ -21,6 +21,29 @@
     return row;
   }
 
+  // Lesbare Text-Liste aller Objekte (zum Teilen/Kopieren).
+  function summaryText(items, s) {
+    var lines = [];
+    lines.push('Möbelverkauf – Stand ' + App.fmtDate(new Date().toISOString()));
+    lines.push('Eingenommen: ' + App.fmtEUR(s.earned) + ' · ' + s.soldCount + ' verkauft · ' + s.total + ' Objekte');
+    lines.push('');
+    items.slice().sort(function (a, b) { return (a.name || '').localeCompare(b.name || '', 'de'); }).forEach(function (it) {
+      var price;
+      if (it.status === 'verkauft') {
+        price = App.fmtEUR(it.soldPrice != null ? it.soldPrice : it.wishPrice) + ' (verkauft)';
+      } else {
+        var lo = it.minPrice, hi = it.wishPrice, p;
+        if (lo != null && hi != null && lo !== hi) p = lo + '–' + hi + ' €';
+        else if (hi != null) p = App.fmtEUR(hi);
+        else if (lo != null) p = 'ab ' + App.fmtEUR(lo);
+        else p = 'Preis offen';
+        price = p + ' (' + Catalog.statusLabel(it.status) + ')';
+      }
+      lines.push('• ' + (it.name || 'Objekt') + ': ' + price);
+    });
+    return lines.join('\n');
+  }
+
   function render(container) {
     container.innerHTML = '';
     var view = App.el('div', 'view');
@@ -73,28 +96,6 @@
       'Beide Handys öffnen dieselbe Adresse und teilen sich automatisch denselben Stand. Kostenlos über euer Firebase-Projekt.'));
     view.appendChild(syncCard);
 
-    /* ---- Namen ---- */
-    var nameCard = card('Wer verkauft?');
-    Store.getSettings().members.forEach(function (m) {
-      var g = App.el('div', 'form-group');
-      var lbl = App.el('label', 'form-label');
-      var d = App.el('span', 'person-dot');
-      d.style.background = m.color; d.style.display = 'inline-block'; d.style.marginRight = '6px';
-      lbl.appendChild(d);
-      lbl.appendChild(document.createTextNode(m.id === 'p1' ? 'Du' : 'Partner/in'));
-      g.appendChild(lbl);
-      var inp = document.createElement('input');
-      inp.type = 'text'; inp.className = 'input'; inp.value = m.name; inp.placeholder = 'Vorname';
-      inp.setAttribute('autocapitalize', 'words');
-      inp.addEventListener('change', function () {
-        Store.updateSettings({ members: [{ id: m.id, name: inp.value.trim() }] });
-        App.toast('Name gespeichert');
-      });
-      g.appendChild(inp);
-      nameCard.appendChild(g);
-    });
-    view.appendChild(nameCard);
-
     /* ---- Darstellung ---- */
     var themeCard = card('Darstellung');
     var seg = App.el('div', 'segmented');
@@ -137,6 +138,21 @@
       }
     });
     dataCard.appendChild(exportBtn);
+
+    if (s.total > 0) {
+      var copyBtn = App.el('button', 'btn btn-secondary', 'Liste als Text kopieren');
+      copyBtn.type = 'button';
+      copyBtn.style.marginTop = '10px';
+      copyBtn.appendChild(App.icon('copy', 15));
+      copyBtn.addEventListener('click', function () {
+        var text = summaryText(Store.getItems(), s);
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function () { App.toast('Liste kopiert ✓'); })
+            .catch(function () { App.toast('Kopieren nicht möglich'); });
+        } else { App.toast('Kopieren nicht möglich'); }
+      });
+      dataCard.appendChild(copyBtn);
+    }
 
     if (s.total > 0) {
       var clearBtn = App.el('button', 'btn btn-destructive', 'Alle Objekte löschen');

@@ -32,18 +32,6 @@
     { key: 'behalten',   label: 'Behalten',     short: 'Behalten',   cls: 's-behalten',   done: true,  earns: false, expects: false }
   ];
 
-  // Plattformen (wo inseriert / verkauft). '' = keine Angabe.
-  var PLATFORMS = [
-    { key: '',             label: '– keine Angabe –' },
-    { key: 'kleinanzeigen', label: 'Kleinanzeigen' },
-    { key: 'ebay',          label: 'eBay' },
-    { key: 'vinted',        label: 'Vinted' },
-    { key: 'facebook',      label: 'Facebook Marktplatz' },
-    { key: 'freunde',       label: 'Freunde / Familie' },
-    { key: 'flohmarkt',     label: 'Flohmarkt' },
-    { key: 'sonstiges',     label: 'Sonstiges' }
-  ];
-
   function findBy(list, key) {
     for (var i = 0; i < list.length; i++) if (list[i].key === key) return list[i];
     return null;
@@ -52,18 +40,14 @@
   window.Catalog = {
     categories: CATEGORIES,
     statuses: STATUSES,
-    platforms: PLATFORMS,
 
     category: function (key) { return findBy(CATEGORIES, key) || findBy(CATEGORIES, 'sonstiges'); },
     status: function (key) { return findBy(STATUSES, key) || findBy(STATUSES, 'offen'); },
-    platform: function (key) { return findBy(PLATFORMS, key || '') || PLATFORMS[0]; },
 
     isCategory: function (key) { return !!findBy(CATEGORIES, key); },
     isStatus: function (key) { return !!findBy(STATUSES, key); },
-    isPlatform: function (key) { return !!findBy(PLATFORMS, key || ''); },
 
     categoryLabel: function (key) { var c = findBy(CATEGORIES, key); return c ? c.label : 'Sonstiges'; },
-    statusLabel: function (key) { var s = findBy(STATUSES, key); return s ? s.label : 'Zu verkaufen'; },
-    platformLabel: function (key) { var p = findBy(PLATFORMS, key || ''); return p ? p.label : ''; }
+    statusLabel: function (key) { var s = findBy(STATUSES, key); return s ? s.label : 'Zu verkaufen'; }
   };
 })();

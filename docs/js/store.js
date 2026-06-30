@@ -93,21 +93,22 @@
 
   function validStatus(v) { return (window.Catalog && Catalog.isStatus(v)) ? v : 'offen'; }
   function validCategory(v) { return (window.Catalog && Catalog.isCategory(v)) ? v : 'sonstiges'; }
-  function validPlatform(v) { return (window.Catalog && Catalog.isPlatform(v)) ? (v || '') : ''; }
-  function validOwner(v) { return (v === 'p1' || v === 'p2' || v === 'beide') ? v : ''; }
 
   function normalizeItem(raw, id) {
     raw = raw && typeof raw === 'object' ? raw : {};
     return {
       id: id || raw.id || App.uid(),
       name: str(raw.name),
+      // category wird nicht mehr aktiv erfasst, bleibt aber als Icon-Quelle
+      // erhalten (alte Objekte) – Default 'sonstiges' (📦).
       category: validCategory(raw.category),
-      askingPrice: num(raw.askingPrice),
+      // minPrice + wishPrice ersetzen den früheren einzelnen askingPrice.
+      // Migrations-Fallback: alte Objekte (nur askingPrice) -> wishPrice.
+      minPrice: num(raw.minPrice),
+      wishPrice: num(raw.wishPrice != null ? raw.wishPrice : raw.askingPrice),
       soldPrice: num(raw.soldPrice),
       status: validStatus(raw.status),
       buyer: str(raw.buyer),
-      platform: validPlatform(raw.platform),
-      owner: validOwner(raw.owner),
       note: str(raw.note),
       photo: typeof raw.photo === 'string' ? raw.photo : '',
       deleted: !!raw.deleted,
@@ -455,12 +456,6 @@
     var m = settings.members.find(function (x) { return x.id === id; });
     return m ? m.color : '#8E8E93';
   }
-  // "Steffen", "Partnerin", "Beide" oder '' (niemand zugewiesen)
-  function ownerLabel(owner) {
-    if (owner === 'beide') return 'Beide';
-    if (owner === 'p1' || owner === 'p2') return memberName(owner);
-    return '';
-  }
 
   // Sync pro Gerät an/aus.
   function setLocalOnly(on) {
@@ -500,7 +495,6 @@
     updateSettings: updateSettings,
     memberName: memberName,
     memberColor: memberColor,
-    ownerLabel: ownerLabel,
     setLocalOnly: setLocalOnly,
     isLocalOnly: isLocalOnly
   };
