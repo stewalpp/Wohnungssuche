@@ -1,17 +1,48 @@
 {
   "schema": 1,
-  "generated_at": "2026-06-29T22:28:29+02:00",
+  "generated_at": "2026-06-30T10:42:27+02:00",
   "criteria": {
     "min_rooms": 3,
     "min_area_sqm": 70,
     "max_total_rent_eur": 1000
   },
   "counts": {
-    "total": 18,
+    "total": 19,
     "match": 0,
-    "review": 18
+    "review": 19
   },
   "listings": [
+    {
+      "id": "18f86f452ce4c157",
+      "title": "Wohnung zur Miete 3 Zimmer, 82,9 qm, 2. Geschoss",
+      "url": "https://www.immowelt.de/expose/55ef72e1-7789-4e0e-acff-cbd1f52de58c",
+      "source": "Immowelt Region Hannover 3 Zimmer",
+      "portal": "immowelt",
+      "price_eur": 781.0,
+      "area_sqm": 82.9,
+      "rooms": 3.0,
+      "location": null,
+      "floor": "2. geschoss",
+      "image": "https://mms.immowelt.de/c/8/0/0/c8007952-cedf-495b-9ec5-83c777d9c696.jpg?ci_seal=51ba2760d2b9cef107e87d9d224082142792d695&w=525&h=394",
+      "images": [
+        "https://mms.immowelt.de/c/8/0/0/c8007952-cedf-495b-9ec5-83c777d9c696.jpg?ci_seal=51ba2760d2b9cef107e87d9d224082142792d695&w=525&h=394",
+        "https://mms.immowelt.de/9/8/b/b/98bb143b-4521-4047-bb41-2bf37d6afb27.jpg?ci_seal=a6ef0cc584e7dd79b0c9fa0a303f44205ad5a3cb&w=525&h=394",
+        "https://mms.immowelt.de/4/2/7/c/427c4853-df87-46aa-82f8-138d7a8ac0ec.jpg?ci_seal=5f91e32daf65ea20388a61d7ccab0873d40edab9&w=525&h=394"
+      ],
+      "kaltmiete_eur": 781.0,
+      "nebenkosten_eur": null,
+      "heizkosten_eur": null,
+      "warmmiete_eur": null,
+      "status": "review",
+      "reasons": [
+        "kein EG/Parterre: 2. geschoss"
+      ],
+      "review_notes": [
+        "Miete und Nebenkosten pruefen"
+      ],
+      "first_seen": "2026-06-30T08:42:27.607035+00:00",
+      "last_seen": "2026-06-30T08:42:27.609824+00:00"
+    },
     {
       "id": "d72bc20a43d32b69",
       "title": "Wohnung zur Miete 3 Zimmer, 76,4 qm, 1",
@@ -39,7 +70,7 @@
       ],
       "review_notes": [],
       "first_seen": "2026-06-29T18:30:47.311529+00:00",
-      "last_seen": "2026-06-29T20:28:29.911417+00:00"
+      "last_seen": "2026-06-30T08:42:27.609824+00:00"
     },
     {
       "id": "88c60c21ec656e56",
@@ -73,7 +104,7 @@
         "Ort im Inserat pruefen"
       ],
       "first_seen": "2026-06-20T17:54:59.649132+00:00",
-      "last_seen": "2026-06-29T20:28:29.911417+00:00"
+      "last_seen": "2026-06-30T08:42:27.609824+00:00"
     },
     {
       "id": "ef6652e52dcc9967",
@@ -108,7 +139,7 @@
         "Ort im Inserat pruefen"
       ],
       "first_seen": "2026-06-19T09:59:15.693700+00:00",
-      "last_seen": "2026-06-29T20:28:29.911417+00:00"
+      "last_seen": "2026-06-30T08:42:27.609824+00:00"
     },
     {
       "id": "91b65aff3f681a28",
@@ -140,7 +171,7 @@
         "Ort im Inserat pruefen"
       ],
       "first_seen": "2026-06-17T16:17:36.169707+00:00",
-      "last_seen": "2026-06-29T20:28:29.911417+00:00"
+      "last_seen": "2026-06-30T08:42:27.609824+00:00"
     },
     {
       "id": "84c9c57debaef65a",
@@ -175,7 +206,7 @@
         "Ort im Inserat pruefen"
       ],
       "first_seen": "2026-06-17T16:17:36.169707+00:00",
-      "last_seen": "2026-06-29T20:28:29.911417+00:00"
+      "last_seen": "2026-06-30T08:42:27.609824+00:00"
     },
     {
       "id": "f55db252a3513486",
@@ -204,7 +235,7 @@
         "Wohnflaeche pruefen"
       ],
       "first_seen": "2026-06-16T14:48:24.184659+00:00",
-      "last_seen": "2026-06-29T20:28:29.911417+00:00"
+      "last_seen": "2026-06-30T08:42:27.609824+00:00"
     },
     {
       "id": "e323ed49690006ce",
@@ -236,7 +267,7 @@
         "Miete und Nebenkosten pruefen"
       ],
       "first_seen": "2026-06-16T14:48:24.184659+00:00",
-      "last_seen": "2026-06-29T20:28:29.911417+00:00"
+      "last_seen": "2026-06-30T08:42:27.609824+00:00"
     },
     {
       "id": "5e37e9041b107871",
@@ -267,7 +298,7 @@
         "Miete und Nebenkosten pruefen"
       ],
       "first_seen": "2026-06-16T14:22:06.114015+00:00",
-      "last_seen": "2026-06-29T20:28:29.911417+00:00"
+      "last_seen": "2026-06-30T08:42:27.609824+00:00"
     },
     {
       "id": "364366aaed753692",
@@ -300,7 +331,7 @@
         "nebenkosten pruefen"
       ],
       "first_seen": "2026-06-16T14:22:06.114015+00:00",
-      "last_seen": "2026-06-29T20:28:29.911417+00:00"
+      "last_seen": "2026-06-30T08:42:27.609824+00:00"
     },
     {
       "id": "33d7ba59b15e47af",
@@ -332,7 +363,7 @@
         "Miete und Nebenkosten pruefen"
       ],
       "first_seen": "2026-06-16T14:22:06.114015+00:00",
-      "last_seen": "2026-06-29T20:28:29.911417+00:00"
+      "last_seen": "2026-06-30T08:42:27.609824+00:00"
     },
     {
       "id": "215d89cabc477ebd",
@@ -364,7 +395,7 @@
         "Miete und Nebenkosten pruefen"
       ],
       "first_seen": "2026-06-16T14:22:06.114015+00:00",
-      "last_seen": "2026-06-29T20:28:29.911417+00:00"
+      "last_seen": "2026-06-30T08:42:27.609824+00:00"
     },
     {
       "id": "47392491b8de4c1a",
@@ -395,7 +426,7 @@
         "Etage pruefen"
       ],
       "first_seen": "2026-06-16T13:50:26.504416+00:00",
-      "last_seen": "2026-06-29T20:28:29.911417+00:00"
+      "last_seen": "2026-06-30T08:42:27.609824+00:00"
     },
     {
       "id": "40c7559281958119",
@@ -427,7 +458,7 @@
         "Etage pruefen"
       ],
       "first_seen": "2026-06-16T13:50:26.504416+00:00",
-      "last_seen": "2026-06-29T20:28:29.911417+00:00"
+      "last_seen": "2026-06-30T08:42:27.609824+00:00"
     },
     {
       "id": "bd780341c0d19730",
@@ -456,7 +487,7 @@
       ],
       "review_notes": [],
       "first_seen": "2026-06-16T07:37:14.605931+00:00",
-      "last_seen": "2026-06-29T20:28:29.911417+00:00"
+      "last_seen": "2026-06-30T08:42:27.609824+00:00"
     },
     {
       "id": "951a576440a61792",
@@ -486,7 +517,7 @@
       ],
       "review_notes": [],
       "first_seen": "2026-06-16T07:37:14.605931+00:00",
-      "last_seen": "2026-06-29T20:28:29.911417+00:00"
+      "last_seen": "2026-06-30T08:42:27.609824+00:00"
     },
     {
       "id": "7fe05dffb699b575",
@@ -519,7 +550,7 @@
         "Wohnflaeche pruefen"
       ],
       "first_seen": "2026-06-16T07:37:14.605931+00:00",
-      "last_seen": "2026-06-29T20:28:29.911417+00:00"
+      "last_seen": "2026-06-30T08:42:27.609824+00:00"
     },
     {
       "id": "5bf0e56ac407c37b",
@@ -549,7 +580,7 @@
       ],
       "review_notes": [],
       "first_seen": "2026-06-16T07:37:14.605931+00:00",
-      "last_seen": "2026-06-29T20:28:29.911417+00:00"
+      "last_seen": "2026-06-30T08:42:27.609824+00:00"
     },
     {
       "id": "16561d548ea5a165",
@@ -581,7 +612,7 @@
         "Miete und Nebenkosten pruefen"
       ],
       "first_seen": "2026-06-16T07:37:14.605931+00:00",
-      "last_seen": "2026-06-29T20:28:29.911417+00:00"
+      "last_seen": "2026-06-30T08:42:27.609824+00:00"
     }
   ]
 }
