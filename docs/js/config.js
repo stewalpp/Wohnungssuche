@@ -41,8 +41,8 @@
     // Die zwei Personen. Namen sind unter "Mehr" editierbar und werden über
     // Firestore synchronisiert; das hier sind nur die Startwerte.
     members: [
-      { id: 'p1', name: 'Steffen', color: '#0A84FF' },
-      { id: 'p2', name: 'Partnerin', color: '#30D158' }
+      { id: 'p1', name: 'Steffen', color: '#3E6B5B' },
+      { id: 'p2', name: 'Partnerin', color: '#C75E4C' }
     ]
   };
 })();

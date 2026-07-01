@@ -58,14 +58,64 @@
     return App.el('span', 'status-pill ' + s.cls, s.short);
   }
 
+  function priceNumber(it) {
+    if (it.status === 'verkauft') return it.soldPrice != null ? it.soldPrice : null;
+    if (it.status === 'offen' || it.status === 'reserviert') return it.wishPrice != null ? it.wishPrice : it.minPrice;
+    return null;
+  }
+
+  function wishNumber(it) {
+    return it.wishPrice != null ? it.wishPrice : it.minPrice;
+  }
+
+  function sumVisible(items) {
+    return items.reduce(function (acc, it) {
+      var value = priceNumber(it);
+      var wish = wishNumber(it);
+      if (value != null) {
+        acc.value += value;
+        acc.wish += wish != null ? wish : 0;
+      } else {
+        acc.withoutPrice++;
+      }
+      return acc;
+    }, { value: 0, wish: 0, withoutPrice: 0 });
+  }
+
+  function sumLabel() {
+    if (filterState.query.trim()) return 'Summe Treffer';
+    if (filterState.scope === 'verkauft') return 'Erlös verkauft';
+    if (filterState.scope === 'alle') return 'Aktueller Wert';
+    return 'Summe aktiv';
+  }
+
   function priceEl(it) {
+    var wrap = App.el('div', 'price-stack');
+
     if (it.status === 'verkauft') {
       var v = it.soldPrice != null ? it.soldPrice : it.wishPrice;
-      return App.el('span', 'amount-pos', App.fmtEUR(v));
+      if (v != null) wrap.appendChild(App.el('span', 'item-price amount-pos', App.fmtEUR(v)));
+      else wrap.appendChild(App.el('span', 'item-price-muted', 'Preis offen'));
+
+      if (it.soldPrice != null && it.wishPrice != null && it.soldPrice !== it.wishPrice) {
+        var diff = it.soldPrice - it.wishPrice;
+        var note = (diff > 0 ? '+' : '−') + App.fmtEUR(Math.abs(diff)) + ' zum Wunsch';
+        wrap.appendChild(App.el('span', 'price-note ' + (diff > 0 ? 'pos' : 'neg'), note));
+      } else if (it.soldPrice == null && it.wishPrice != null) {
+        wrap.appendChild(App.el('span', 'price-note', 'Wunschpreis'));
+      }
+      return wrap;
     }
     if (it.status === 'offen' || it.status === 'reserviert') {
-      var t = rangeText(it.minPrice, it.wishPrice);
-      return t ? App.el('span', 'item-price', t) : App.el('span', 'item-price-muted', 'Preis offen');
+      if (it.wishPrice != null) {
+        wrap.appendChild(App.el('span', 'item-price', App.fmtEUR(it.wishPrice)));
+        return wrap;
+      }
+      if (it.minPrice != null) {
+        wrap.appendChild(App.el('span', 'item-price', 'ab ' + App.fmtEUR(it.minPrice)));
+        return wrap;
+      }
+      return App.el('span', 'item-price-muted', 'Preis offen');
     }
     return App.el('span', 'item-price-muted', '—');
   }
@@ -202,7 +252,7 @@
     nameGroup.appendChild(nameInput);
     c.appendChild(nameGroup);
 
-    /* Preise: Wunschpreis + Mindestpreis */
+    /* Preise: Wunschpreis + optionale Untergrenze */
     var priceRow = App.el('div', 'form-row');
 
     var wishGroup = App.el('div', 'form-group');
@@ -216,10 +266,10 @@
     priceRow.appendChild(wishGroup);
 
     var minGroup = App.el('div', 'form-group');
-    minGroup.appendChild(App.el('label', 'form-label', 'Mindestpreis (€)'));
+    minGroup.appendChild(App.el('label', 'form-label', 'Mindestpreis (optional)'));
     var minInput = document.createElement('input');
     minInput.type = 'text'; minInput.inputMode = 'decimal'; minInput.className = 'input';
-    minInput.placeholder = 'z. B. 80';
+    minInput.placeholder = 'nur wenn wichtig';
     minInput.value = draft.minPrice != null ? String(draft.minPrice).replace('.', ',') : '';
     minInput.addEventListener('input', function () { draft.minPrice = App.parseNum(minInput.value); });
     minGroup.appendChild(minInput);
@@ -436,6 +486,15 @@
     sortRow.appendChild(info);
     view.appendChild(sortRow);
 
+    var listTotal = App.el('div', 'list-total');
+    var totalLabel = App.el('div', 'list-total-label', '');
+    var totalValue = App.el('div', 'list-total-value', '0 €');
+    var totalNote = App.el('div', 'list-total-note', '');
+    listTotal.appendChild(totalLabel);
+    listTotal.appendChild(totalValue);
+    listTotal.appendChild(totalNote);
+    view.appendChild(listTotal);
+
     var listWrap = App.el('div', 'item-list');
     view.appendChild(listWrap);
     container.appendChild(view);
@@ -446,6 +505,21 @@
       var all = Store.getItems();
       var filtered = applyFilter(all);
       info.textContent = filtered.length + (filtered.length === 1 ? ' Objekt' : ' Objekte');
+      var totals = sumVisible(filtered);
+      var diff = totals.value - totals.wish;
+      totalLabel.textContent = sumLabel();
+      totalValue.textContent = App.fmtEUR(totals.value);
+      totalNote.className = 'list-total-note';
+      if (filtered.length === 0) {
+        totalNote.textContent = 'Keine Einträge in dieser Auswahl';
+      } else if (diff !== 0) {
+        totalNote.textContent = (diff > 0 ? '+' : '−') + App.fmtEUR(Math.abs(diff)) + ' zum Wunschpreis';
+        totalNote.classList.add(diff > 0 ? 'pos' : 'neg');
+      } else if (totals.withoutPrice > 0) {
+        totalNote.textContent = totals.withoutPrice + (totals.withoutPrice === 1 ? ' Eintrag ohne Preis' : ' Einträge ohne Preis');
+      } else {
+        totalNote.textContent = 'entspricht den Wunschpreisen';
+      }
 
       if (!all.length) {
         listWrap.appendChild(emptyState('box', 'Noch nichts erfasst',

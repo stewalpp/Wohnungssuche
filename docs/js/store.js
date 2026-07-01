@@ -75,8 +75,8 @@
 
   function defaultSettings() {
     var members = (window.MV_CONFIG && MV_CONFIG.members) || [
-      { id: 'p1', name: 'Person 1', color: '#0A84FF' },
-      { id: 'p2', name: 'Person 2', color: '#30D158' }
+      { id: 'p1', name: 'Person 1', color: '#3E6B5B' },
+      { id: 'p2', name: 'Person 2', color: '#C75E4C' }
     ];
     return {
       onboarded: false,
