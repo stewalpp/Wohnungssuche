@@ -1907,8 +1907,7 @@ textarea.input {
    -------------------------------------------------------------------------- */
 
 :root {
-  --bg:
-    linear-gradient(180deg, #F7F8F3 0%, #EFF4EC 48%, #F6F1F1 100%);
+  --bg: #F7F8F3;
   --bg-card: rgba(255, 255, 255, 0.62);
   --bg-input: rgba(255, 255, 255, 0.42);
   --bar-bg: rgba(255, 255, 255, 0.54);
@@ -1924,8 +1923,7 @@ textarea.input {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg:
-      linear-gradient(180deg, #101411 0%, #171A16 52%, #0B0D0B 100%);
+    --bg: #101411;
     --bg-card: rgba(30, 32, 39, 0.58);
     --bg-input: rgba(255, 255, 255, 0.1);
     --bar-bg: rgba(24, 26, 33, 0.56);
@@ -1941,8 +1939,7 @@ textarea.input {
 }
 
 html.theme-light {
-  --bg:
-    linear-gradient(180deg, #F7F8F3 0%, #EFF4EC 48%, #F6F1F1 100%);
+  --bg: #F7F8F3;
   --bg-card: rgba(255, 255, 255, 0.62);
   --bg-input: rgba(255, 255, 255, 0.42);
   --bar-bg: rgba(255, 255, 255, 0.54);
@@ -1957,8 +1954,7 @@ html.theme-light {
 }
 
 html.theme-dark {
-  --bg:
-    linear-gradient(180deg, #101411 0%, #171A16 52%, #0B0D0B 100%);
+  --bg: #101411;
   --bg-card: rgba(30, 32, 39, 0.58);
   --bg-input: rgba(255, 255, 255, 0.1);
   --bar-bg: rgba(24, 26, 33, 0.56);
@@ -4228,3 +4224,104 @@ body {
 
 /* Listen-Kopfzeile (Hero) etwas kompakter */
 .list-hero { margin-bottom: 14px; }
+
+/* --------------------------------------------------------------------------
+   30. Flat design override: keine CSS-Verläufe in der App
+   -------------------------------------------------------------------------- */
+
+:root {
+  --flat-primary: #5F735F;
+  --flat-primary-soft: color-mix(in srgb, var(--flat-primary) 14%, var(--bg-card));
+  --flat-danger-soft: color-mix(in srgb, var(--red) 12%, var(--bg-card));
+  --flat-warning-soft: color-mix(in srgb, var(--home-amber) 20%, var(--bg-card));
+}
+
+*,
+*::before,
+*::after {
+  background-image: none !important;
+}
+
+html,
+body {
+  background: var(--bg) !important;
+}
+
+body::before,
+.app-shell::before,
+.card::before,
+.sheet::before,
+.list-row::before {
+  display: none !important;
+}
+
+.app-header,
+.tab-bar,
+.sheet,
+.alert,
+.card,
+.list-row,
+.listing-card,
+.list-total,
+.photo-edit,
+.input,
+.searchbar,
+.segment,
+.segmented,
+.chip,
+.cat-chip,
+.sort-select,
+.sort-filter-btn,
+.status-chip,
+.score-badge,
+.kv-row,
+.sync-card,
+.rating-opt,
+.gallery-stage {
+  background-color: var(--bg-card) !important;
+}
+
+.input,
+.searchbar,
+.photo-edit,
+.chip,
+.cat-chip,
+.segment,
+.rating-opt {
+  background-color: var(--bg-input) !important;
+}
+
+.btn-primary,
+.fab,
+.chip.active,
+.cat-chip.active,
+.segment.active,
+.tab-item.active,
+.status-chip-opt.active,
+.rating-opt.active.v-gut,
+.score-good,
+.match-badge,
+.new-banner-ack,
+.gallery-dot.active,
+.progress-fill,
+.hero-progress-fill {
+  background-color: var(--flat-primary) !important;
+  color: #fff !important;
+}
+
+.btn-secondary,
+.row-sell-btn,
+.row-sale-price-btn {
+  background-color: var(--flat-primary-soft) !important;
+}
+
+.btn-destructive,
+.rating-opt.active.v-schlecht {
+  background-color: var(--flat-danger-soft) !important;
+}
+
+.rating-opt.active.v-vielleicht,
+.score-ok,
+.status-chip-opt.active.s-reserviert {
+  background-color: var(--flat-warning-soft) !important;
+}
