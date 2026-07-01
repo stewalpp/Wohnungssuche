@@ -167,8 +167,163 @@
       row.appendChild(priceBtn);
     }
 
-    row.addEventListener('click', function () { openEditor(it); });
+    // _noOpen wird von der Wisch-Logik gesetzt, damit ein Wisch (oder ein Tap
+    // auf eine offene Zeile) NICHT den Editor öffnet. Dieser Listener läuft am
+    // Ziel-Element zuerst, deshalb muss die Wisch-Logik das Flag vorher setzen.
+    row.addEventListener('click', function () {
+      if (row._noOpen) { row._noOpen = false; return; }
+      openEditor(it);
+    });
     return row;
+  }
+
+  // -------- Löschen mit „Rückgängig" (gemeinsam für Wisch + Editor-Button)
+
+  // Löscht ein Objekt und zeigt einen Undo-Toast. Verlustfrei, weil
+  // Store.restoreItem das Objekt inkl. Foto wieder anlegt (siehe store.js).
+  function deleteWithUndo(it) {
+    var snapshot = Object.assign({}, it);
+    Store.deleteItem(it.id);
+    App.toast('„' + (it.name || 'Objekt') + '" gelöscht', {
+      actionText: 'Rückgängig',
+      onAction: function () {
+        Store.restoreItem(snapshot);
+        App.toast('Wiederhergestellt ✓');
+      }
+    });
+  }
+
+  // -------- Wischen zum Löschen (iOS-Stil, mit „Rückgängig")
+
+  // Freigelegte Breite der Löschen-Aktion beim Aufschnappen.
+  var SWIPE_OPEN = 88;
+  // Nur eine Zeile darf gleichzeitig offen sein.
+  var openSwipe = null;
+
+  function closeOpenSwipe() {
+    if (openSwipe) { openSwipe.close(); openSwipe = null; }
+  }
+
+  // Umschließt eine Zeile mit einer Wisch-Zelle über einer roten Aktion.
+  function swipeCell(it) {
+    var cell = App.el('div', 'swipe-cell');
+
+    var action = App.el('button', 'swipe-action');
+    action.type = 'button';
+    action.tabIndex = -1;
+    action.setAttribute('aria-label', '„' + (it.name || 'Objekt') + '" löschen');
+    action.appendChild(App.icon('trash', 20));
+    action.appendChild(App.el('span', 'swipe-action-label', 'Löschen'));
+
+    var row = itemRow(it);
+    cell.appendChild(action);
+    cell.appendChild(row);
+
+    var offset = 0;             // aktuelles translateX der Zeile (<= 0)
+    var width = 0;              // Zellbreite, bei pointerdown gemessen
+    var startX = 0, startY = 0, startOffset = 0, pointerId = null;
+    var dragging = false, decided = false, horizontal = false, moved = false;
+
+    function apply(x) {
+      offset = x;
+      row.style.transform = x ? 'translateX(' + x + 'px)' : '';
+      cell.style.setProperty('--swipe-reveal', Math.max(0, -x) + 'px');
+      cell.classList.toggle('armed', width > 0 && -x > width * 0.5);
+    }
+
+    function open() {
+      row.style.transition = '';
+      cell.classList.remove('dragging');
+      apply(-SWIPE_OPEN);
+      openSwipe = api;
+    }
+    function close() {
+      row.style.transition = '';
+      cell.classList.remove('dragging', 'armed');
+      apply(0);
+      if (openSwipe === api) openSwipe = null;
+    }
+    function remove() {
+      if (openSwipe === api) openSwipe = null;
+      row._noOpen = true;                        // folgenden Klick nicht öffnen
+      row.style.transition = 'transform 0.2s var(--ease-in)';
+      cell.classList.remove('dragging');
+      cell.classList.add('removing');
+      width = width || cell.offsetWidth || 360;
+      apply(-width);
+      // Erst nach der Slide-Animation wirklich löschen: Store.deleteItem löst
+      // ein Neu-Rendern der Liste aus, das die Zeile ohnehin entfernt.
+      setTimeout(function () { deleteWithUndo(it); }, 190);
+    }
+
+    var api = { close: close };
+
+    row.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      // Aktions-Buttons in der Zeile (Verkauf, Preis) selbst behandeln lassen.
+      if (e.target.closest('.row-sell-btn, .row-sale-price-btn')) return;
+      row._noOpen = false;                       // frische Interaktion
+      // Andere offene Zeile? Zuerst schließen und diesen Tap nicht öffnen.
+      if (openSwipe && openSwipe !== api) { closeOpenSwipe(); row._noOpen = true; return; }
+      width = cell.offsetWidth || 360;
+      startX = e.clientX; startY = e.clientY; startOffset = offset;
+      pointerId = e.pointerId;
+      dragging = true; decided = false; horizontal = false; moved = false;
+      row.addEventListener('pointermove', onMove);
+      row.addEventListener('pointerup', onUp);
+      row.addEventListener('pointercancel', onUp);
+    });
+
+    function onMove(e) {
+      if (!dragging) return;
+      var dx = e.clientX - startX;
+      var dy = e.clientY - startY;
+      if (!decided) {
+        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+        decided = true;
+        horizontal = Math.abs(dx) > Math.abs(dy);
+        if (horizontal) {
+          cell.classList.add('dragging');
+          row.style.transition = 'none';
+          // Erst jetzt einfangen – vorher darf die Liste vertikal scrollen.
+          try { row.setPointerCapture(pointerId); } catch (err) { /* ok */ }
+        } else { finishPointer(); return; }   // vertikales Scrollen freigeben
+      }
+      moved = true;
+      var x = startOffset + dx;
+      if (x > 0) x = x * 0.2;                // Gummiband nach rechts
+      if (x < -width) x = -width;
+      apply(x);
+      if (e.cancelable) e.preventDefault();
+    }
+
+    function onUp() {
+      finishPointer();
+      // Reiner Tap (keine horizontale Geste): offene Zeile schließen statt
+      // Editor öffnen. _noOpen wird hier gesetzt, also VOR dem Klick-Event.
+      if (!horizontal) {
+        if (offset !== 0) { row._noOpen = true; close(); }
+        return;
+      }
+      cell.classList.remove('dragging');
+      row.style.transition = '';
+      if (moved) row._noOpen = true;             // Wisch-Klick nicht öffnen
+      var reveal = -offset;
+      if (reveal > width * 0.5) remove();
+      else if (reveal > SWIPE_OPEN * 0.5) open();
+      else close();
+    }
+
+    function finishPointer() {
+      dragging = false;
+      row.removeEventListener('pointermove', onMove);
+      row.removeEventListener('pointerup', onUp);
+      row.removeEventListener('pointercancel', onUp);
+    }
+
+    action.addEventListener('click', function (e) { e.stopPropagation(); remove(); });
+
+    return cell;
   }
 
   // -------- Ein-Tap-Verkauf (ein einziges Feld: der Erlös)
@@ -268,6 +423,25 @@
 
   // -------- Foto einlesen & komprimieren (data-URL, gratis in Firestore)
 
+  // Bestes per Canvas encodierbares Foto-Format ermitteln (einmal, gecacht).
+  // WebP ist bei gleicher Qualität ~25–40 % kleiner als JPEG. AVIF geht NICHT:
+  // kein Browser encodiert AVIF über canvas.toDataURL – die Anfrage fällt still
+  // auf PNG zurück (um ein Vielfaches größer). Deshalb nur WebP mit JPEG-Fallback.
+  var photoMimeCache = null;
+  function bestPhotoMime() {
+    if (photoMimeCache) return photoMimeCache;
+    photoMimeCache = 'image/jpeg';
+    try {
+      var probe = document.createElement('canvas');
+      probe.width = probe.height = 2;
+      // Nur akzeptieren, wenn der Browser WIRKLICH WebP zurückgibt (nicht PNG).
+      if (probe.toDataURL('image/webp').indexOf('data:image/webp') === 0) {
+        photoMimeCache = 'image/webp';
+      }
+    } catch (e) { /* bleibt JPEG */ }
+    return photoMimeCache;
+  }
+
   function compressPhoto(file, cb) {
     var reader = new FileReader();
     reader.onerror = function () { cb(null); };
@@ -282,10 +456,18 @@
         var canvas = document.createElement('canvas');
         canvas.width = cw; canvas.height = ch;
         canvas.getContext('2d').drawImage(img, 0, 0, cw, ch);
+        var mime = bestPhotoMime();
         var q = 0.72;
         var data;
-        try { data = canvas.toDataURL('image/jpeg', q); } catch (e) { cb(null); return; }
-        while (data.length > 400000 && q > 0.4) { q -= 0.12; data = canvas.toDataURL('image/jpeg', q); }
+        try {
+          data = canvas.toDataURL(mime, q);
+        } catch (e) {
+          try { mime = 'image/jpeg'; data = canvas.toDataURL(mime, q); }
+          catch (e2) { cb(null); return; }
+        }
+        // Zielgröße: Data-URL-Länge unter ~400k Zeichen (bleibt weit unter
+        // Firestores 1-MiB-Dokumentgrenze). Bei Bedarf Qualität senken.
+        while (data.length > 400000 && q > 0.4) { q -= 0.12; data = canvas.toDataURL(mime, q); }
         cb(data);
       };
       img.src = reader.result;
@@ -479,9 +661,8 @@
           confirmText: 'Löschen', cancelText: 'Abbrechen', destructive: true
         }).then(function (ok) {
           if (!ok) return;
-          Store.deleteItem(existing.id);
           App.closeSheet();
-          App.toast('Gelöscht');
+          deleteWithUndo(existing);
         });
       });
       c.appendChild(del);
@@ -595,8 +776,9 @@
         return;
       }
 
+      closeOpenSwipe();
       var group = App.el('div', 'list-group');
-      filtered.forEach(function (it) { group.appendChild(itemRow(it)); });
+      filtered.forEach(function (it) { group.appendChild(swipeCell(it)); });
       listWrap.appendChild(group);
     }
 

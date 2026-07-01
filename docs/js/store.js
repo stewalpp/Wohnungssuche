@@ -409,6 +409,29 @@
     emit();
   }
 
+  // Ein gelöschtes Objekt wiederherstellen (für „Rückgängig" nach dem
+  // Wisch-Löschen). `snapshot` ist das komplette Objekt VOR dem Löschen.
+  //
+  // Wichtig: Die Firestore-Regeln erlauben KEIN Wieder-Aktivieren eines bereits
+  // auf deleted:true gesetzten Dokuments (ein Update auf deleted:false wird vom
+  // Server verworfen und beim nächsten Snapshot zurückgesetzt). Deshalb legen
+  // wir das Objekt als NEUES Dokument neu an (Anlegen ist erlaubt) und behalten
+  // alle Werte – inkl. Foto und ursprünglichem Anlagedatum – nur die ID ist neu.
+  function restoreItem(snapshot) {
+    if (!snapshot || !snapshot.id) return null;
+    var id = App.uid();
+    var item = normalizeItem(Object.assign({}, snapshot, {
+      id: id,
+      deleted: false,
+      updatedAt: nowISO()
+    }), id);
+    items[id] = item;
+    persistItems();
+    cloudSetItem(id, Object.assign({}, item));
+    emit();
+    return item;
+  }
+
   function clearAllItems() {
     Object.keys(items).forEach(function (id) {
       var cur = normalizeItem(items[id], id);
@@ -490,6 +513,7 @@
     addItem: addItem,
     updateItem: updateItem,
     deleteItem: deleteItem,
+    restoreItem: restoreItem,
     clearAllItems: clearAllItems,
     getSettings: getSettings,
     updateSettings: updateSettings,

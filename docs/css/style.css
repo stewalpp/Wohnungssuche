@@ -541,17 +541,33 @@ button {
   height: 100%;
   width: var(--swipe-reveal, 0px);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 3px;
   border: none;
   background: var(--red);
   color: #fff;
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   overflow: hidden;
   white-space: nowrap;
   z-index: 0;
+  transition: width 0.45s var(--spring), background-color 0.15s var(--ease-linear);
+}
+
+.swipe-action .icon {
+  flex-shrink: 0;
+}
+
+.swipe-action-label {
+  letter-spacing: 0.2px;
+}
+
+/* Voller Wisch: Aktion dunkler einfärben als Hinweis „loslassen = löschen". */
+.swipe-cell.armed .swipe-action {
+  background: color-mix(in srgb, var(--red) 82%, #000);
 }
 
 .swipe-cell > .list-row {
@@ -565,8 +581,15 @@ button {
   will-change: transform;
 }
 
-.swipe-cell.dragging > .list-row {
+/* Während des Ziehens beide Ebenen ohne Übergang, damit sie dem Finger folgen. */
+.swipe-cell.dragging > .list-row,
+.swipe-cell.dragging .swipe-action {
   transition: none;
+}
+
+/* Beim Löschen schneller und gleichläufig ausblenden. */
+.swipe-cell.removing .swipe-action {
+  transition: width 0.2s var(--ease-in);
 }
 
 .row-main {
@@ -1791,22 +1814,6 @@ textarea.input {
 
 .list-row {
   min-width: 0;
-}
-
-.swipe-action {
-  opacity: 0;
-  visibility: hidden;
-  background: transparent !important;
-  pointer-events: none;
-  transition: opacity 0.16s var(--ease-linear);
-}
-
-.swipe-cell.revealing .swipe-action,
-.swipe-cell.open .swipe-action {
-  visibility: visible;
-  opacity: 1;
-  background: var(--red) !important;
-  pointer-events: auto;
 }
 
 .row-trailing {
@@ -3545,7 +3552,8 @@ body {
 
 .btn-primary {
   background: linear-gradient(135deg, var(--home-blue), var(--home-blue-2));
-  box-shadow: 0 9px 20px color-mix(in srgb, var(--home-blue-2) 24%, transparent);
+  /* Flat design: kein farbiger Schein unter dem Primär-Button. */
+  box-shadow: none;
 }
 
 .btn-secondary {
